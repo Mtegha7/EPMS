@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `catalog` (
-  `rewardID` int(11) NOT NULL,
+  `catalogID` int(11) NOT NULL,
   `title` varchar(100) DEFAULT NULL,
   `Description` text DEFAULT NULL,
   `RequiredPoints` int(11) DEFAULT NULL
@@ -42,7 +42,7 @@ CREATE TABLE `catalog` (
 
 CREATE TABLE `comments` (
   `commentID` int(11) NOT NULL,
-  `Content` text DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `userID` int(11) DEFAULT NULL,
   `taskID` int(11) DEFAULT NULL
@@ -55,11 +55,11 @@ CREATE TABLE `comments` (
 --
 
 CREATE TABLE `tasks` (
-  `TaskID` int(11) NOT NULL,
-  `Title` varchar(100) DEFAULT NULL,
-  `Description` text DEFAULT NULL,
-  `CreatedDate` timestamp NOT NULL DEFAULT current_timestamp(),
-  `DueDate` date DEFAULT NULL,
+  `taskID` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `dueDate` date DEFAULT NULL,
   `UpdatedDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `CompletionDate` date DEFAULT NULL,
   `userID` int(11) DEFAULT NULL
