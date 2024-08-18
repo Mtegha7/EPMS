@@ -60,7 +60,7 @@ app.get('/users/:id', (req, res) => {
 });
 
 //Delete a user
-app.delete('/users/:id', (req, res) => {
+app.delete('/delete-users/:id', (req, res) => {
     mysqlConnection.query('DELETE FROM users WHERE userID = ?', [req.params.id], (err, rows, fields) => {
         if (!err)
             res.send({ message: 'Deleted successfully.' });
@@ -70,11 +70,11 @@ app.delete('/users/:id', (req, res) => {
 });
 
 //Insert a user
-app.post('/users', (req, res) => {
+/*app.post('/users', (req, res) => {
     let emp = req.body;
-    var sql = "SET @userID = ?;SET @FirstName = ?;SET @LastName = ?;SET @DateOfBirth = ?;SET @Gender = ?; SET @EmailAddress =?; SET @PhoneNumber =?; SET @DateOfHire =?; SET @Department =?; SET @JobTitle =?; SET @Role=?; \
-    CALL EmployeeAddOrEdit(@userID,@FirstName,@LastName,@DateOfBirth,@Gender,@EmailAddress,@PhoneNumber,@DateOfHire,@Department,@JobTitle,@Role);";
-    mysqlConnection.query(sql, [emp.userID, emp.FirstName, emp.LastName, emp.DateOfBirth, emp.Gender, emp.EmailAddress, emp.PhoneNumber, emp.DateOfHire, emp.Department, emp.JobTitle, emp.Role], (err, rows, fields) => {
+    var sql = "SET @userID = ?;SET @firstName = ?;SET @lastName = ?;SET @dateOfBirth = ?;SET @gender = ?; SET @emailAddress =?; SET @phoneNumber =?; SET @dateOfHire =?; SET @department =?; SET @jobTitle =?; SET @role=?; \
+    CALL addUser(@userID,@firstName,@lastName,@dateOfBirth,@gender,@emailAddress,@phoneNumber,@dateOfHire,@department,@jobTitle,@role);";
+    mysqlConnection.query(sql, [emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array)
@@ -85,19 +85,98 @@ app.post('/users', (req, res) => {
         else
             console.log(err);
     })
-});
+}); */
+app.post('/add-users', async (req, res) => {
+    const emp = req.body;
+  
+    try {
+      const sql = `
+        SET @userID = ?, @firstName = ?, @lastName = ?,@dateOfBirth = ?, @gender = ?,@emailAddress = ?,            @phoneNumber = ?,
+            @dateOfHire = ?, @department = ?, @jobTitle = ?,@role = ?; CALL addUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+  
+      await mysqlConnection.query(sql, [ emp.userID, emp.firstName,  emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle,   emp.role, emp.userID,  emp.firstName, emp.lastName,  emp.dateOfBirth,  emp.gender,  emp.emailAddress, emp.phoneNumber, emp.dateOfHire,  emp.department, emp.jobTitle, emp.role,
+      ]);
+      res.send('Inserted user id: ' + emp.userID); 
+    } catch (err) {
+      console.error(err); // Log the error for debugging
+      res.status(500).send('Error adding user'); // Send a generic error response to the client
+    }
+  });
 
 //update a user
-app.put('/employees', (req, res) => {
+/* app.put('/update-users', (req, res) => {
     let emp = req.body;
-    var sql = "SET @userID = ?;SET @FirstName = ?;SET @LastName = ?;SET @DateOfBirth = ?;SET @Gender = ?; SET @EmailAddress =?; SET @PhoneNumber =?; SET @DateOfHire =?; SET @Department =?; SET @JobTitle =?; SET @Role=?; \
-    CALL EmployeeAddOrEdit(@userID,@FirstName,@LastName,@DateOfBirth,@Gender,@EmailAddress,@PhoneNumber,@DateOfHire,@Department,@JobTitle,@Role);";
-    mysqlConnection.query(sql, [emp.userID, emp.FirstName, emp.LastName, emp.DateOfBirth, emp.Gender, emp.EmailAddress, emp.PhoneNumber, emp.DateOfHire, emp.Department, emp.JobTitle, emp.Role], (err, rows, fields) => {
+    var sql = "SET @userID = ?;SET @firstName = ?;SET @lastName = ?;SET @dateOfBirth = ?;SET @gender = ?; SET @emailAddress =?; SET @phoneNumber =?; SET @dateOfHire =?; SET @department =?; SET @jobTitle =?; SET @role=?; \
+    CALL updateUser(@userID,@FirstName,@LastName,@DateOfBirth,@Gender,@EmailAddress,@PhoneNumber,@DateOfHire,@Department,@JobTitle,@Role);";
+    mysqlConnection.query(sql, [emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role], (err, rows, fields) => {
         if (!err)
             res.send('Updated successfully');
         else
             console.log(err);
     })
-});
+}); */
+app.put('/update-users', async (req, res) => {
+    const emp = req.body;
+  
+    try {
+      const sql = `SET @userID = ?, @firstName = ?, @lastName = ?, @dateOfBirth = ?, @gender = ?, @emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?, @role = ?; CALL updateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
+  
+      await mysqlConnection.query(sql, [emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role,
+      ]);
+  
+      res.send('Updated successfully');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error updating user');
+    }
+  });
 
 app.listen(8080, () => console.log('Server Running at Port #8080'));
+
+
+// Create a task
+app.post('/add-tasks', (req, res) => {
+  const { title, description, dueDate, userID } = req.body;
+
+  const sql = 'INSERT INTO tasks (title, description, dueDate, userID) VALUES (?, ?, ?, ?)';
+  pool.query(sql, [title, description, dueDate, userID], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error creating task');
+    } else {
+      res.status(201).json({ message: 'Task created successfully', taskID: result.insertId });
+    }
+  });
+});
+
+// Update a task
+app.put('/update-tasks/:taskId', (req, res) => {
+  const { taskId } = req.params;
+  const { title, description, dueDate, completionDate } = req.body;
+
+  const sql = 'UPDATE tasks SET title = ?, description = ?, dueDate = ?, completionDate = ? WHERE taskID = ?';
+  pool.query(sql, [title, description, dueDate, completionDate, taskId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error updating task');
+    } else {
+      res.status(200).json({ message: 'Task updated successfully' });
+    }
+  });
+});
+
+// Delete a task
+app.delete('/delete-tasks/:taskId', (req, res) => {
+  const { taskId } = req.params;
+
+  const sql = 'DELETE FROM tasks WHERE taskID = ?';
+  pool.query(sql, [taskId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error deleting task');
+    } else {
+      res.status(204).send();
+    }
+  });
+});
