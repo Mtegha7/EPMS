@@ -22,7 +22,7 @@ mysqlConnection.connect((err) => {
 
 
 //Get all users
-app.get('/users', (req, res) => {
+app.get('/get-users', (req, res) => {
     mysqlConnection.query('SELECT * FROM users', (err, rows, fields) => {
         if (!err)
             res.send(rows);
@@ -32,7 +32,7 @@ app.get('/users', (req, res) => {
 });
 
 //Get a user
-app.get('/users/:id', (req, res) => {
+app.get('/get-users/:id', (req, res) => {
     const userID = req.params.id
     try {
 
@@ -91,9 +91,7 @@ app.post('/add-users', async (req, res) => {
   
     try {
       const sql = `
-        SET @userID = ?, @firstName = ?, @lastName = ?,@dateOfBirth = ?, @gender = ?,@emailAddress = ?,            @phoneNumber = ?,
-            @dateOfHire = ?, @department = ?, @jobTitle = ?,@role = ?; CALL addUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `;
+        SET @userID = ?, @firstName = ?, @lastName = ?,@dateOfBirth = ?, @gender = ?,@emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?,@role = ?; CALL addOrUpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
   
       await mysqlConnection.query(sql, [ emp.userID, emp.firstName,  emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle,   emp.role, emp.userID,  emp.firstName, emp.lastName,  emp.dateOfBirth,  emp.gender,  emp.emailAddress, emp.phoneNumber, emp.dateOfHire,  emp.department, emp.jobTitle, emp.role,
       ]);
@@ -120,7 +118,7 @@ app.put('/update-users', async (req, res) => {
     const emp = req.body;
   
     try {
-      const sql = `SET @userID = ?, @firstName = ?, @lastName = ?, @dateOfBirth = ?, @gender = ?, @emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?, @role = ?; CALL updateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
+      const sql = `SET @userID = ?, @firstName = ?, @lastName = ?, @dateOfBirth = ?, @gender = ?, @emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?, @role = ?; CALL addOrUpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
   
       await mysqlConnection.query(sql, [emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role,
       ]);
