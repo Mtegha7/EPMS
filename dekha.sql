@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2024 at 04:00 PM
+-- Generation Time: Aug 19, 2024 at 09:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,50 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dekha`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addOrUpdateTask` (IN `p_taskID` INT(100), IN `p_title` VARCHAR(50), IN `p_description` VARCHAR(100), IN `p_createdDate` DATE, IN `p_dueDate` DATE, IN `p_updatedDate` DATE, IN `p_completionDate` DATE, IN `p_userID` INT(100))   BEGIN
- CASE 
- WHEN p_taskID = 0 THEN
- INSERT INTO tasks (title, description, createdDate, dueDate, updatedDate, completionDate, userID) VALUES (p_title, p_description, p_createdDate, p_dueDate, p_updatedDate, p_completionDate, p_userID);
- ELSE
- UPDATE tasks
- SET title = p_title,
-    description = p_description,
-    createdDate = p_createdDate,
-    dueDate = p_dueDate,
-    updatedDate = p_updatedDate,
-    completionDate = p_completionDate,
-    userID = p_userID
-    WHERE _taskID = taskID;
- END CASE;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addOrUpdateUser` (IN `p_userID` VARCHAR(100), IN `p_firstName` VARCHAR(50), IN `p_lastName` VARCHAR(50), IN `p_dateOfBirth` DATE, IN `p_gender` VARCHAR(10), IN `p_emailAddress` VARCHAR(100), IN `p_phoneNumber` VARCHAR(20), IN `p_dateOfHire` DATE, IN `p_department` VARCHAR(50), IN `p_jobTitle` VARCHAR(50), IN `p_role` VARCHAR(50))   BEGIN
-CASE
-WHEN p_userID = 0 THEN
-INSERT INTO users (firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role) VALUES (p_firstName, p_lastName, p_dateOfBirth, p_gender, p_emailAddress, p_phoneNumber, p_dateOfHire, p_department, p_jobTitle, p_role);
-
-ELSE 
-UPDATE users
-SET firstName = p_firstName,
-    lastName = p_lastName,
-    dateOfBirth = p_dateOfBirth,
-    gender = p_gender,
-    emailAddress = p_emailAddress,
-    phoneNumber = p_phoneNumber,
-    dateOfHire = p_dateOfHire,
-    department = p_department,
-    jobTitle = p_jobTitle,
-    role = p_role
-WHERE userID = _userID;
-END CASE;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -129,13 +85,13 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`taskID`, `title`, `description`, `createdDate`, `dueDate`, `updatedDate`, `completionDate`, `userID`) VALUES
-(1, 'Screen resumes for Marketing position', 'Review resumes for marketing roles, shortlist candidates based on qualifications.', '2024-08-19 06:09:29', '2024-10-15', '2024-08-19 06:09:29', NULL, 1),
-(2, 'Source candidates for Sales role', 'Utilize job boards and social media to find potential sales candidates.', '2024-08-19 06:09:29', '2024-11-30', '2024-08-19 06:09:29', NULL, 2),
-(3, 'Develop new HRIS report', 'Create a report on employee turnover rates by department.', '2024-08-19 06:09:29', '2024-12-15', '2024-08-19 06:09:29', NULL, 3),
-(4, 'Review salary structure for engineering roles', 'Analyze market data and adjust salary bands for engineering positions.', '2024-08-19 06:09:29', '2024-11-01', '2024-08-19 06:09:29', NULL, 4),
-(5, 'Investigate employee complaint', 'Conduct a thorough investigation into a complaint filed by an employee in the sales department.', '2024-08-19 06:09:29', '2024-10-25', '2024-08-19 06:09:29', NULL, 5),
-(6, 'Develop leadership training program', 'Create a training curriculum for developing emerging leaders.', '2024-08-19 06:09:29', '2024-12-31', '2024-08-19 06:09:29', NULL, 6),
-(7, 'Develop HR strategy for new client', 'Create an HR strategy aligned with the clients business objectives.', '2024-08-19 06:09:29', '2024-11-15', '2024-08-19 06:09:29', NULL, 7);
+(1, 'Screen resumes for Marketing position', 'Review resumes for marketing roles, shortlist candidates based on qualifications.', '2024-08-19 19:50:06', '2024-10-15', '2024-08-19 19:50:06', NULL, 1),
+(2, 'Source candidates for Sales role', 'Utilize job boards and social media to find potential sales candidates.', '2024-08-19 19:50:06', '2024-11-30', '2024-08-19 19:50:06', NULL, 2),
+(3, 'Develop new HRIS report', 'Create a report on employee turnover rates by department.', '2024-08-19 19:50:06', '2024-12-15', '2024-08-19 19:50:06', NULL, 3),
+(4, 'Review salary structure for engineering roles', 'Analyze market data and adjust salary bands for engineering positions.', '2024-08-19 19:50:06', '2024-11-01', '2024-08-19 19:50:06', NULL, 4),
+(5, 'Investigate employee complaint', 'Conduct a thorough investigation into a complaint filed by an employee in the sales department.', '2024-08-19 19:50:06', '2024-10-25', '2024-08-19 19:50:06', NULL, 5),
+(6, 'Develop leadership training program', 'Create a training curriculum for developing emerging leaders.', '2024-08-19 19:50:06', '2024-12-31', '2024-08-19 19:50:06', NULL, 6),
+(7, 'Develop HR strategy for new client', 'Create an HR strategy aligned with the clients business objectives.', '2024-08-19 19:50:06', '2024-11-15', '2024-08-19 19:50:06', NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -176,21 +132,7 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `dateOfBirth`, `gender`,
 (12, 'Levison', 'Kamzati', '1985-10-10', 'Male', 'levison.kamzati@dekha.com', '+265999345678', '2020-09-25', 'HRIS', 'Data Analyst', 'Analyst'),
 (13, 'Ephraim', 'Malinga', '1991-06-18', 'Male', 'ephraim.malinga@dekha.com', '+265999765432', '2022-01-10', 'Marketing', 'Market Research Analyst', 'Analyst'),
 (14, 'Chimwemwe', 'Banda', '1987-03-05', 'Male', 'chimwemwe.banda@dekha.com', '+265999123456', '2021-08-20', 'IT', 'Software Developer', 'Developer'),
-(15, 'Charles', 'Mkandawire', '1994-12-03', 'Male', 'charles.mkandawire@dekha.com', '+265999567890', '2023-02-15', 'Finance', 'Accountant', 'Finance'),
-(16, 'Peter', 'Kadango', '1986-09-22', 'Male', 'peter.kadango@dekha.com', '+265999987654', '2020-07-25', 'HR', 'Benefits Specialist', 'HR'),
-(17, 'Mike', 'Kamwendo', '1993-05-10', 'Male', 'mike.kamwendo@dekha.com', '+265999345678', '2022-03-18', 'Recruitment', 'Talent Specialist', 'Recruitment'),
-(18, 'Emmanuel', 'Phiri', '1988-02-17', 'Male', 'emmanuel.phiri@dekha.com', '+265999765432', '2021-01-10', 'Marketing', 'Social Media Manager', 'Marketing'),
-(19, 'Kondwani', 'Mtumodzi', '1991-09-05', 'Male', 'kondwani.mtumodzi@dekha.com', '+265999123456', '2020-05-22', 'Recruitment', 'Coordinator', 'Recruitment'),
-(20, 'Levison', 'Mhone', '1985-06-15', 'Male', 'levison.mhone@dekha.com', '+265999567890', '2022-11-28', 'Finance', 'Financial Advisor', 'Finance'),
-(21, 'Ephraim', 'Chidzanja', '1994-03-12', 'Male', 'ephraim.chidzanja@dekha.com', '+265999987654', '2023-04-15', 'Risk', 'Recruitment Officer', 'HR'),
-(22, 'Chimwemwe', 'Chirwa', '1987-10-25', 'Male', 'chimwemwe.chirwa@dekha.com', '+265999345678', '2021-03-10', 'Sales', 'Sales Analyst', 'Analyst'),
-(23, 'Charles', 'Chiumia', '1992-01-18', 'Male', 'charles.chiumia@dekha.com', '+265999765432', '2020-12-05', 'Marketing', 'Digital Marketing Analyst', 'Analyst'),
-(24, 'Peter', 'Mkumbira', '1989-08-03', 'Male', 'peter.mkumbira@dekha.com', '+265999123456', '2022-07-20', 'HRIS', 'Database Administrator', 'Developer'),
-(25, 'Mike', 'Kamzati', '1995-04-15', 'Male', 'mike.kamzati@dekha.com', '+265999567890', '2023-06-12', 'Finance', 'Financial Analyst', 'Analyst'),
-(26, 'Emmanuel', 'Phiri', '1988-11-28', 'Male', 'emmanuel.phiri@dekha.com', '+265999987654', '2021-01-25', 'HR', 'Development Officer', 'HR'),
-(27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 'James', 'Kombe', '1997-08-04', 'Male', 'james.kombe@gmail.com', '265999888999', '2022-07-20', 'HR', 'Training Officer', 'HR'),
-(29, 'James', 'Kombe', '1997-08-04', 'Male', 'james.kombe@gmail.com', '265999888999', '2022-07-20', 'HR', 'Training Officer', 'HR');
+(15, 'Charles', 'Mkandawire', '1994-12-03', 'Male', 'charles.mkandawire@dekha.com', '+265999567890', '2023-02-15', 'Finance', 'Accountant', 'Finance');
 
 --
 -- Indexes for dumped tables
@@ -249,7 +191,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

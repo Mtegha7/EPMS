@@ -74,15 +74,11 @@ app.post('/add-users', async (req, res) => {
     const emp = req.body;
   
     try {
-      const sql = `
-        SET @userID = ?, @firstName = ?, @lastName = ?,@dateOfBirth = ?, @gender = ?,@emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?,@role = ?; CALL addOrUpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
-  
-      await mysqlConnection.query(sql, [ emp.userID, emp.firstName,  emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle,   emp.role, emp.userID,  emp.firstName, emp.lastName,  emp.dateOfBirth,  emp.gender,  emp.emailAddress, emp.phoneNumber, emp.dateOfHire,  emp.department, emp.jobTitle, emp.role,
-      ]);
-      res.send('Inserted user id: ' + emp.userID); 
+      mysqlConnection.query(`INSERT INTO users(firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [ emp.firstName,  emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle,   emp.role,]);
+      res.send('User Added Successfully!'); 
     } catch (err) {
-      console.error(err); // Log the error for debugging
-      res.status(500).send('Error adding user'); // Send a generic error response to the client
+      console.error(err); 
+      res.status(500).send('Error adding user'); 
     }
   });
 
@@ -91,87 +87,76 @@ app.put('/update-users', async (req, res) => {
     const emp = req.body;
   
     try {
-      const sql = `SET @userID = ?, @firstName = ?, @lastName = ?, @dateOfBirth = ?, @gender = ?, @emailAddress = ?, @phoneNumber = ?, @dateOfHire = ?, @department = ?, @jobTitle = ?, @role = ?; CALL addOrUpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
-  
-      await mysqlConnection.query(sql, [emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, emp.userID, emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role,
-      ]);
-  
-      res.send('Updated successfully');
+      mysqlConnection.query(`UPDATE users SET firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, emailAddress = ?, phoneNumber = ?, dateOfHire = ?, department = ?, jobTitle = ?, role = ? WHERE userID =?`, [ emp.firstName,  emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role,]);
+      res.send('User has been updated!');
     } catch (err) {
       console.error(err);
       res.status(500).send('Error updating user');
     }
   });
 
-app.listen(8080, () => console.log('Server Running at Port #8080'));
-
-
-// Create a task
-app.post('/add-tasks', async (req, res) => {
+  
+  
+  // Create a task
+  app.post('/add-tasks', async (req, res) => {
     const emp = req.body;
-  
-       try {
-      const sql = `SET @taskID = ?, @description = ?, @createdDate = ?, @dueDate = ?, @updatedDate = ?, @completionDate = ?, @userID = ?; CALL addOrUpdateTask(?, ?, ?, ?, ?, ?, ?) `;
-  
-      await mysqlConnection.query(sql, [emp.taskID, emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID, emp.taskID, emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID,
-      ]);
-      res.send('Inserted task id: ' + emp.taskID); 
-    } catch (err) {
-      console.error(err); // Log the error for debugging
-      res.status(500).send('Error adding Task'); // Send a generic error response to the client
-    }
-  });
-
-// Update a task
-app.put('/update-tasks', async (req, res) => {
-    const emp = req.body;
-  
+    
     try {
-      const sql = `SET @taskID = ?, @description = ?, @createdDate = ?, @dueDate = ?, @updatedDate = ?, @completionDate = ?, @userID = ?; CALL addOrUpdateTask(?, ?, ?, ?, ?, ?, ?) `;
-  
-      await mysqlConnection.query(sql, [emp.taskID, emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID, emp.taskID, emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID
-      ]);
-  
-      res.send('Updated successfully');
+      mysqlConnection.query(`INSERT INTO tasks(title, description, createdDate, dueDate, updatedDate, completionDate, userID VALUES (?, ?, ?, ?, ?, ?, ?)`, [ emp.title,  emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID,]);
+      res.send('Task Added Successfully!'); 
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Error updating Task');
+      console.error(err); 
+      res.status(500).send('Error adding Task'); 
     }
   });
+  
+  // Update a task
+app.put('/update-tasks', async (req, res) => {
+  const emp = req.body;
+  
+  try {
+    mysqlConnection.query(`UPDATE tasks SET taskID = ?, description = ?, createdDate = ?, dueDate = ?, updatedDate = ?, completionDate = ? WHERE userID = ?`, [ emp.taskID, emp.description, emp.createdDate, emp.dueDate, emp.updatedDate, emp.completionDate, emp.userID]);
+    
+    res.send('Updated successfully');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error updating Task');
+  }
+});
 
 // Delete a task
-app.delete('/delete-tasks/:taskId', (req, res) => {
-  const { taskId } = req.params;
-
-  const sql = 'DELETE FROM tasks WHERE taskID = ?';
-  pool.query(sql, [taskId], (err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error deleting task');
-    } else {
-      res.status(204).send();
-    }
-  });
-});
-
-
-//Get all catalog items
-app.get('/get-catalog', (req, res) => {
-    mysqlConnection.query('SELECT * FROM catalog', (err, rows, fields) => {
-        if (!err)
-            res.send(rows);
-        else
-            console.log(err);
-    })
-});
-
-
-//Delete an item from catalog
-app.delete('/delete-catalog/:id', (req, res) => {
-    mysqlConnection.query('DELETE FROM users WHERE catalogID = ?', [req.params.id], (err, rows, fields) => {
+app.delete('/delete-tasks/:id', (req, res) => {
+    mysqlConnection.query('DELETE FROM tasks WHERE taskID = ?', [req.params.id], (err, rows, fields) => {
         if (!err)
             res.send({ message: 'Deleted successfully.' });
         else
             console.log(err);
     })
 });
+
+
+//Get all catalog items
+app.get('/get-catalog', (req, res) => {
+  mysqlConnection.query('SELECT * FROM catalog', (err, rows, fields) => {
+    if (!err)
+      res.send(rows);
+    else
+    console.log(err);
+})
+});
+
+
+//Delete an item from catalog
+app.delete('/delete-catalog/:id', (req, res) => {
+  mysqlConnection.query('DELETE FROM users WHERE catalogID = ?', [req.params.id], (err, rows, fields) => {
+    if (!err)
+      res.send({ message: 'Deleted successfully.' });
+        else
+            console.log(err);
+        })
+      
+});
+      
+      
+
+app.listen(8080, () => console.log('Server Running at Port #8080'));
