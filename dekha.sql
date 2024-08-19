@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2024 at 08:16 AM
+-- Generation Time: Aug 19, 2024 at 04:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,12 +25,29 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser` (IN `p_userID` VARCHAR(100), IN `p_firstName` VARCHAR(50), IN `p_lastName` VARCHAR(50), IN `p_dateOfBirth` DATE, IN `p_gender` VARCHAR(10), IN `p_emailAddress` VARCHAR(100), IN `p_phoneNumber` VARCHAR(20), IN `p_dateOfHire` DATE, IN `p_department` VARCHAR(50), IN `p_jobTitle` VARCHAR(50), IN `p_role` VARCHAR(50))   BEGIN
-INSERT INTO users (firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role) VALUES (p_firstName, p_lastName, p_dateOfBirth, p_gender, p_emailAddress, p_phoneNumber, p_dateOfHire, p_department, p_jobTitle, p_role);
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addOrUpdateTask` (IN `p_taskID` INT(100), IN `p_title` VARCHAR(50), IN `p_description` VARCHAR(100), IN `p_createdDate` DATE, IN `p_dueDate` DATE, IN `p_updatedDate` DATE, IN `p_completionDate` DATE, IN `p_userID` INT(100))   BEGIN
+ CASE 
+ WHEN p_taskID = 0 THEN
+ INSERT INTO tasks (title, description, createdDate, dueDate, updatedDate, completionDate, userID) VALUES (p_title, p_description, p_createdDate, p_dueDate, p_updatedDate, p_completionDate, p_userID);
+ ELSE
+ UPDATE tasks
+ SET title = p_title,
+    description = p_description,
+    createdDate = p_createdDate,
+    dueDate = p_dueDate,
+    updatedDate = p_updatedDate,
+    completionDate = p_completionDate,
+    userID = p_userID
+    WHERE _taskID = taskID;
+ END CASE;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUser` (IN `p_userID` VARCHAR(100), IN `p_firstName` VARCHAR(50), IN `p_lastName` VARCHAR(50), IN `p_dateOfBirth` DATE, IN `p_gender` VARCHAR(10), IN `p_emailAddress` VARCHAR(100), IN `p_phoneNumber` VARCHAR(20), IN `p_dateOfHire` DATE, IN `p_department` VARCHAR(50), IN `p_jobTitle` VARCHAR(50), IN `p_role` VARCHAR(50))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addOrUpdateUser` (IN `p_userID` VARCHAR(100), IN `p_firstName` VARCHAR(50), IN `p_lastName` VARCHAR(50), IN `p_dateOfBirth` DATE, IN `p_gender` VARCHAR(10), IN `p_emailAddress` VARCHAR(100), IN `p_phoneNumber` VARCHAR(20), IN `p_dateOfHire` DATE, IN `p_department` VARCHAR(50), IN `p_jobTitle` VARCHAR(50), IN `p_role` VARCHAR(50))   BEGIN
+CASE
+WHEN p_userID = 0 THEN
+INSERT INTO users (firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role) VALUES (p_firstName, p_lastName, p_dateOfBirth, p_gender, p_emailAddress, p_phoneNumber, p_dateOfHire, p_department, p_jobTitle, p_role);
+
+ELSE 
 UPDATE users
 SET firstName = p_firstName,
     lastName = p_lastName,
@@ -43,7 +60,7 @@ SET firstName = p_firstName,
     jobTitle = p_jobTitle,
     role = p_role
 WHERE userID = _userID;
-
+END CASE;
 END$$
 
 DELIMITER ;
@@ -170,7 +187,10 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `dateOfBirth`, `gender`,
 (23, 'Charles', 'Chiumia', '1992-01-18', 'Male', 'charles.chiumia@dekha.com', '+265999765432', '2020-12-05', 'Marketing', 'Digital Marketing Analyst', 'Analyst'),
 (24, 'Peter', 'Mkumbira', '1989-08-03', 'Male', 'peter.mkumbira@dekha.com', '+265999123456', '2022-07-20', 'HRIS', 'Database Administrator', 'Developer'),
 (25, 'Mike', 'Kamzati', '1995-04-15', 'Male', 'mike.kamzati@dekha.com', '+265999567890', '2023-06-12', 'Finance', 'Financial Analyst', 'Analyst'),
-(26, 'Emmanuel', 'Phiri', '1988-11-28', 'Male', 'emmanuel.phiri@dekha.com', '+265999987654', '2021-01-25', 'HR', 'Development Officer', 'HR');
+(26, 'Emmanuel', 'Phiri', '1988-11-28', 'Male', 'emmanuel.phiri@dekha.com', '+265999987654', '2021-01-25', 'HR', 'Development Officer', 'HR'),
+(27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'James', 'Kombe', '1997-08-04', 'Male', 'james.kombe@gmail.com', '265999888999', '2022-07-20', 'HR', 'Training Officer', 'HR'),
+(29, 'James', 'Kombe', '1997-08-04', 'Male', 'james.kombe@gmail.com', '265999888999', '2022-07-20', 'HR', 'Training Officer', 'HR');
 
 --
 -- Indexes for dumped tables
@@ -229,7 +249,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
