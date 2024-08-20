@@ -1,9 +1,18 @@
 const mysql = require('mysql');
 const express = require('express');
 const bodyparser = require('body-parser');
+const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config(); // leave this here to avoid race condition
+
 var app = express();
 
+app.use(cors({ origin: '*' }));
 app.use(bodyparser.json());
+
+
+const tasks = require("./routes/Tasks");
+app.use('/dekha/api/tasks', tasks);
 
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
@@ -98,44 +107,44 @@ app.put('/update-users', async (req, res) => {
 });
 
 
-//Get all tasks
-app.get('/get-tasks', (req, res) => {
-    mysqlConnection.query('SELECT * FROM tasks', (err, rows, fields) => {
-        if (!err)
-            res.send(rows);
-        else
-            console.log(err);
-    })
-});
+// //Get all tasks
+// app.get('/get-tasks', (req, res) => {
+//     mysqlConnection.query('SELECT * FROM tasks', (err, rows, fields) => {
+//         if (!err)
+//             res.send(rows);
+//         else
+//             console.log(err);
+//     })
+// });
 
 // Create a task
-app.post('/add-tasks', async (req, res) => {
-    const emp = req.body;
+// app.post('/add-tasks', async (req, res) => {
+//     const emp = req.body;
 
-    try {
-        mysqlConnection.query(`INSERT INTO tasks(title, description, dueDate, userID) VALUES (?, ?, ?, ?)`
-            , [emp.title, emp.description, emp.dueDate, emp.userID,]);
-        res.send('Task Added Successfully!');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error adding Task');
-    }
-});
+//     try {
+//         mysqlConnection.query(`INSERT INTO tasks(title, description, dueDate, userID) VALUES (?, ?, ?, ?)`
+//             , [emp.title, emp.description, emp.dueDate, emp.userID,]);
+//         res.send('Task Added Successfully!');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Error adding Task');
+//     }
+// });
 
 // Update a task
-app.put('/update-tasks', async (req, res) => {
-    const emp = req.body;
+// app.put('/update-tasks', async (req, res) => {
+//     const emp = req.body;
 
-    try {
-        mysqlConnection.query(`UPDATE tasks SET title = ?, description = ?, dueDate = ?, userID =? WHERE taskID = ?`
-            , [emp.title, emp.description, emp.dueDate, emp.userID, emp.taskID]);
+//     try {
+//         mysqlConnection.query(`UPDATE tasks SET title = ?, description = ?, dueDate = ?, userID =? WHERE taskID = ?`
+//             , [emp.title, emp.description, emp.dueDate, emp.userID, emp.taskID]);
 
-        res.send('Updated successfully');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error updating Task');
-    }
-});
+//         res.send('Updated successfully');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Error updating Task');
+//     }
+// });
 
 // Delete a task
 app.delete('/delete-tasks/:id', (req, res) => {
