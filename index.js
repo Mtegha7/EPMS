@@ -5,7 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config(); // leave this here to avoid race condition
 
-var app = express();
+const app = express();
 
 app.use(cors({ origin: '*' }));
 app.use(bodyparser.json());
