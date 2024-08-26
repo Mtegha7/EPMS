@@ -17,7 +17,7 @@ app.use('/dekha/api/tasks', tasks);
 const users = require("./routes/users");
 app.use('/dekha/api/users', users);
 
-const catalog = require("./routes/Catalog");
+const catalog = require("./routes/catalog");
 app.use('/dekha/api/catalog',catalog);
 
 var mysqlConnection = mysql.createConnection({
