@@ -62,4 +62,19 @@ router.put('/update-tasks', async (req, res) => {
     }
 });
 
+router.delete('/delete-task/:id', async (req, res) => {
+    const emp = req.body;
+
+    try {
+        await query('DELETE FROM tasks WHERE taskID = ?', [req.params.id], (err, rows, fields) => {
+            res.status(200).send(response);
+            res.send('Task Deleted Successfully!');
+        })
+    } catch (error) {
+        console.error(error);
+        response.message = err
+        res.status(500).send(response);
+    }
+});
+
 module.exports = router;
