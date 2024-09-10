@@ -33,8 +33,8 @@ router.post('/add-users', async (req, res) => {
     const emp = req.body;
 
     try {
-        await query(`INSERT INTO users(firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-            , [emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role]);
+        await query(`INSERT INTO users(firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`
+            , [emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, emp.password]);
         response.message = 'User Added Successfully!'
         res.status(200).send(response);
     } catch (error) {
