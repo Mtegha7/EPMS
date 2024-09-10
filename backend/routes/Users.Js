@@ -29,16 +29,17 @@ router.get('/get-users', async (req, res) => {
     }
 });
 
-router.post('/add-users', async (req, res) => {
+router.post('/add_users', async (req, res) => {
     const response = {}
     const emp = req.body;
 
     try {
         const salt = await bcrypt.genSalt(10);
-        const password =  await bcrypt.hash(emp.password, salt);
+        const password = await bcrypt.hash(emp.password, salt);
+        console.log(password, emp.password)
 
-        await query(`INSERT INTO users(firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role, password, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)`
-            , [emp.firstName, emp.lastName, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, password, salt]);
+        await query(`INSERT INTO users(firstName, lastName,password, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)`
+            , [emp.firstName, emp.lastName, password,emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, salt]);
         response.message = 'User Added Successfully!'
         res.status(200).send(response);
     } catch (error) {

@@ -25,7 +25,7 @@ router.post("/login", async (request, response) => {
                 `
                 SELECT *
                 FROM users
-                where email = ?
+                where emailAddress = ?
                 `,
                 email
             );
