@@ -65,23 +65,7 @@ router.put('/update-users', async (req, res) => {
     }
 });
 
-router.put('/reset-password', async (req, res) => {
-    const emp = req.body;
 
-    try {
-        const salt = await bcrypt.genSalt(10);
-        const password =  await bcrypt.hash(emp.password, salt);
-        await query(`UPDATE users SET password = ?, salt = ? WHERE userID =?`
-            , [password, salt, emp.userID]);
-
-        response.message = 'User password updated successfully!'
-        res.status(200).send(response);
-    } catch (error) {
-        console.error(error);
-        response.message = err
-        res.status(500).send(response);
-    }
-});
 
 router.delete('/delete-users/:id', async (req, res) => {
     const emp = req.body;

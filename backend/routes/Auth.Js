@@ -68,4 +68,30 @@ router.post("/login", async (request, response) => {
     }
     response.status(code).send(responseData);
 });
+
+
+router.put('/reset_password', async (req, res) => {
+    const emp = req.body;
+
+    try {
+        if(emp.password, emp.userID){
+
+            const salt = await bcrypt.genSalt(10);
+            const password =  await bcrypt.hash(emp.password, salt);
+            await query(`UPDATE users SET password = ?, salt = ? WHERE userID =?`
+            , [password, salt, emp.userID]);
+
+            response.message = 'User password updated successfully!'
+            res.status(200).send(response);
+        }else{
+            response.message = 'Please make sure the password and user is entered'
+            res.status(400).send(response);
+        }
+    } catch (error) {
+        console.error(error);
+        response.message = err
+        res.status(500).send(response);
+    }
+});
+
 module.exports = router;
