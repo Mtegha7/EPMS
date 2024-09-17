@@ -1,46 +1,42 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  })
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthenticationService,
-    private router: Router,
-    private msgService: MessageService
-  ) { }
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+
+  constructor(private authService: AuthenticationService) { }
+
+  ngOnInit(): void {
+    this.loginForm = this.createFormGroup();
+  }
 
   get email() {
     return this.loginForm.controls['email'];
   }
+  get password() { return this.loginForm.controls['password']; }
 
-  get password() {
-    return this.loginForm.controls['password'];
+  createFormGroup(): FormGroup {
+    return new FormGroup({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    });
   }
 
-  loginUser() {
-    const { email, password } = this.loginForm.value;
-    this.authService.getUserByEmail(email as string).subscribe(
-      response => {
-        if (response.length > 0 && response[0].password === password) {
-          this.router.navigate(['/home']);
-        } else {
-          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Email or Password Incorrect' });
-        }
-      }
-    )
+  login(): void {
+    this.authService
+      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .subscribe();
   }
-
 }
