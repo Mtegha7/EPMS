@@ -65,7 +65,7 @@ export class AuthenticationService {
       if (error.error.message) {
         alert(error.error.message);
       } else {
-        alert("Server Error. please retry or Contact I.T");
+        alert("Server Error. please retry or check network");
       }
 
     });

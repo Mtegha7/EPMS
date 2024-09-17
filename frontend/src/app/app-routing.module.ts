@@ -23,7 +23,7 @@ const routes: Routes = [
     component: ManageUserComponent
   },
   {
-    path: '', redirectTo: 'home', pathMatch: 'full'
+    path: '', redirectTo: 'login', pathMatch: 'full'
   }
 
 
