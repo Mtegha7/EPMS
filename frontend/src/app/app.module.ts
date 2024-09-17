@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,13 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -30,8 +38,13 @@ import { CreateUserComponent } from './pages/create-user/create-user.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CardModule,
+    InputTextModule,
+    ButtonModule,
+    ToastModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

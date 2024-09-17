@@ -10,7 +10,7 @@ const query = (q, data) => {
     });
 };
 
-router.get('/get-catalog', async (req, res) => {
+router.get('/get_catalog', async (req, res) => {
     const response = {}
     try {
         const catalog = await query('SELECT * FROM catalog', [])
@@ -28,7 +28,7 @@ router.get('/get-catalog', async (req, res) => {
     }
 });
 
-router.post('/add-catalog-items', async (req, res) => {
+router.post('/add_catalog_items', async (req, res) => {
     const response = {}
     const emp = req.body;
 
@@ -44,7 +44,7 @@ router.post('/add-catalog-items', async (req, res) => {
     }
 });
 
-router.put('/update-catalog-items', async (req, res) => {
+router.put('/update_catalog_items', async (req, res) => {
     const emp = req.body;
 
     try {
@@ -59,7 +59,7 @@ router.put('/update-catalog-items', async (req, res) => {
     }
 });
 
-router.delete('/delete-catalog-items/:id', async (req, res) => {
+router.delete('/delete_catalog_items/:id', async (req, res) => {
     const emp = req.body;
 
     try {

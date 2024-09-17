@@ -11,7 +11,7 @@ const query = (q, data) => {
     });
 };
 
-router.get('/get-users', async (req, res) => {
+router.get('/get_users', async (req, res) => {
     const response = {}
     try {
         const users = await query('SELECT * FROM users', [])
@@ -49,7 +49,7 @@ router.post('/add_users', async (req, res) => {
     }
 });
 
-router.put('/update-users', async (req, res) => {
+router.put('/update_users', async (req, res) => {
     const emp = req.body;
 
     try {
@@ -67,7 +67,7 @@ router.put('/update-users', async (req, res) => {
 
 
 
-router.delete('/delete-users/:id', async (req, res) => {
+router.delete('/delete_users/:id', async (req, res) => {
     const emp = req.body;
 
     try {

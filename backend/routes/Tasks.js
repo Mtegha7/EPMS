@@ -11,7 +11,7 @@ const query = (q, data) => {
 };
 
 
-router.get('/get-tasks', async (req, res) => {
+router.get('/get_tasks', async (req, res) => {
     const response = {}
     try {
         const tasks = await query('SELECT * FROM tasks', [])
@@ -29,7 +29,7 @@ router.get('/get-tasks', async (req, res) => {
     }
 });
 
-router.post('/add-tasks', async (req, res) => {
+router.post('/add_tasks', async (req, res) => {
     const response = {}
     const emp = req.body;
 
@@ -46,7 +46,7 @@ router.post('/add-tasks', async (req, res) => {
 });
 
 
-router.put('/update-tasks', async (req, res) => {
+router.put('/update_tasks', async (req, res) => {
     const emp = req.body;
 
     try {
@@ -62,7 +62,7 @@ router.put('/update-tasks', async (req, res) => {
     }
 });
 
-router.delete('/delete-task/:id', async (req, res) => {
+router.delete('/delete_task/:id', async (req, res) => {
     const emp = req.body;
 
     try {
