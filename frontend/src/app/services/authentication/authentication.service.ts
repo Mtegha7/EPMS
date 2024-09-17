@@ -4,6 +4,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { User } from '../interface/auth.ts';
 import { Observable, BehaviorSubject } from "rxjs";
 import { first, catchError, tap } from "rxjs/operators";
+import { HttpService } from "../http/http.service.js";
 @Injectable({
   providedIn: 'root'
 })
@@ -19,35 +20,49 @@ export class AuthenticationService {
   };
 
   constructor(
-    private http: HttpClient,
+    private http: HttpService,
     private errorHandlerService: ErrorHandler,
     private router: Router
   ) { }
 
-  login(
-    email: Pick<User, "emailAddress">,
-    password: Pick<User, "password">
-  ): Observable<{
-    token: string;
-    userId: Pick<User, "userID">;
-  }> {
-    return this.http
-      .post(`${this.url}/login`, { email, password }, this.httpOptions)
-      .pipe(
-        first(),
-        tap((tokenObject: { token: string; userId: Pick<User, "userID"> }) => {
-          this.userId = tokenObject.userId;
-          localStorage.setItem("token", tokenObject.token);
-          this.isUserLoggedIn$.next(true);
-          this.router.navigate(["posts"]);
-        }),
-        catchError(
-          this.errorHandlerService.handleError<{
-            token: string;
-            userId: Pick<User, "userID">;
-          }>("login")
-        )
-      );
+  // login(email: Pick<User, "emailAddress">, password: Pick<User, "password">): Observable<{
+  //   token: string;
+  //   userId: Pick<User, "userID">;
+  // }> {
+  //   return this.http
+  //     .post(`${this.url}/login`, { email, password }, this.httpOptions)
+  //     .pipe(
+  //       first(),
+  //       tap((tokenObject: { token: string; userId: Pick<User, "userID"> }) => {
+  //         this.userId = tokenObject.userId;
+  //         localStorage.setItem("token", tokenObject.token);
+  //         this.isUserLoggedIn$.next(true);
+  //         this.router.navigate(["home"]);
+  //       }),
+  //       catchError(
+  //         this.errorHandlerService.handleError<{
+  //           token: string;
+  //           userId: Pick<User, "userID">;
+  //         }>("login")
+  //       )
+  //     );
+  // }
+
+  login(email: string, password: string) {
+    this.http.postNoAuthorization('/login', { email, password }).subscribe((response: any) => {
+      this.userId = response.userId;
+      localStorage.setItem("token", response.token);
+      this.isUserLoggedIn$.next(true);
+      this.router.navigate(["home"]);
+      alert('Login Successful')
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or Contact I.T");
+      }
+
+    });
   }
 
 }
