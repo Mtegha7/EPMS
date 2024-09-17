@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Router } from 'express'
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private msgService: MessageService
+  ) { }
 
   get email() {
     return this.loginForm.controls['email'];
@@ -31,8 +34,10 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.authService.getUserByEmail(email as string).subscribe(
       response => {
-        if (response.email > 0 && response[0].password === password) {
+        if (response.length > 0 && response[0].password === password) {
           this.router.navigate(['/home']);
+        } else {
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Email or Password Incorrect' });
         }
       }
     )

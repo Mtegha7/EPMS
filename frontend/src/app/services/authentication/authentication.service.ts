@@ -16,7 +16,7 @@ export class AuthenticationService {
     return this.http.post(`${this.baseUrl}/dekha/api/users/add_users`, userDetails);
   }
 
-  getUserByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/dekha/api/users/get_users?emailAddress=${email}`);
+  getUserByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/dekha/api/auth/login`);
   }
 }
