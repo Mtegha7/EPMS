@@ -50,11 +50,17 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     this.http.postNoAuthorization('/login', { email, password }).subscribe((response: any) => {
-      this.userId = response.userId;
-      localStorage.setItem("token", response.token);
-      this.isUserLoggedIn$.next(true);
-      this.router.navigate(["home"]);
-      alert('Login Successful')
+      try {
+
+        this.userId = response.userId;
+        localStorage.setItem("token", response.token);
+        this.isUserLoggedIn$.next(true);
+        this.router.navigate(["home"]);
+        alert('Login Successful')
+      } catch (error) {
+        alert('ERROR Setting user data' + error)
+
+      }
     }, (error) => {
       if (error.error.message) {
         alert(error.error.message);
