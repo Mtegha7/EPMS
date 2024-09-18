@@ -26,7 +26,7 @@
         placeholder="Enter your dateOfBirth address" />
       <small *ngIf="f['dateOfBirth'].invalid  && (f['dateOfBirth'].dirty || f['dateOfBirth'].touched)"
         class="block p-error">
-        <div *ngIf="f['dateOfBirth'].errors?.['required']">lastName address is required</div>
+        <div *ngIf="f['dateOfBirth'].errors?.['required']">DOB is required</div>
       </small>
     </div>
 
@@ -37,7 +37,7 @@
         placeholder="Enter your dateOfHire address" />
       <small *ngIf="f['dateOfHire'].invalid  && (f['dateOfHire'].dirty || f['dateOfHire'].touched)"
         class="block p-error">
-        <div *ngIf="f['dateOfHire'].errors?.['required']">lastName address is required</div>
+        <div *ngIf="f['dateOfHire'].errors?.['required']">Hire Date is required</div>
       </small>
     </div>
 
@@ -49,7 +49,7 @@
         <option value="Female">Female</option>
       </select>
       <small *ngIf="f['gender'].invalid  && (f['gender'].dirty || f['gender'].touched)" class="block p-error">
-        <div *ngIf="f['gender'].errors?.['required']">lastName address is required</div>
+        <div *ngIf="f['gender'].errors?.['required']">Gender is required</div>
       </small>
     </div>
 
