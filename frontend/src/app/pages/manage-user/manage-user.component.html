@@ -5,7 +5,7 @@
 
   <tr>
     <ng-container *ngFor="let data of this.users_service.users">
-      <td *ngFor="let item of data">{{item}}</td>
+      <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
     </ng-container>
   </tr>
 </table>
