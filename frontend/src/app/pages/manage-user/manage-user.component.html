@@ -1,9 +1,13 @@
-<table>
-  <tr>
-    <th *ngFor="let column of this.users_service.usersColumns">{{column}}</th>
-  </tr>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th *ngFor="let column of this.users_service.usersColumns">{{column}}</th>
+    </tr>
+  </thead>
 
+  <tbody>
   <tr *ngFor="let data of this.users_service.users">
     <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
   </tr>
+  </tbody>
 </table>
