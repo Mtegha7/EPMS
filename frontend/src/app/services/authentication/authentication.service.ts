@@ -49,7 +49,7 @@ export class AuthenticationService {
   // }
 
   login(email: string, password: string) {
-    this.http.postNoAuthorization('/login', { email, password }).subscribe((response: any) => {
+    this.http.postNoAuthorization('auth/login', { email, password }).subscribe((response: any) => {
       try {
 
         this.userId = response.userId;
