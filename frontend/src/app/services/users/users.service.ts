@@ -7,6 +7,7 @@ import { HttpService } from '../http/http.service';
 export class UsersService {
 
   public users: any = []
+  public usersColumns: string[] = [];
 
   constructor(
     public http: HttpService
@@ -16,6 +17,10 @@ export class UsersService {
   getUsers() {
     this.http.getNoAuthorization('users/get_users').subscribe((response: any) => {
       this.users = response['data']
+      if (this.users) {
+        this.usersColumns = Object.keys(this.users[0]);
+        console.log("this.usersColumns", this.usersColumns);
+      }
       console.log("this.users", this.users);
     })
   }
