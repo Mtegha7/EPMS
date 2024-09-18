@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { MenubarModule } from 'primeng/menubar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,8 +45,9 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     ToastModule,
     BrowserAnimationsModule,
+    MenubarModule
   ],
   providers: [MessageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, NavComponent]
 })
 export class AppModule { }
