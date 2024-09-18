@@ -14,7 +14,7 @@ router.get('/get_catalog', async (req, res) => {
     const response = {}
     try {
         const catalog = await query('SELECT * FROM catalog', [])
-        if (tasks) {
+        if (catalog) {
             response.message = 'Catalog Items Fetched'
             response.data = catalog
             res.status(200).send(response)

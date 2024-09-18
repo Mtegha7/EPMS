@@ -8,7 +8,7 @@ import { UsersService } from '../../services/users/users.service';
 })
 export class ManageUserComponent implements OnInit {
 
-  constructor(public users_service: UsersService){
+  constructor(public users_service: UsersService) {
 
   }
 
@@ -17,5 +17,9 @@ export class ManageUserComponent implements OnInit {
     this.users_service.getUsers()
   }
 
+
+  view_user(data: any) {
+    console.log(data)
+  }
 
 }

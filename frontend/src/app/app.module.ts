@@ -22,6 +22,10 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { CreateTaskComponent } from './pages/create-task/create-task.component';
+import { ManageTaskComponent } from './pages/manage-task/manage-task.component';
+import { CreateCatalogItemComponent } from './pages/create-catalog-item/create-catalog-item.component';
+import { ManageCatalogItemComponent } from './pages/manage-catalog-item/manage-catalog-item.component';
 
 
 @NgModule({
@@ -32,7 +36,11 @@ import { MessageService } from 'primeng/api';
     LoaderComponent,
     LoginComponent,
     NavComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    CreateTaskComponent,
+    ManageTaskComponent,
+    CreateCatalogItemComponent,
+    ManageCatalogItemComponent
   ],
   imports: [
     BrowserModule,

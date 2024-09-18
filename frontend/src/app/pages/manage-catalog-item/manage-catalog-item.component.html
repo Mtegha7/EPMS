@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th *ngFor="let column of this.catalog_service.catalogColumns">{{column}}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let data of this.catalog_service.catalog">
+            <td *ngFor="let item of this.catalog_service.catalogColumns">{{data[item]}}</td>
+            <button (click)="view_catalog(data)">Edit</button>
+        </tr>
+    </tbody>
+</table>

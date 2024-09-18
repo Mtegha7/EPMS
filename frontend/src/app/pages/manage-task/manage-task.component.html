@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let data of this.tasks_service.tasks">
+            <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
+            <button (click)="view_tasks(data)">Edit</button>
+        </tr>
+    </tbody>
+</table>

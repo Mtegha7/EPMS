@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { ErrorHandler, Injectable } from '@angular/core';
-import { User } from '../interface/auth.ts';
 import { Observable, BehaviorSubject } from "rxjs";
 import { first, catchError, tap } from "rxjs/operators";
 import { HttpService } from "../http/http.service.js";
@@ -9,6 +8,7 @@ import { HttpService } from "../http/http.service.js";
   providedIn: 'root'
 })
 export class AuthenticationService {
+  [x: string]: any;
 
   private url = 'http://localhost:8080/dekha/api/auth';
 
