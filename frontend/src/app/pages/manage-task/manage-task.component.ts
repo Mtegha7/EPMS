@@ -11,7 +11,7 @@ export class ManageTaskComponent {
 
   }
   ngOnInit(): void {
-    console.log('we are in Manage users')
+    console.log('we are in Manage Tasks')
     this.tasks_service.getTasks()
   }
 

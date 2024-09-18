@@ -1,1 +1,37 @@
-<p>create-catalog-item works!</p>
+<form [formGroup]="createCatalogForm" (ngSubmit)="add_catalog()">
+    <p-card header="Create Task" [style]="{width:'360px'} ">
+        <!-- title -->
+        <div class="field">
+            <label for="title">Title</label>
+            <input type="text" pInputText formControlName="title" class="w-full" name="title"
+                placeholder="Enter Catalog-Item title" />
+            <small *ngIf="f['title'].invalid  && (f['title'].dirty || f['title'].touched)" class="block p-error">
+                <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+            </small>
+        </div>
+
+        <!-- description -->
+        <div class="field">
+            <label for="description">Description</label>
+            <input type="text" pInputText formControlName="description" class="w-full" name="description"
+                placeholder="Enter Catalog-Item Description" />
+            <small *ngIf="f['description'].invalid  && (f['department'].dirty || f['department'].touched)"
+                class="block p-error">
+                <div *ngIf="f['description'].errors?.['required']">Description is required</div>
+            </small>
+        </div>
+
+        <!-- required pointa -->
+        <div class="field">
+            <label for="requiredPoints">Required Points</label>
+            <input type="number" pInputText formControlName="requiredPoints" class="w-full" name="requiredPoints"
+                placeholder="Enter Required Points" />
+            <small *ngIf="f['requiredPoints'].invalid  && (f['requiredPoints'].dirty || f['requiredPoints'].touched)"
+                class="block p-error">
+                <div *ngIf="f['requiredPoints'].errors?.['required']">Points is required</div>
+            </small>
+        </div>
+
+        <p-button label="CREATE ITEM" styleClass="w-full" [disabled]="createCatalogForm.invalid" type="submit" />
+    </p-card>
+</form>

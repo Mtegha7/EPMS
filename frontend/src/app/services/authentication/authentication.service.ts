@@ -92,4 +92,44 @@ export class AuthenticationService {
     });
   }
 
+  create_task(data: any) {
+    console.log("data", data);
+    this.http.postNoAuthorization('tasks/add_tasks', data).subscribe((response: any) => {
+      try {
+        this.router.navigate(["manage_task"]);
+        alert(response.message)
+      } catch (error) {
+        alert('ERROR Setting task data' + error)
+
+      }
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or check network");
+      }
+
+    });
+  }
+
+  create_catalog(data: any) {
+    console.log("data", data);
+    this.http.postNoAuthorization('catalog/add_catalog_items', data).subscribe((response: any) => {
+      try {
+        this.router.navigate(["manage_catalog_item"]);
+        alert(response.message)
+      } catch (error) {
+        alert('ERROR Setting catalog data' + error)
+
+      }
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or check network");
+      }
+
+    });
+  }
+
 }

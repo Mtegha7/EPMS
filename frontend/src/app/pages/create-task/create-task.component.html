@@ -1,1 +1,57 @@
-<p>create-task works!</p>
+<form [formGroup]="createTaskForm" (ngSubmit)="add_tasks()">
+    <p-card header="Create Task" [style]="{width:'360px'} ">
+        <!-- title -->
+        <div class="field">
+            <label for="title">Title</label>
+            <input type="text" pInputText formControlName="title" class="w-full" name="title"
+                placeholder="Enter task title" />
+            <small *ngIf="f['title'].invalid  && (f['title'].dirty || f['title'].touched)" class="block p-error">
+                <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+            </small>
+        </div>
+
+        <!-- description -->
+        <div class="field">
+            <label for="description">Description</label>
+            <input type="text" pInputText formControlName="description" class="w-full" name="description"
+                placeholder="Enter Task Description" />
+            <small *ngIf="f['description'].invalid  && (f['department'].dirty || f['department'].touched)"
+                class="block p-error">
+                <div *ngIf="f['description'].errors?.['required']">Description is required</div>
+            </small>
+        </div>
+
+        <!-- created date -->
+        <div class="field">
+            <label for="createdDate">Created Date</label>
+            <input type="date" pInputText formControlName="createdDate" class="w-full" name="createdDate"
+                placeholder="Enter Created Date" />
+            <small *ngIf="f['createdDate'].invalid  && (f['createdDate'].dirty || f['createdDate'].touched)"
+                class="block p-error">
+                <div *ngIf="f['createdDate'].errors?.['required']">Creation Date is required</div>
+            </small>
+        </div>
+
+        <!-- due date -->
+        <div class="field">
+            <label for="dueDate">Due Date</label>
+            <input type="date" pInputText formControlName="dueDate" class="w-full" name="dueDate"
+                placeholder="Enter Due Date" />
+            <small *ngIf="f['dueDate'].invalid  && (f['dueDate'].dirty || f['dueDate'].touched)" class="block p-error">
+                <div *ngIf="f['dueDate'].errors?.['required']">Due Date is required</div>
+            </small>
+        </div>
+
+        <!-- user ID -->
+        <div class="field">
+            <label for="userID">User ID</label>
+            <input type="number" pInputText formControlName="userID" class="w-full" name="userID"
+                placeholder="Enter User ID" />
+            <small *ngIf="f['userID'].invalid  && (f['userID'].dirty || f['userID'].touched)" class="block p-error">
+                <div *ngIf="f['userID'].errors?.['required']">User ID is required</div>
+            </small>
+        </div>
+
+        <p-button label="CREATE TASK" styleClass="w-full" [disabled]="createTaskForm.invalid" type="submit" />
+    </p-card>
+</form>
