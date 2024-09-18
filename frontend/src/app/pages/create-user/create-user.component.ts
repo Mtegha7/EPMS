@@ -33,7 +33,7 @@ export class CreateUserComponent {
     });
   }
 
-  login(): void {
+  add_users(): void {
     this.authService.create_user(this.createUserForm)
     // .subscribe();
   }

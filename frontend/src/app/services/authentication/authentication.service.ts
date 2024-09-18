@@ -73,6 +73,7 @@ export class AuthenticationService {
 
 
   create_user(data: any) {
+    console.log("data", data);
     this.http.postNoAuthorization('users/add_users', data).subscribe((response: any) => {
       try {
 
