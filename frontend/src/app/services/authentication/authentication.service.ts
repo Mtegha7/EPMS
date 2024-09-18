@@ -76,7 +76,7 @@ export class AuthenticationService {
     console.log("data", data);
     this.http.postNoAuthorization('users/add_users', data).subscribe((response: any) => {
       try {
-        this.router.navigate(["home"]);
+        this.router.navigate(["manage_user"]);
         alert(response.message)
       } catch (error) {
         alert('ERROR Setting user data' + error)
