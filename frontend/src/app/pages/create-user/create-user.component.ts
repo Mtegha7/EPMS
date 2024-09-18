@@ -26,6 +26,11 @@ export class CreateUserComponent {
       gender: new FormControl("", [Validators.required]),
       dateOfHire: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
+      phoneNumber: new FormControl("", [Validators.required]),
+      department: new FormControl("", [Validators.required]),
+      jobTitle: new FormControl("", [Validators.required]),
+      role: new FormControl("", [Validators.required]),
+
       password: new FormControl("", [
         Validators.required,
         Validators.minLength(8),
