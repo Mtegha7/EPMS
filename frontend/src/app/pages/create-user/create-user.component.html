@@ -1,6 +1,6 @@
 <form [formGroup]="createUserForm" (ngSubmit)="add_users()">
   <p-card header="Login" [style]="{width:'360px'} ">
-
+    <!-- first name -->
     <div class="field">
       <label for="firstName">firstName</label>
       <input type="text" pInputText formControlName="firstName" class="w-full" name="firstName"
@@ -9,7 +9,7 @@
         <div *ngIf="f['firstName'].errors?.['required']">firstName address is required</div>
       </small>
     </div>
-
+    <!-- last name -->
     <div class="field">
       <label for="lastName">lastName</label>
       <input type="text" pInputText formControlName="lastName" class="w-full" name="lastName"
@@ -19,7 +19,7 @@
       </small>
     </div>
 
-
+    <!-- DOB -->
     <div class="field">
       <label for="dateOfBirth">DOB</label>
       <input type="date" pInputText formControlName="dateOfBirth" class="w-full" name="dateOfBirth"
@@ -30,6 +30,7 @@
       </small>
     </div>
 
+    <!-- Hire Date -->
     <div class="field">
       <label for="dateOfHire">Hire Date</label>
       <input type="date" pInputText formControlName="dateOfHire" class="w-full" name="dateOfHire"
@@ -40,6 +41,7 @@
       </small>
     </div>
 
+    <!-- gender -->
     <div class="field">
       <label for="gender">Gender</label>
       <select formControlName="gender" class="w-full" name="gender">
@@ -51,14 +53,58 @@
       </small>
     </div>
 
+    <!-- department -->
+    <div class="field">
+      <label for="department">Department</label>
+      <select formControlName="department" class="w-full" name="department">
+        <option value="Male">Finance</option>
+        <option value="Female">HR</option>
+      </select>
+      <small *ngIf="f['department'].invalid  && (f['department'].dirty || f['department'].touched)"
+        class="block p-error">
+        <div *ngIf="f['department'].errors?.['required']">lastName address is required</div>
+      </small>
+    </div>
+
+    <!-- job title -->
+    <div class="field">
+      <label for="jobTitle">Job Title</label>
+      <input type="text" pInputText formControlName="jobTitle" class="w-full" name="jobTitle"
+        placeholder="Enter your job title" />
+      <small *ngIf="f['jobTitle'].invalid  && (f['jobTitle'].dirty || f['jobTitle'].touched)" class="block p-error">
+        <div *ngIf="f['jobTitle'].errors?.['required']">Job title is required</div>
+      </small>
+    </div>
+
+    <!-- role -->
+    <div class="field">
+      <label for="role">Role</label>
+      <input type="text" pInputText formControlName="role" class="w-full" name="role"
+        placeholder="Enter your job role" />
+      <small *ngIf="f['role'].invalid  && (f['role'].dirty || f['role'].touched)" class="block p-error">
+        <div *ngIf="f['role'].errors?.['required']">Role is required</div>
+      </small>
+    </div>
+
+    <!-- phone number -->
+    <div class="field">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="number" pInputText formControlName="phoneNumber" class="w-full" name="role"
+        placeholder="Enter your phone number" />
+      <small *ngIf="f['phoneNumber'].invalid  && (f['phoneNumber'].dirty || f['phoneNumber'].touched)"
+        class="block p-error">
+        <div *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required</div>
+      </small>
+    </div>
+
     <div class="field">
       <label for="emailAddress">Email</label>
       <input type="text" pInputText formControlName="emailAddress" class="w-full" name="emailAddress"
         placeholder="Enter your emailAddress address" />
       <small *ngIf="f['emailAddress'].invalid  && (f['emailAddress'].dirty || f['emailAddress'].touched)"
         class="block p-error">
-        <div *ngIf="f['emailAddress'].errors?.['required']">email Address is required</div>
-        <div *ngIf="f['emailAddress'].errors?.['emailAddress']">email Address should be valid</div>
+        <div *ngIf="f['emailAddress'].errors?.['required']">Email Address is required</div>
+        <div *ngIf="f['emailAddress'].errors?.['emailAddress']">Email Address should be valid</div>
       </small>
     </div>
 
