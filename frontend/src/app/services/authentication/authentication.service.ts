@@ -13,7 +13,7 @@ export class AuthenticationService {
   private url = 'http://localhost:8080/dekha/api/auth';
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
-  public userId :any;
+  public userId: any;
   // userId!: Pick<User, "userID">;
 
   httpOptions: { headers: HttpHeaders } = {
@@ -76,12 +76,8 @@ export class AuthenticationService {
     console.log("data", data);
     this.http.postNoAuthorization('users/add_users', data).subscribe((response: any) => {
       try {
-
-        this.userId = response.userId;
-        localStorage.setItem("token", response.token);
-        this.isUserLoggedIn$.next(true);
         this.router.navigate(["home"]);
-        alert('Login Successful')
+        alert(response.message)
       } catch (error) {
         alert('ERROR Setting user data' + error)
 
