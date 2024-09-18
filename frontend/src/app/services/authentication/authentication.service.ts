@@ -13,7 +13,8 @@ export class AuthenticationService {
   private url = 'http://localhost:8080/dekha/api/auth';
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
-  userId!: Pick<User, "userID">;
+  public userId :any;
+  // userId!: Pick<User, "userID">;
 
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -21,7 +22,6 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpService,
-    private errorHandlerService: ErrorHandler,
     private router: Router
   ) { }
 
@@ -50,6 +50,30 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     this.http.postNoAuthorization('auth/login', { email, password }).subscribe((response: any) => {
+      try {
+
+        this.userId = response.userId;
+        localStorage.setItem("token", response.token);
+        this.isUserLoggedIn$.next(true);
+        this.router.navigate(["home"]);
+        alert('Login Successful')
+      } catch (error) {
+        alert('ERROR Setting user data' + error)
+
+      }
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or check network");
+      }
+
+    });
+  }
+
+
+  create_user(data: any) {
+    this.http.postNoAuthorization('users/add_users', data).subscribe((response: any) => {
       try {
 
         this.userId = response.userId;

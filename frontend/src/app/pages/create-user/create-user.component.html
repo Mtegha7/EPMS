@@ -1,1 +1,78 @@
-<p>Create works!</p>
+<form [formGroup]="createUserForm" (ngSubmit)="login()">
+  <p-card header="Login" [style]="{width:'360px'} ">
+
+    <div class="field">
+      <label for="firstName">firstName</label>
+      <input type="text" pInputText formControlName="firstName" class="w-full" name="firstName"
+        placeholder="Enter your firstName address" />
+      <small *ngIf="f['firstName'].invalid  && (f['firstName'].dirty || f['firstName'].touched)" class="block p-error">
+        <div *ngIf="f['firstName'].errors?.['required']">firstName address is required</div>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="lastName">lastName</label>
+      <input type="text" pInputText formControlName="lastName" class="w-full" name="lastName"
+        placeholder="Enter your lastName address" />
+      <small *ngIf="f['lastName'].invalid  && (f['lastName'].dirty || f['lastName'].touched)" class="block p-error">
+        <div *ngIf="f['lastName'].errors?.['required']">lastName address is required</div>
+      </small>
+    </div>
+
+
+    <div class="field">
+      <label for="dateOfBirth">DOB</label>
+      <input type="date" pInputText formControlName="dateOfBirth" class="w-full" name="dateOfBirth"
+        placeholder="Enter your dateOfBirth address" />
+      <small *ngIf="f['dateOfBirth'].invalid  && (f['dateOfBirth'].dirty || f['dateOfBirth'].touched)"
+        class="block p-error">
+        <div *ngIf="f['dateOfBirth'].errors?.['required']">lastName address is required</div>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="dateOfHire">Hire Date</label>
+      <input type="date" pInputText formControlName="dateOfHire" class="w-full" name="dateOfHire"
+        placeholder="Enter your dateOfHire address" />
+      <small *ngIf="f['dateOfHire'].invalid  && (f['dateOfHire'].dirty || f['dateOfHire'].touched)"
+        class="block p-error">
+        <div *ngIf="f['dateOfHire'].errors?.['required']">lastName address is required</div>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="gender">Gender</label>
+      <select formControlName="gender" class="w-full" name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <small *ngIf="f['gender'].invalid  && (f['gender'].dirty || f['gender'].touched)" class="block p-error">
+        <div *ngIf="f['gender'].errors?.['required']">lastName address is required</div>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="text" pInputText formControlName="email" class="w-full" name="email"
+        placeholder="Enter your email address" />
+      <small *ngIf="f['email'].invalid  && (f['email'].dirty || f['email'].touched)" class="block p-error">
+        <div *ngIf="f['email'].errors?.['required']">Email address is required</div>
+        <div *ngIf="f['email'].errors?.['email']">Email should be valid</div>
+      </small>
+    </div>
+
+
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" pInputText formControlName="password" class="w-full" name="password"
+        placeholder="Enter your password" />
+      <small *ngIf="f['password'].invalid  && (f['password'].dirty || f['password'].touched)" class="block p-error">
+        <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+      </small>
+    </div>
+
+
+    <p-button label="SIGN IN" styleClass="w-full" [disabled]="createUserForm.invalid" type="submit" />
+  </p-card>
+</form>

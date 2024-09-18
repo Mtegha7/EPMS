@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-create-user',
@@ -6,5 +8,33 @@ import { Component } from '@angular/core';
   styleUrl: './create-user.component.scss'
 })
 export class CreateUserComponent {
+  createUserForm!: FormGroup;
 
+  constructor(private authService: AuthenticationService) { }
+
+  ngOnInit(): void {
+    this.createUserForm = this.createFormGroup();
+  }
+
+  get f() { return this.createUserForm.controls; }
+
+  createFormGroup(): FormGroup {
+    return new FormGroup({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      firstName: new FormControl("", [Validators.required]),
+      lastName: new FormControl("", [Validators.required]),
+      gender: new FormControl("", [Validators.required]),
+      dateOfHire: new FormControl("", [Validators.required]),
+      dateOfBirth: new FormControl("", [Validators.required]),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    });
+  }
+
+  login(): void {
+    this.authService.create_user(this.createUserForm)
+    // .subscribe();
+  }
 }
