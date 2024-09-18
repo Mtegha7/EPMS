@@ -52,12 +52,13 @@
     </div>
 
     <div class="field">
-      <label for="email">Email</label>
-      <input type="text" pInputText formControlName="email" class="w-full" name="email"
-        placeholder="Enter your email address" />
-      <small *ngIf="f['email'].invalid  && (f['email'].dirty || f['email'].touched)" class="block p-error">
-        <div *ngIf="f['email'].errors?.['required']">Email address is required</div>
-        <div *ngIf="f['email'].errors?.['email']">Email should be valid</div>
+      <label for="emailAddress">Email</label>
+      <input type="text" pInputText formControlName="emailAddress" class="w-full" name="emailAddress"
+        placeholder="Enter your emailAddress address" />
+      <small *ngIf="f['emailAddress'].invalid  && (f['emailAddress'].dirty || f['emailAddress'].touched)"
+        class="block p-error">
+        <div *ngIf="f['emailAddress'].errors?.['required']">email Address is required</div>
+        <div *ngIf="f['emailAddress'].errors?.['emailAddress']">email Address should be valid</div>
       </small>
     </div>
 

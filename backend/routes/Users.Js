@@ -34,14 +34,31 @@ router.post('/add_users', async (req, res) => {
     const emp = req.body;
 
     try {
-        const salt = await bcrypt.genSalt(10);
-        const password = await bcrypt.hash(emp.password, salt);
-        console.log(password, emp.password)
+        if (emp.firstName
+            && emp.lastName
+            && emp.password
+            && emp.dateOfBirth
+            && emp.gender
+            && emp.emailAddress
+            && emp.phoneNumber
+            && emp.dateOfHire
+            && emp.department
+            && emp.jobTitle
+            && emp.role
+        ) {
 
-        await query(`INSERT INTO users(firstName, lastName,password, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)`
-            , [emp.firstName, emp.lastName, password,emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, salt]);
-        response.message = 'User Added Successfully!'
-        res.status(200).send(response);
+            const salt = await bcrypt.genSalt(10);
+            const password = await bcrypt.hash(emp.password, salt);
+            console.log(password, emp.password)
+
+            await query(`INSERT INTO users(firstName, lastName,password, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department, jobTitle, role, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)`
+                , [emp.firstName, emp.lastName, password, emp.dateOfBirth, emp.gender, emp.emailAddress, emp.phoneNumber, emp.dateOfHire, emp.department, emp.jobTitle, emp.role, salt]);
+            response.message = 'User Added Successfully!'
+            res.status(200).send(response);
+        } else {
+            response.message = 'Please make sure all data is filled in!'
+            res.status(400).send(response);
+        }
     } catch (error) {
         console.error(error);
         response.message = err

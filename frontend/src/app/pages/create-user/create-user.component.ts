@@ -20,7 +20,7 @@ export class CreateUserComponent {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
+      emailAddress: new FormControl("", [Validators.required, Validators.email]),
       firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       gender: new FormControl("", [Validators.required]),
