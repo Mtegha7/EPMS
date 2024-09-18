@@ -34,7 +34,7 @@ export class CreateUserComponent {
   }
 
   add_users(): void {
-    this.authService.create_user(this.createUserForm)
+    this.authService.create_user(this.createUserForm.value)
     // .subscribe();
   }
 }
