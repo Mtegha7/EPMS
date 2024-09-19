@@ -20,4 +20,8 @@ export class ManageCatalogItemComponent {
   view_catalog(data: any) {
     console.log(data)
   }
+
+  delete_catalog_item({ catalogID }: any) {
+    this.catalog_service.deleteCatalog(catalogID)
+  }
 }

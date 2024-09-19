@@ -9,6 +9,8 @@
         <tr *ngFor="let data of this.tasks_service.tasks">
             <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
             <button (click)="view_tasks(data)">Edit</button>
+            <button class="btn-light btn-small" (click)="delete_tasks(data)"><i
+                    class="bi bi-person-x"></i>Delete</button>
         </tr>
     </tbody>
 </table>

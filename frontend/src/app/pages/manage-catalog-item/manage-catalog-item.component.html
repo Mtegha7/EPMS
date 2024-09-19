@@ -9,6 +9,8 @@
         <tr *ngFor="let data of this.catalog_service.catalog">
             <td *ngFor="let item of this.catalog_service.catalogColumns">{{data[item]}}</td>
             <button (click)="view_catalog(data)">Edit</button>
+            <button class="btn-light btn-small" (click)="delete_catalog_item(data)"><i
+                    class="bi bi-person-x"></i>Delete</button>
         </tr>
     </tbody>
 </table>

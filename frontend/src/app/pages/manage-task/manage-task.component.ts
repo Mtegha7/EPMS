@@ -18,4 +18,8 @@ export class ManageTaskComponent {
   view_tasks(data: any) {
     console.log(data)
   }
+
+  delete_tasks({ taskID }: any) {
+    this.tasks_service.deleteTasks(taskID)
+  }
 }

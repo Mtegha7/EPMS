@@ -59,11 +59,11 @@ router.put('/update_catalog_items', async (req, res) => {
     }
 });
 
-router.delete('/delete_catalog_items/:id', async (req, res) => {
+router.delete('/delete_catalog_item/:id', async (req, res) => {
     const emp = req.body;
 
     try {
-        await query('DELETE FROM tasks WHERE taskID = ?', [req.params.id], (err, rows, fields) => {
+        await query('DELETE FROM catalog WHERE catalogID = ?', [req.params.id], (err, rows, fields) => {
             res.status(200).send(response);
             res.send('Item Deleted Successfully!');
         })

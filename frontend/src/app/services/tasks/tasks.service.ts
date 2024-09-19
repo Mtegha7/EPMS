@@ -25,4 +25,23 @@ export class TasksService {
       console.log("this.tasks", this.tasks);
     })
   }
+
+  deleteTasks(taskID: any) {
+    this.http.delete(`tasks/delete_task/${taskID}`).subscribe(
+      (response: any) => {
+        this.tasks = this.tasks.filter((task: { id: number; }) => task.id !== taskID);
+
+        if (this.tasks.length > 0) {
+          this.tasksColumns = Object.keys(this.tasks[0]);
+          console.log("this.tasksColumns", this.tasksColumns);
+        }
+        console.log("Updated tasks list", this.tasks);
+        alert("task deleted successfully!");
+      },
+      (error: any) => {
+        console.error('Error deleting task:', error);
+        alert('Error occurred while deleting the task.');
+      }
+    );
+  }
 }
