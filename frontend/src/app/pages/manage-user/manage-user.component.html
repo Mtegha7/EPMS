@@ -1,14 +1,17 @@
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th *ngFor="let column of this.users_service.usersColumns">{{column}}</th>
-    </tr>
-  </thead>
+<div class="container mt-4">
+  <table class="table table-boardered">
+    <thead class="thead-dark">
+      <tr>
+        <th *ngFor="let column of this.users_service.usersColumns">{{column}}</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr *ngFor="let data of this.users_service.users">
-      <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
-      <button (click)="view_user(data)">Edit</button>
-    </tr>
-  </tbody>
-</table>
+    <tbody>
+      <tr *ngFor="let data of this.users_service.users">
+        <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
+        <button (click)="view_user(data)">Edit</button>
+        <button (click)="view_user(data)">Delete</button>
+      </tr>
+    </tbody>
+  </table>
+</div>

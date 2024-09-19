@@ -22,4 +22,8 @@ export class ManageUserComponent implements OnInit {
     console.log(data)
   }
 
+  // delete_user() {
+
+  // }
+
 }
