@@ -29,6 +29,7 @@ export class HttpService {
   }
 
 
+
   public getToken() {
     try {
       const storedToken: string = localStorage.getItem('app') || '';

@@ -22,7 +22,7 @@ export class ManageUserComponent implements OnInit {
     console.log(data)
   }
 
-  delete_user(data: any) {
-    this.users_service.deleteUsers()
+  delete_user({ userID }: any) {
+    this.users_service.deleteUsers(userID)
   }
 }

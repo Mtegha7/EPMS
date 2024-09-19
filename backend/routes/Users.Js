@@ -88,7 +88,7 @@ router.delete('/delete_users/:id', async (req, res) => {
     const emp = req.body;
 
     try {
-        await query('DELETE FROM users WHERE taskID = ?', [req.params.id], (err, rows, fields) => {
+        await query('DELETE FROM users WHERE userID = ?', [req.params.id], (err, rows, fields) => {
             res.status(200).send(response);
             res.send('User Deleted Successfully!');
         })

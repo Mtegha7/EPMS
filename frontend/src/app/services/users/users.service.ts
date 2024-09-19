@@ -28,15 +28,34 @@ export class UsersService {
     })
   }
 
-  deleteUsers() {
-    this.http.getNoAuthorization('users/delete_users').subscribe((response: any) => {
-      this.users = response['data']
-      if (this.users) {
-        this.usersColumns = Object.keys(this.users[0]);
-        console.log("this.usersColumns", this.usersColumns);
+  // deleteUsers(userID: any) {
+  //   this.http.getNoAuthorization('users/delete_users/:id').subscribe((response: any) => {
+  //     this.users = response['data']
+  //     if (this.users) {
+  //       this.usersColumns = Object.keys(this.users[0]);
+  //       console.log("this.usersColumns", this.usersColumns);
+  //     }
+  //     console.log("this.users", this.users);
+  //   })
+  // }
+
+  deleteUsers(userID: any) {
+    this.http.delete(`users/delete_users/${userID}`).subscribe(
+      (response: any) => {
+        this.users = this.users.filter((user: { id: number; }) => user.id !== userID);
+
+        if (this.users.length > 0) {
+          this.usersColumns = Object.keys(this.users[0]);
+          console.log("this.usersColumns", this.usersColumns);
+        }
+        console.log("Updated users list", this.users);
+        alert("User deleted successfully!");
+      },
+      (error: any) => {
+        console.error('Error deleting user:', error);
+        alert('Error occurred while deleting the user.');
       }
-      console.log("this.users", this.users);
-    })
+    );
   }
 
 }
