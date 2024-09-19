@@ -7,7 +7,6 @@ import { UsersService } from '../../services/users/users.service';
   styleUrl: './manage-user.component.scss'
 })
 export class ManageUserComponent implements OnInit {
-  users: any;
 
   constructor(public users_service: UsersService) {
 
@@ -24,6 +23,6 @@ export class ManageUserComponent implements OnInit {
   }
 
   delete_user(data: any) {
-
+    this.users_service.deleteUsers()
   }
 }
