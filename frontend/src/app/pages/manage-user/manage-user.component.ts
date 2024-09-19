@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users/users.service';
-import { } from '../../services/users/users.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -24,18 +23,7 @@ export class ManageUserComponent implements OnInit {
     console.log(data)
   }
 
-  delete_user(userID: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.users_service.deleteUser(userID).subscribe(
-        () => {
-          this.users = this.users.filter((user: { id: number; }) => user.id !== userID);
-          alert('User deleted successfully.');
-        },
-        (error: any) => {
-          console.error('Error deleting user:', error);
-          alert('Error occurred while deleting the user.');
-        }
-      );
-    }
+  delete_user(data: any) {
+
   }
 }

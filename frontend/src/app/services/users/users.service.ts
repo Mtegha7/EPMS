@@ -28,7 +28,15 @@ export class UsersService {
     })
   }
 
-  deleteUser(userID: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${userID}`);
+  deleteUsers() {
+    this.http.getNoAuthorization('users/delete_users').subscribe((response: any) => {
+      this.users = response['data']
+      if (this.users) {
+        this.usersColumns = Object.keys(this.users[0]);
+        console.log("this.usersColumns", this.usersColumns);
+      }
+      console.log("this.users", this.users);
+    })
   }
+
 }
