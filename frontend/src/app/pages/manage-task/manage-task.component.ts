@@ -7,6 +7,7 @@ import { TasksService } from '../../services/tasks/tasks.service';
   styleUrl: './manage-task.component.scss'
 })
 export class ManageTaskComponent {
+  info: any = {};
   constructor(public tasks_service: TasksService) {
 
   }
@@ -17,6 +18,8 @@ export class ManageTaskComponent {
 
   view_tasks(data: any) {
     console.log(data)
+    this.info = data;
+    console.log('Stored info:', this.info);
   }
 
   delete_tasks({ taskID }: any) {

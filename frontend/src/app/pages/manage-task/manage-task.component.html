@@ -14,3 +14,15 @@
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="info">
+    <h3>Task Information</h3>
+    <p><strong>Title:</strong> {{ info.title }}</p>
+    <p><strong>Description:</strong> {{ info.description }}</p>
+    <p><strong>Created Date:</strong> {{ info.createdDate }}</p>
+    <p><strong>Due Date:</strong> {{ info.dueDate }}</p>
+    <p><strong>Updated Date:</strong> {{ info.updatedDate }}</p>
+    <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
+    <p><strong>Assigned To (User ID):</strong> {{ info.userID }}</p>
+
+</div>

@@ -7,6 +7,7 @@ import { catalogService } from '../../services/catalog/catalog.service';
   styleUrl: './manage-catalog-item.component.scss'
 })
 export class ManageCatalogItemComponent {
+  info: any = {};
   constructor(public catalog_service: catalogService) {
 
   }
@@ -19,6 +20,8 @@ export class ManageCatalogItemComponent {
 
   view_catalog(data: any) {
     console.log(data)
+    this.info = data;
+    console.log('Stored info:', this.info);
   }
 
   delete_catalog_item({ catalogID }: any) {

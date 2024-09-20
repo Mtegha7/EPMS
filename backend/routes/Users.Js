@@ -14,7 +14,7 @@ const query = (q, data) => {
 router.get('/get_users', async (req, res) => {
     const response = {}
     try {
-        const users = await query('SELECT userID, dateOfBirth ,dateOfHire, department, emailAddress, firstName, gender, jobTitle, lastName, phoneNumber, role FROM users', [])
+        const users = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,    jobTitle, role FROM users', [])
         if (users) {
             response.message = 'Users Fetched'
             response.data = users

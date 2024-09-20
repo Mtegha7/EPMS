@@ -20,13 +20,13 @@ export class CreateUserComponent {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      emailAddress: new FormControl("", [Validators.required, Validators.email]),
       firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
-      gender: new FormControl("", [Validators.required]),
-      dateOfHire: new FormControl("", [Validators.required]),
-      dateOfBirth: new FormControl("", [Validators.required]),
+      emailAddress: new FormControl("", [Validators.required, Validators.email]),
       phoneNumber: new FormControl("", [Validators.required]),
+      gender: new FormControl("", [Validators.required]),
+      dateOfBirth: new FormControl("", [Validators.required]),
+      dateOfHire: new FormControl("", [Validators.required]),
       department: new FormControl("", [Validators.required]),
       jobTitle: new FormControl("", [Validators.required]),
       role: new FormControl("", [Validators.required]),

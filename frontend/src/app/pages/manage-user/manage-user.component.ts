@@ -8,6 +8,8 @@ import { UsersService } from '../../services/users/users.service';
 })
 export class ManageUserComponent implements OnInit {
 
+  info: any = {};
+
   constructor(public users_service: UsersService) {
 
   }
@@ -20,6 +22,8 @@ export class ManageUserComponent implements OnInit {
 
   view_user(data: any) {
     console.log(data)
+    this.info = data;
+    console.log('Stored info:', this.info);
   }
 
   delete_user({ userID }: any) {

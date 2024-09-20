@@ -15,3 +15,17 @@
     </tbody>
   </table>
 </div>
+
+<div *ngIf="info">
+  <h3>User Information</h3>
+  <p><strong>First Name:</strong> {{ info.firstName }}</p>
+  <p><strong>Last Name:</strong> {{ info.lastName }}</p>
+  <p><strong>DOB:</strong> {{ info.dateOfBirth }}</p>
+  <p><strong>Gender:</strong> {{ info.gender }}</p>
+  <p><strong>Email Address:</strong> {{ info.emailAddress }}</p>
+  <p><strong>Phone Number:</strong> {{ info.phoneNumber }}</p>
+  <p><strong>Date Of Hire:</strong> {{ info.dateOfHire }}</p>
+  <p><strong>Department:</strong> {{ info.department }}</p>
+  <p><strong>Job Title:</strong> {{ info.jobTitle }}</p>
+  <p><strong>Role:</strong> {{ info.role }}</p>
+</div>
