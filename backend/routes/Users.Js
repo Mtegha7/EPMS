@@ -16,11 +16,11 @@ router.get('/get_user/:id', async (req, res) => {
     const emp = req.body
     const response = {}
     try {
-        const user = await query('SELECT (firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,jobTitle, role) FROM users WHERE userID =?',
+        const user = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,jobTitle, role FROM users WHERE userID =?',
             [req.params.id])
         if (user) {
             response.message = 'User Fetched'
-            response.data = user
+            response.data = user[0]
             res.status(200).send(response)
         } else {
             response.message = 'No User available'
@@ -106,6 +106,7 @@ router.post('/add_users', async (req, res) => {
 
 router.put('/update_users/:id', async (req, res) => {
     const emp = req.body;
+    const response = {}
 
     try {
         await query(`UPDATE users SET firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, emailAddress = ?, phoneNumber = ?, dateOfHire = ?, department = ?, jobTitle = ?, role = ? WHERE userID =?`

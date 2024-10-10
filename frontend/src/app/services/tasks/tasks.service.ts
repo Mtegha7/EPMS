@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
+import { SettingsService } from '../settings/settings.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +10,13 @@ import { HttpService } from '../http/http.service';
 export class TasksService {
 
   public tasks: any = []
+  public task: any = {};
   public tasksColumns: string[] = [];
 
   constructor(
-    public http: HttpService
+    public http: HttpService,
+    public settings: SettingsService,
+    private router: Router
   ) { }
 
 
@@ -24,6 +29,30 @@ export class TasksService {
       }
       console.log("this.tasks", this.tasks);
     })
+  }
+
+  getOneTask(taskID: any) {
+    this.settings.loader = true;
+    this.http.getNoAuthorization(`tasks/get_task/${taskID}`).subscribe((response: any) => {
+      this.task = response['data']
+      if (this.task.createdDate) {
+        this.task.createdDate = new Date(this.task.createdDate).toLocaleDateString('sv');
+      }
+      if (this.task.updatedDate) {
+        this.task.updatedDate = new Date(this.task.updatedDate).toLocaleDateString('sv');
+      }
+      if (this.task.dueDate) {
+        this.task.dueDate = new Date(this.task.dueDate).toLocaleDateString('sv');
+      }
+      if (this.task.completedDate) {
+        this.task.completedDate = new Date(this.task.completedDate).toLocaleDateString('sv');
+      }
+      console.log(this.task)
+      console.log("this.tasks", this.tasks);
+      this.settings.loader = false;
+
+    })
+
   }
 
   deleteTasks(taskID: any) {
@@ -44,4 +73,24 @@ export class TasksService {
       }
     );
   }
+
+  updateTasks() {
+    this.settings.loader = true;
+    this.http.update(`tasks/update_tasks/${this.task.taskID}`, this.task).subscribe(
+      (response: any) => {
+        this.tasks = this.tasks.filter((task: { id: number; }) => task.id !== this.task.taskIDs);
+        console.log("Updated tasks list", this.tasks);
+        alert("Task updated successfully!");
+        this.settings.loader = false;
+        this.router.navigateByUrl('manage_task')
+
+      },
+      (error: any) => {
+        console.error('Error updating Task:', error);
+        alert('Error occurred while updating the Task.');
+        this.settings.loader = false;
+      }
+    );
+  }
+
 }

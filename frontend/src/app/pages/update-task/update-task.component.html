@@ -1,1 +1,79 @@
-<p>update-task works!</p>
+<div>
+    <div class="container nt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4> Edit Task
+                    <a routerLink="/manage_task" class="btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="this.tasks_service.updateTasks()">
+                    <div *ngIf="this.tasks_service.task">
+                        <div class="row">
+                            <!-- title -->
+                            <div class=" col mb-3">
+                                <label>title</label>
+                                <input type="text" [(ngModel)]="this.tasks_service.task['title']" name="title"
+                                    class="form-control" title="title" />
+                                <span *ngIf="errors['title']" class="text-danger">{{errors['title']}}</span>
+                            </div>
+
+                            <!-- Description -->
+                            <div class=" col mb-3">
+                                <label>Description</label>
+                                <input type="text" [(ngModel)]="this.tasks_service.task['description']"
+                                    name="description" class="form-control" title="Description" />
+                                <span *ngIf="errors['description']" class="text-danger">{{errors['description']}}</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <!-- Created date -->
+                            <div class="col mb-3">
+                                <label>Creation Date</label>
+                                <input type="date" [(ngModel)]="this.tasks_service.task['createdDate']"
+                                    name="createdDate" class="form-control" title="Creation Date" />
+                                <span *ngIf="errors['createdDate']" class="text-danger">{{errors['createdDate']}}</span>
+                            </div>
+
+                            <!-- due date -->
+                            <div class=" col mb-3">
+                                <label>Due Date</label>
+                                <input type="date" [(ngModel)]="this.tasks_service.task['dueDate']" name="dueDate"
+                                    class="form-control" title="Due Date" />
+                                <span *ngIf="errors['dueDate']" class="text-danger">{{errors['dueDate']}}</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <!-- updated date -->
+                            <div class="col mb-3">
+                                <label>Updated Date</label>
+                                <input type="date" [(ngModel)]="this.tasks_service.task['updatedDate']"
+                                    name="updatedDate" class="form-control" title="Updated Date" />
+                                <span *ngIf="errors['updatedDate']" class="text-danger">{{errors['updatedDate']}}</span>
+                            </div>
+
+                            <!-- completion date -->
+                            <div class="col mb-3">
+                                <label>Completion Date</label>
+                                <input type="date" [(ngModel)]="this.tasks_service.task['completionDate']"
+                                    name="completionDate" class="form-control" title="Completion Date" />
+                                <span *ngIf="errors['completionDate']"
+                                    class="text-danger">{{errors['completionDate']}}</span>
+                            </div>
+
+                        </div>
+                        <div class="nb-3">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

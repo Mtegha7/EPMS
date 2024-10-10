@@ -10,11 +10,35 @@ const query = (q, data) => {
     });
 };
 
+router.get('/get_task/:id', async (req, res) => {
+    const emp = req.body
+    const response = {}
+    try {
+        const task = await query('SELECT taskID,title,description,createdDate,dueDate,updatedDate,completionDate  FROM tasks WHERE taskID =?',
+            [req.params.id])
+        if (task) {
+            response.message = 'Task Fetched'
+            response.data = task[0]
+            res.status(200).send(response)
+        } else {
+            response.message = 'No Task available'
+            res.status(200).send(response)
+        }
+    } catch (error) {
+        response.message = error
+        res.status(500).send(response)
+    }
+});
+
 
 router.get('/get_tasks', async (req, res) => {
     const response = {}
     try {
-        const tasks = await query('SELECT * FROM tasks', [])
+        const tasks = await query(`SELECT taskID,title,description,createdDate,dueDate,updatedDate,completionDate,emailAddress 
+            FROM tasks t
+            JOIN users u 
+            where t.userID = u.userID`
+            , [])
         if (tasks) {
             response.message = 'Tasks Fetched'
             response.data = tasks
@@ -46,12 +70,13 @@ router.post('/add_tasks', async (req, res) => {
 });
 
 
-router.put('/update_tasks', async (req, res) => {
+router.put('/update_tasks/:id', async (req, res) => {
     const emp = req.body;
+    const response = {}
 
     try {
-        await query(`UPDATE tasks SET title = ?, description = ?, dueDate = ?, userID =? WHERE taskID = ?`
-            , [emp.title, emp.description, emp.dueDate, emp.userID, emp.taskID]);
+        await query(`UPDATE tasks SET title = ?, description = ?, dueDate = ?, createdDate=?,  completionDate=? WHERE taskID = ?`
+            , [emp.title, emp.description, emp.dueDate, emp.createdDate, emp.completionDate, emp.taskID]);
 
         response.message = 'Task Updated Successfully!'
         res.status(200).send(response);

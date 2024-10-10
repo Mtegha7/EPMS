@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TasksService } from '../../services/tasks/tasks.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-task',
@@ -7,8 +8,12 @@ import { TasksService } from '../../services/tasks/tasks.service';
   styleUrl: './manage-task.component.scss'
 })
 export class ManageTaskComponent {
-  info: any = {};
-  constructor(public tasks_service: TasksService) {
+  info: any;
+  constructor(
+    public tasks_service: TasksService,
+    private router: Router
+
+  ) {
 
   }
   ngOnInit(): void {
@@ -24,5 +29,10 @@ export class ManageTaskComponent {
 
   delete_tasks({ taskID }: any) {
     this.tasks_service.deleteTasks(taskID)
+  }
+
+  update_task({ taskID }: any) {
+    this.router.navigate([`tasks/${taskID}/edit`]);
+
   }
 }

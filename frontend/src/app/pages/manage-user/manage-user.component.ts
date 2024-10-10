@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ManageUserComponent implements OnInit {
 
-  info: any = {};
+  info: any;
 
   constructor(
     public users_service: UsersService,
@@ -29,10 +29,12 @@ export class ManageUserComponent implements OnInit {
   }
 
   update_user({ userID }: any) {
-    this.router.navigate(["users/`{{userID}}`/edit"]);
+    this.router.navigate([`users/${userID}/edit`]);
   }
 
   delete_user({ userID }: any) {
-    this.users_service.deleteUsers(userID)
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.users_service.deleteUsers(userID)
+    }
   }
 }

@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'create_user', component: CreateUserComponent },
   { path: 'manage_user', component: ManageUserComponent },
   { path: `users/:id/edit`, component: UpdateUserComponent },
-  { path: 'update_task', component: UpdateTaskComponent },
+  { path: 'tasks/:id/edit', component: UpdateTaskComponent },
   { path: 'update_catalog_item', component: UpdateCatalogItemComponent },
   { path: 'create_task', component: CreateTaskComponent },
   { path: 'manage_task', component: ManageTaskComponent },

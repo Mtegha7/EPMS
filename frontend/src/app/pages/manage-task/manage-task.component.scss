@@ -1,0 +1,15 @@
+.container {
+    padding: 20px;
+    width: 100%;
+    overflow: auto;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+thead {
+    text-transform: uppercase;
+}

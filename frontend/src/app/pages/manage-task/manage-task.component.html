@@ -1,28 +1,38 @@
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
-        </tr>
-    </thead>
+<div class="container mt-4">
+    <button type="button" class="btn btn-primary" routerLink="/create_task">create task</button>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr *ngFor="let data of this.tasks_service.tasks">
-            <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
-            <button (click)="view_tasks(data)">Edit</button>
-            <button class="btn-light btn-small" (click)="delete_tasks(data)"><i
-                    class="bi bi-person-x"></i>Delete</button>
-        </tr>
-    </tbody>
-</table>
+        <tbody>
+            <tr *ngFor="let data of this.tasks_service.tasks">
+                <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
+                <div class="action">
 
-<div *ngIf="info">
-    <h3>Task Information</h3>
-    <p><strong>Title:</strong> {{ info.title }}</p>
-    <p><strong>Description:</strong> {{ info.description }}</p>
-    <p><strong>Created Date:</strong> {{ info.createdDate }}</p>
-    <p><strong>Due Date:</strong> {{ info.dueDate }}</p>
-    <p><strong>Updated Date:</strong> {{ info.updatedDate }}</p>
-    <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
-    <p><strong>Assigned To (User ID):</strong> {{ info.userID }}</p>
+                    <button type="button" class="btn btn-primary" (click)="view_tasks(data)">View</button>
+                    <button type="button" class="btn btn-success" (click)="update_task(data)"><i
+                            class="bi bi-pencil"></i>Edit</button>
+                    <button type="button" class="btn btn-danger" (click)="delete_tasks(data)"><i
+                            class="bi bi-person-x"></i>Delete</button>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
+<div *ngIf="info" class="overlay">
+    <div class="info">
+        <h3>Task Information</h3>
+        <p><strong>Title:</strong> {{ info.title }}</p>
+        <p><strong>Description:</strong> {{ info.description }}</p>
+        <p><strong>Created Date:</strong> {{ info.createdDate }}</p>
+        <p><strong>Due Date:</strong> {{ info.dueDate }}</p>
+        <p><strong>Updated Date:</strong> {{ info.updatedDate }}</p>
+        <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
+        <p><strong>Assigned To:</strong> {{ info.emailAddress }}</p>
+        <button (click)="info = null">close</button>
+    </div>
 </div>

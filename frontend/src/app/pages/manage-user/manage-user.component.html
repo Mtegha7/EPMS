@@ -1,32 +1,44 @@
 <div class="container mt-4">
-  <table class="table table-boardered">
+  <button type="button" class="btn btn-primary" routerLink="/create_user">create user</button>
+  <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
         <th *ngFor="let column of this.users_service.usersColumns">{{column}}</th>
+        <th>Action</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let data of this.users_service.users">
         <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
-        <button class="btn-light btn-small" (click)="view_user(data)"><i class="bi bi-eye"></i>View</button>
-        <button class="btn-light btn-small" (click)="update_user(data)"><i class="bi bi-pencil"></i>Edit</button>
-        <button class="btn-light btn-small" (click)="delete_user(data)"><i class="bi bi-person-x"></i>Delete</button>
+        <td>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" (click)="view_user(data)">
+              <i class="bi bi-eye"></i>View</button>
+            <button type="button" class="btn btn-success" (click)="update_user(data)"><i
+                class="bi bi-pencil"></i>Edit</button>
+            <button type="button" class="btn btn-danger" (click)="delete_user(data)"><i
+                class="bi bi-person-x"></i>Delete</button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div *ngIf="info">
-  <h3>User Information</h3>
-  <p><strong>First Name:</strong> {{ info.firstName }}</p>
-  <p><strong>Last Name:</strong> {{ info.lastName }}</p>
-  <p><strong>DOB:</strong> {{ info.dateOfBirth }}</p>
-  <p><strong>Gender:</strong> {{ info.gender }}</p>
-  <p><strong>Email Address:</strong> {{ info.emailAddress }}</p>
-  <p><strong>Phone Number:</strong> {{ info.phoneNumber }}</p>
-  <p><strong>Date Of Hire:</strong> {{ info.dateOfHire }}</p>
-  <p><strong>Department:</strong> {{ info.department }}</p>
-  <p><strong>Job Title:</strong> {{ info.jobTitle }}</p>
-  <p><strong>Role:</strong> {{ info.role }}</p>
+<div *ngIf="info" class="overlay">
+  <div class="info">
+    <h3>User Information</h3>
+    <p><strong>First Name:</strong> {{ info.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ info.lastName }}</p>
+    <p><strong>DOB:</strong> {{ info.dateOfBirth }}</p>
+    <p><strong>Gender:</strong> {{ info.gender }}</p>
+    <p><strong>Email Address:</strong> {{ info.emailAddress }}</p>
+    <p><strong>Phone Number:</strong> {{ info.phoneNumber }}</p>
+    <p><strong>Date Of Hire:</strong> {{ info.dateOfHire }}</p>
+    <p><strong>Department:</strong> {{ info.department }}</p>
+    <p><strong>Job Title:</strong> {{ info.jobTitle }}</p>
+    <p><strong>Role:</strong> {{ info.role }}</p>
+    <button (click)="info = null">close</button>
+  </div>
 </div>
