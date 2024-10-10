@@ -26,6 +26,9 @@ import { CreateTaskComponent } from './pages/create-task/create-task.component';
 import { ManageTaskComponent } from './pages/manage-task/manage-task.component';
 import { CreateCatalogItemComponent } from './pages/create-catalog-item/create-catalog-item.component';
 import { ManageCatalogItemComponent } from './pages/manage-catalog-item/manage-catalog-item.component';
+import { UpdateUserComponent } from './pages/update-user/update-user.component';
+import { UpdateTaskComponent } from './pages/update-task/update-task.component';
+import { UpdateCatalogItemComponent } from './pages/update-catalog-item/update-catalog-item.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { ManageCatalogItemComponent } from './pages/manage-catalog-item/manage-c
     CreateTaskComponent,
     ManageTaskComponent,
     CreateCatalogItemComponent,
-    ManageCatalogItemComponent
+    ManageCatalogItemComponent,
+    UpdateUserComponent,
+    UpdateTaskComponent,
+    UpdateCatalogItemComponent
   ],
   imports: [
     BrowserModule,

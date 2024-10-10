@@ -1,0 +1,101 @@
+<div>
+    <div class="container nt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4> Edit Employee
+                    <a routerLink="manage_user" class="btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+
+                <div *ngIf="isLoading; else elseForm">
+                    <app-loader :title="loadingTitle" />
+                </div>
+                <ng-template #elseForm>
+                    <form (ngSubmit)="update_users()">
+                        <div *ngIf="user">
+
+                            <!-- first name -->
+                            <div class="mb-3">
+                                <label>First Name</label>
+                                <input type="text" [(ngModel)]="user['firstName']" name="First Name"
+                                    class="form-control" title="First Name" />
+                                <span *ngIf="errors['firstName']" class="text-danger">{{errors['firstName']}}</span>
+                            </div>
+
+                            <!-- last name -->
+                            <div class="mb-3">
+                                <label>last Name</label>
+                                <input type="text" [(ngModel)]="user['lastName']" name="lastName" class="form-control"
+                                    title="Last Name" />
+                                <span *ngIf="errors['lastName']" class="text-danger">{{errors['lastName']}}</span>
+                            </div>
+
+
+
+                            <!-- DOB -->
+                            <div class="mb-3">
+                                <label>Date Of Birth</label>
+                                <input type="date" [(ngModel)]="user['dateOfBirth']" name="dateOfBirth"
+                                    class="form-control" title="Date Of Birth" />
+                                <span *ngIf="errors['dateOfBirth']" class="text-danger">{{errors['dateOfBirth']}}</span>
+                            </div>
+
+                            <!-- Hire -->
+                            <div class="mb-3">
+                                <label>Date Of Hire</label>
+                                <input type="date" [(ngModel)]="user['dateOfHire']" name="dateOfHire"
+                                    class="form-control" title="Date Of Hire" />
+                                <span *ngIf="errors['dateOfHire']" class="text-danger">{{errors['dateOfHire']}}</span>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="mb-3">
+                                <label>Gender</label>
+                                <input type="text" [(ngModel)]="user['gender']" name="gender" class="form-control"
+                                    title="Gender" />
+                                <span *ngIf="errors['gender']" class="text-danger">{{errors['gender']}}</span>
+                            </div>
+
+                            <!-- departent -->
+                            <div class="mb-3">
+                                <label>Department</label>
+                                <input type="text" [(ngModel)]="user['department']" name="department"
+                                    class="form-control" title="Department" />
+                                <span *ngIf="errors['department']" class="text-danger">{{errors['department']}}</span>
+                            </div>
+
+                            <!-- jobt -->
+                            <div class="mb-3">
+                                <label>Job Title</label>
+                                <input type="text" [(ngModel)]="user['jobTitle']" name="jobTitle" class="form-control"
+                                    title="JOb Title" />
+                                <span *ngIf="errors['jobTitle']" class="text-danger">{{errors['jobTitle']}}</span>
+                            </div>
+
+                            <!-- role -->
+                            <div class="mb-3">
+                                <label>Role</label>
+                                <input type="text" [(ngModel)]="user['role']" name="role" title="ROle"
+                                    class="form-control" />
+                                <span *ngIf="errors['role']" class="text-danger">{{errors['role']}}</span>
+                            </div>
+
+                            <!-- phone -->
+                            <div class="mb-3">
+                                <label>Phone Number</label>
+                                <input type="text" [(ngModel)]="user['phoneNumber']" name="phoneNumber"
+                                    class="form-control" title="Phone Number" />
+                                <span *ngIf="errors['phoneNumber']" class="text-danger">{{errors['phoneNumber']}}</span>
+                            </div>
+
+                            <div class="nb-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

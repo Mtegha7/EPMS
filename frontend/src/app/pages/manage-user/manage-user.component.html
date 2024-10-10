@@ -9,7 +9,8 @@
     <tbody>
       <tr *ngFor="let data of this.users_service.users">
         <td *ngFor="let item of this.users_service.usersColumns">{{data[item]}}</td>
-        <button class="btn-light btn-small" (click)="view_user(data)"><i class="bi bi-pencil"></i>Edit</button>
+        <button class="btn-light btn-small" (click)="view_user(data)"><i class="bi bi-eye"></i>View</button>
+        <button class="btn-light btn-small" (click)="update_user(data)"><i class="bi bi-pencil"></i>Edit</button>
         <button class="btn-light btn-small" (click)="delete_user(data)"><i class="bi bi-person-x"></i>Delete</button>
       </tr>
     </tbody>

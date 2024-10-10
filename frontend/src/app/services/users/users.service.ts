@@ -28,6 +28,18 @@ export class UsersService {
     })
   }
 
+  getUser(userID: any) {
+    this.http.getNoAuthorization(`users/get_user/${userID}`).subscribe((response: any) => {
+      this.users = response['data']
+      if (this.users) {
+        this.usersColumns = Object.keys(this.users[0]);
+        console.log("this.usersColumns", this.usersColumns);
+      }
+      console.log("this.users", this.users);
+    })
+  }
+
+
   // deleteUsers(userID: any) {
   //   this.http.getNoAuthorization('users/delete_users/:id').subscribe((response: any) => {
   //     this.users = response['data']
@@ -57,5 +69,25 @@ export class UsersService {
       }
     );
   }
+
+
+  // updateUsers(userID: any,) {
+  //   this.http.update(`users/update_users/${userID}`).subscribe(
+  //     (response: any) => {
+  //       this.users = this.users.filter((user: { id: number; }) => user.id !== userID);
+
+  //       if (this.users.length > 0) {
+  //         this.usersColumns = Object.keys(this.users[0]);
+  //         console.log("this.usersColumns", this.usersColumns);
+  //       }
+  //       console.log("Updated users list", this.users);
+  //       alert("User updated successfully!");
+  //     },
+  //     (error: any) => {
+  //       console.error('Error updating user:', error);
+  //       alert('Error occurred while updating the user.');
+  //     }
+  //   );
+  // }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-user',
@@ -10,9 +11,10 @@ export class ManageUserComponent implements OnInit {
 
   info: any = {};
 
-  constructor(public users_service: UsersService) {
-
-  }
+  constructor(
+    public users_service: UsersService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     console.log('we are in Manage users')
@@ -24,6 +26,10 @@ export class ManageUserComponent implements OnInit {
     console.log(data)
     this.info = data;
     console.log('Stored info:', this.info);
+  }
+
+  update_user({ userID }: any) {
+    this.router.navigate(["users/`{{userID}}`/edit"]);
   }
 
   delete_user({ userID }: any) {
