@@ -69,6 +69,23 @@ router.post('/add_tasks', async (req, res) => {
     }
 });
 
+router.post('/add_comment', async (req, res) => {
+    const response = {}
+    const emp = req.body;
+
+    // TODO: Fix this. Add a get comments function that will join with te users table to get the comments with users info
+    try {
+        await query(`INSERT INTO comments(userId, comment, taskID) VALUES (?, ?, ?)`
+            , [emp.title, emp.description, emp.dueDate, emp.userID,]); // TODO: Make sure parameters match
+        response.message = 'comment Added Successfully!'
+        res.status(200).send(response);
+    } catch (error) {
+        console.error(error);
+        response.message = err
+        res.status(500).send(response);
+    }
+});
+
 
 router.put('/update_tasks/:id', async (req, res) => {
     const emp = req.body;

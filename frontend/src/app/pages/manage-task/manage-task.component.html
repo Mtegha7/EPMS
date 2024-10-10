@@ -4,20 +4,24 @@
         <thead class="thead-dark">
             <tr>
                 <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
             <tr *ngFor="let data of this.tasks_service.tasks">
                 <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
-                <div class="action">
+                <td>
 
-                    <button type="button" class="btn btn-primary" (click)="view_tasks(data)">View</button>
-                    <button type="button" class="btn btn-success" (click)="update_task(data)"><i
-                            class="bi bi-pencil"></i>Edit</button>
-                    <button type="button" class="btn btn-danger" (click)="delete_tasks(data)"><i
-                            class="bi bi-person-x"></i>Delete</button>
-                </div>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary"
+                            (click)="view_tasks(data); this.tasks_service.getComments(data['taskID'])">View</button>
+                        <button type="button" class="btn btn-success" (click)="update_task(data)">
+                            <i class="bi bi-pencil"></i>Edit</button>
+                        <button type="button" class="btn btn-danger" (click)="delete_tasks(data)">
+                            <i class="bi bi-person-x"></i>Delete</button>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -33,6 +37,20 @@
         <p><strong>Updated Date:</strong> {{ info.updatedDate }}</p>
         <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
         <p><strong>Assigned To:</strong> {{ info.emailAddress }}</p>
-        <button (click)="info = null">close</button>
+        <button class="close_btn" (click)="info = null">close</button>
+
+        <div class="comments">
+            <div class="comment_text">
+                <input type="text" placeholder="comment" name="comment" [(ngModel)]="comment" />
+                <button (click)="saveComment()">Comments</button>
+            </div>
+
+            <div class="comments">
+                <div class="comm" *ngFor="let comm of this.tasks_service.comments">
+                    <span>{{comm.emailAddress}}</span>
+                    <span>{{comm.comment}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

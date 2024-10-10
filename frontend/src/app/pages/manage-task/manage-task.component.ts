@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ManageTaskComponent {
   info: any;
+  comment = ''
   constructor(
     public tasks_service: TasksService,
     private router: Router
@@ -33,6 +34,18 @@ export class ManageTaskComponent {
 
   update_task({ taskID }: any) {
     this.router.navigate([`tasks/${taskID}/edit`]);
+  }
 
+  saveComment() {
+    if (this.comment && this.info) {
+      // this.tasks_service.addComment(this.comment, this.info.taskID);
+      // TODO: make sure the addComment function exists
+      // And populate the comments array with the comment data
+      // {
+      //   comment: comment,
+      //     emailAddress: this.
+      // }
+
+    }
   }
 }

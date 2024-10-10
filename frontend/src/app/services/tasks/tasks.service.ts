@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class TasksService {
 
   public tasks: any = []
+  public comments: any = []
   public task: any = {};
   public tasksColumns: string[] = [];
 
@@ -28,6 +29,14 @@ export class TasksService {
         console.log("this.tasksColumns", this.tasksColumns);
       }
       console.log("this.tasks", this.tasks);
+    })
+  }
+
+  getComments(taskID: string) {
+    this.comments = []
+    // TODO: make sure endpoint exists in backend
+    this.http.getNoAuthorization('tasks/get_comment/' + taskID).subscribe((response: any) => {
+      this.comments = response['data']
     })
   }
 
