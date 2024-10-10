@@ -34,7 +34,6 @@ export class TasksService {
 
   getComments(taskID: string) {
     this.comments = []
-    // TODO: make sure endpoint exists in backend
     this.http.getNoAuthorization('tasks/get_comment/' + taskID).subscribe((response: any) => {
       this.comments = response['data']
     })
@@ -100,6 +99,26 @@ export class TasksService {
         this.settings.loader = false;
       }
     );
+  }
+
+  addComment(data: any, taskID: any) {
+    console.log("data", data);
+    this.http.postNoAuthorization('tasks/add_comment', data).subscribe((response: any) => {
+      try {
+        this.router.navigate(["manage_task"]);
+        alert(response.message)
+      } catch (error) {
+        alert('ERROR Setting task data' + error)
+
+      }
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or check network");
+      }
+
+    });
   }
 
 }
