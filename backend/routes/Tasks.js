@@ -75,6 +75,13 @@ router.put('/update_task_status', async (req, res) => {
     const response = {}
 
     try {
+        const taskInfo = await query(`SELECT * FROM tasks where taskID = ?`, [emp.taskID])
+
+        await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
+            , [emp.status, emp.taskID]);
+        
+
+            //TODO: UPDATE user info with points
         await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
             , [emp.status, emp.taskID]);
 
