@@ -1,57 +1,140 @@
 <div class="container mt-4">
-    <button type="button" class="btn btn-primary" routerLink="/create_task">create task</button>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+  <button type="button" class="btn btn-primary" routerLink="/create_task">create task</button>
+  <!-- <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th *ngFor="let column of this.tasks_service.tasksColumns">{{column}}</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-        <tbody>
-            <tr *ngFor="let data of this.tasks_service.tasks">
-                <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
-                <td>
+    <tbody>
+      <tr *ngFor="let data of this.tasks_service.tasks">
+        <td *ngFor="let item of this.tasks_service.tasksColumns">{{data[item]}}</td>
+        <td>
 
-                    <div class="actions">
-                        <button type="button" class="btn btn-primary"
-                            (click)="view_tasks(data); this.tasks_service.getComments(data['taskID'])">View</button>
-                        <button type="button" class="btn btn-success" (click)="update_task(data)">
-                            <i class="bi bi-pencil"></i>Edit</button>
-                        <button type="button" class="btn btn-danger" (click)="delete_tasks(data)">
-                            <i class="bi bi-person-x"></i>Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+          <div class="actions">
+            <button type="button" class="btn btn-primary"
+              (click)="view_tasks(data); this.tasks_service.getComments(data['taskID'])">View</button>
+            <button type="button" class="btn btn-success" (click)="update_task(data)">
+              <i class="bi bi-pencil"></i>Edit</button>
+            <button type="button" class="btn btn-danger" (click)="delete_tasks(data)">
+              <i class="bi bi-person-x"></i>Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
 </div>
 
-<div *ngIf="info" class="overlay">
-    <div class="info">
-        <h3>Task Information</h3>
-        <p><strong>Title:</strong> {{ info.title }}</p>
-        <p><strong>Description:</strong> {{ info.description }}</p>
-        <p><strong>Created Date:</strong> {{ info.createdDate }}</p>
-        <p><strong>Due Date:</strong> {{ info.dueDate }}</p>
-        <p><strong>Updated Date:</strong> {{ info.updatedDate }}</p>
-        <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
-        <p><strong>Assigned To:</strong> {{ info.emailAddress }}</p>
-        <button class="close_btn" (click)="info = null">close</button>
-
-        <div class="comments">
-            <div class="comment_text">
-                <input type="text" placeholder="add comment" name="comment" [(ngModel)]="comment" />
-                <button (click)="saveComment()">Send</button>
-            </div>
-
-            <div class="comment_block">
-                <div class="comm" *ngFor="let comm of this.tasks_service.comments">
-                    <p>{{comm.emailAddress}}</p>
-                    <p>{{comm.comment}}</p>
-                    <p>{{comm.createdDate | date}}</p>
-                </div>
-            </div>
-        </div>
+<div class="tasks row">
+  <div class="col" id="todo-col">
+    <div class="heading">
+      <h4 id="heading">To Do</h4>
     </div>
+
+    <ng-container *ngFor="let data of this.tasks_service.tasks">
+      <div class="darksoul-gradient-card-purple"  id="1" draggable="true" ondragstart="drag(event)">
+        <div class="card"  (click)="view_tasks(data); this.tasks_service.getComments(data['taskID'])">
+          <div class="content">
+            <h3>{{data['title']}}</h3>
+            <p>{{data['description']}}</p>
+          </div>
+          <div class="footer">
+            <div class="date">
+              <img width="25" height="25" src="https://img.icons8.com/sf-black-filled/64/BFBFFC/calendar-plus.png"
+                alt="calendar-plus" />
+              <p>Created{{data['createdDate'] | date }}</p> | &nbsp;&nbsp;
+              <p>Due{{data['dueDate'] | date }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col">
+    <div class="heading">
+      <h4 id="heading">In Progress</h4>
+    </div>
+    <div class="wrapper" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="darksoul-gradient-card-blue" id="3" draggable="true" ondragstart="drag(event)">
+        <div class="card">
+          <div class="header">
+            <h5 class="blue">DarkSoul-Git</h5>
+          </div>
+          <div class="content">
+            <h3>Add FAQ Schema.org</h3>
+            <p>Include the FAQ to the Site.</p>
+          </div>
+          <div class="footer">
+            <div class="date">
+              <img width="25" height="25" src="https://img.icons8.com/sf-black-filled/64/BFD3FC/calendar-plus.png"
+                alt="calendar-plus" />
+              <p>03 Mar 2024</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="heading">
+      <h4 id="heading">Done</h4>
+    </div>
+    <div class="wrapper" id="div3" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="darksoul-gradient-card-green" id="4" draggable="true" ondragstart="drag(event)">
+        <div class="card">
+          <div class="header">
+            <h5 class="green">DarkSoul-CodePen</h5>
+          </div>
+          <div class="content">
+            <h3>Provide Search Functionality</h3>
+            <p>Include the search functionality in the Navbar for better User Experience.</p>
+          </div>
+          <div class="footer">
+            <div class="date">
+              <img width="25" height="25" src="https://img.icons8.com/sf-black-filled/64/CFF2A5/calendar-plus.png"
+                alt="calendar-plus" />
+              <p>03 Mar 2024</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div *ngIf="info" class="overlay">
+  <div class="info">
+    <h3>Task Information</h3>
+    <p><strong>Title:</strong> {{ info.title }}</p>
+    <p><strong>Description:</strong> {{ info.description }}</p>
+    <p><strong>Created Date:</strong> {{ info.createdDate | date:'medium'}}</p>
+    <p><strong>Due Date:</strong> {{ info.dueDate| date:'medium' }}</p>
+    <p><strong>Updated Date:</strong> {{ info.updatedDate | date:'medium' }}</p>
+    <p><strong>Completion Date:</strong> {{ info.completionDate }}</p>
+    <p><strong>Assigned To:</strong> {{ info.emailAddress }}</p>
+    <button class="close_btn" (click)="info = null">close</button>
+
+    <div class="comments">
+      <div class="comment_text">
+        <input type="text" placeholder="add comment" name="comment" [(ngModel)]="comment" />
+        <button (click)="saveComment()">Send</button>
+      </div>
+
+      <div class="comment_block">
+        <div class="comm" *ngFor="let comm of this.tasks_service.comments">
+          <p>{{comm.emailAddress}}</p>
+          <p>{{comm.comment}}</p>
+          <p>{{comm.createdDate | date}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
