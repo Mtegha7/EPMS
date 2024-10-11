@@ -132,16 +132,6 @@ router.put('/update_task_status', verifyToken, async (req, res) => {
                     , [point, point, t.userID]);
             }
         }
-        // req.userToken.userID
-
-        //TODO: UPDATE user info with points
-        // await query(`UPDATE users u 
-        //     JOIN tasks t 
-        //     ON u.userID = t.userID 
-        //         SET u.points = u.points +  CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END,
-        //         u.scores = u.scores + CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END
-        //     WHERE t.status = 3 AND t.taskID = ?;`
-        //     , [emp.taskID]);
 
         response.message = 'Task Updated Successfully!'
         res.status(200).send(response);
@@ -225,6 +215,93 @@ router.get('/get_comment/:id', async (req, res) => {
     }
 
 })
+
+// pending
+router.get('/get_tasks_statusCount', verifyToken, async (req, res) => {
+    try {
+        const result = await query(`
+            SELECT 
+                SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS pending_count,
+                SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS in_progress_count,
+                SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) AS done_count
+            FROM tasks 
+            WHERE userID = ?
+        `, [userID]);
+
+        if (result.length > 0) {
+            return res.status(200).json({
+                pending: result[0].pending_count || 0,
+                inProgress: result[0].in_progress_count || 0,
+                done: result[0].done_count || 0
+            });
+        } else {
+            return res.status(200).json({ pending: 0, inProgress: 0, done: 0 });
+        }
+
+    } catch (error) {
+        console.error('Error fetching task counts:', error);
+        return res.status(500).json({ message: 'Error fetching task counts', error });
+    }
+})
+
+
+// progress
+// router.get('/get_progress_tasks', verifyToken, async (req, res) => {
+//     const emp = req.body;
+//     const response = {}
+
+//     try {
+//         let progress_count;
+//         const query = `SELECT COUNT(*) AS task_count FROM tasks WHERE status = 1 AND userID =?`;
+//         if (error) {
+//             console.error('Error:', error);
+//         } else {
+//             progress_count = results[0].task_count;
+//             console.log(' In Progress Task Count:', progress_count);
+//         }
+
+//         const progress = await query(`SELECT taskID, title, description, createdDate, dueDate, completionDate, emailAddress, status
+//             FROM tasks t
+//             JOIN users u
+//             WHERE  u.userID =? AND t.status = 1 `, [req.userToken.userID])
+//         if (progress) {
+//             response.message = 'In Progress Tasks Fetched'
+//             response.data = pending
+//             res.status(200).send(response)
+//         } else {
+//             response.message = 'No Tasks available'
+//             res.status(200).send(response)
+//         }
+//     } catch (error) {
+//         response.message = error
+//         res.status(500).send(response)
+//     }
+// })
+
+// done
+// router.get('/get_done_tasks', verifyToken, async (req, res) => {
+//     const emp = req.body;
+//     const response = {}
+
+//     try {
+//         const pending = await query(`SELECT taskID, title, description, createdDate, dueDate, completionDate, emailAddress, status
+//             FROM tasks t
+//             JOIN users u
+//             WHERE u.userID =? AND t.status = 3 `, [req.userToken.userID])
+//         if (pending) {
+//             response.message = 'Finished Tasks Fetched'
+//             response.data = pending
+//             res.status(200).send(response)
+//         } else {
+//             response.message = 'No Tasks available'
+//             res.status(200).send(response)
+//         }
+//     } catch (error) {
+//         response.message = error
+//         res.status(500).send(response)
+//     }
+// })
+
 
 
 

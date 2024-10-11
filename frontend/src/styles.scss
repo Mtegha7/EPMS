@@ -14,3 +14,15 @@
         padding: 1em;
     }
 }
+
+
+.container_scorePoints {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns the container to the right */
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 100%;
+    /* Ensures the container spans the full width */
+}

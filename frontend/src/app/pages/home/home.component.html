@@ -1,5 +1,88 @@
-<div class="container"></div>
-<div class="row">
-  <h1 class="col">{{this.settings.userInformation.points}}</h1>
-  <h1 class="col">{{this.settings.userInformation.scores}}</h1>
+<div class="container_scorePoints"></div>
+<div class="row_scorePoints">
+  <div class="col_points">
+    <span class="label">Points</span>
+    <h1>{{this.settings.userInformation.points}}</h1>
+  </div>
+  <div class="col_score">
+    <span class="label">Score</span>
+    <h1>{{this.settings.userInformation.scores}}</h1>
+  </div>
 </div>
+
+
+<div class="card flex-fill w-100 draggable">
+  <div class="card-header">
+    <h5 class="card-title mb-0">Task Performance</h5>
+  </div>
+  <div class="card-body d-flex">
+    <div class="align-self-center w-100">
+      <div class="py-3">
+        <div class="chart chart-xs">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div>
+          <canvas id="chartjs-dashboard-pie" width="856" height="400"
+            style="display: block; height: 200px; width: 428px;" class="chart-pie chartjs-render-monitor"></canvas>
+        </div>
+      </div>
+
+      <table class="table mb-0">
+        <tbody>
+          <tr>
+            <td>Pending Tasks</td>
+            <td class="text-end">4306</td>
+          </tr>
+          <tr>
+            <td>In Progress Tasks</td>
+            <td class="text-end">3801</td>
+          </tr>
+          <tr>
+            <td>Completed Tasks</td>
+            <td class="text-end">1689</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  var chartsPie = document.querySelectorAll(".chart-pie");
+
+
+  function initializePieChart(chart, pendingCount, inProgressCount, doneCount) {
+    if (!chart.getAttribute('data-chart-initialized')) {
+      new Chart(chart, {
+        type: "pie",
+        data: {
+          labels: ["Pending", "In Progress", "Done"],
+          datasets: [{
+            data: [pendingCount, inProgressCount, doneCount], // Use dynamic data here
+            backgroundColor: [
+              window.theme.primary,
+              window.theme.warning,
+              window.theme.danger
+            ],
+            borderWidth: 5
+          }]
+        },
+        options: {
+          responsive: !window.MSInputMethodContext,
+          maintainAspectRatio: false,
+          legend: {
+            display: false
+          },
+          cutoutPercentage: 75
+        }
+      });
+      chart.setAttribute("data-chart-initialized", "true");
+    }
+  }
+
+</script>

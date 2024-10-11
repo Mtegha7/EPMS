@@ -161,4 +161,10 @@ export class TasksService {
     });
   }
 
+  getTaskStatusCounts(userID: any) {
+    this.http.getNoAuthorization('/get_tasks_statusCount' + userID).subscribe((response: any) => {
+      this.comments = response['data']
+    })
+  }
+
 }
