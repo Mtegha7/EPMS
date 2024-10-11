@@ -7,8 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HttpService {
 
-  public backendUrl = `http://localhost:8080/dekha/api`; //this is the URL for the backend server in production
-  // public backendUrl = `http://192.168.1.80:8080/dekha/api`; //this is the URL for the backend server in production
+  // public backendUrl = `http://localhost:8080/dekha/api`; //this is the URL for the backend server in production
+  public backendUrl = `http://192.168.1.80:8080/dekha/api`; //this is the URL for the backend server in production
 
   constructor(
     private http: HttpClient,
