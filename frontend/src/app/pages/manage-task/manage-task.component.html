@@ -45,10 +45,11 @@
                 <button (click)="saveComment()">Send</button>
             </div>
 
-            <div class="comments">
+            <div class="comment_block">
                 <div class="comm" *ngFor="let comm of this.tasks_service.comments">
-                    <span>{{comm.emailAddress}}</span>
-                    <span>{{comm.comment}}</span>
+                    <p>{{comm.emailAddress}}</p>
+                    <p>{{comm.comment}}</p>
+                    <p>{{comm.createdDate | date}}</p>
                 </div>
             </div>
         </div>

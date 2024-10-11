@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings/settings.service';
 
 @Component({
   selector: 'app-manage-task',
@@ -12,8 +13,7 @@ export class ManageTaskComponent {
   comment = ''
   constructor(
     public tasks_service: TasksService,
-    private router: Router
-
+    private router: Router,
   ) {
 
   }
@@ -25,7 +25,7 @@ export class ManageTaskComponent {
   view_tasks(data: any) {
     console.log(data)
     this.info = data;
-    console.log('Stored info:', this.info);
+    // console.log('Stored info:', this.info);
   }
 
   delete_tasks({ taskID }: any) {
@@ -37,15 +37,16 @@ export class ManageTaskComponent {
   }
 
   saveComment() {
-    if (this.comment && this.info.taskID && this.info.userID) {
+    if (this.comment && this.info.taskID) {
       // this.tasks_service.addComment(this.comment, this.info.taskID);
       const data = {
-        userID: this.info.userID,
+        userID: this.tasks_service.settings.userInformation.userID,
         comment: this.comment,
-        taskID: this.info.taskID
+        taskID: this.info.taskID,
+        emailAddress: this.tasks_service.settings.userInformation.emailAddress
       };
 
-      this.tasks_service.addComment(data, this.info.taskID);
+      this.tasks_service.addComment(data);
 
 
     } else {

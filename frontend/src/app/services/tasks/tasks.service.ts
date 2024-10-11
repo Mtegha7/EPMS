@@ -26,9 +26,9 @@ export class TasksService {
       this.tasks = response['data']
       if (this.tasks) {
         this.tasksColumns = Object.keys(this.tasks[0]);
-        console.log("this.tasksColumns", this.tasksColumns);
+        // console.log("this.tasksColumns", this.tasksColumns);
       }
-      console.log("this.tasks", this.tasks);
+      // console.log("this.tasks", this.tasks);
     })
   }
 
@@ -101,10 +101,11 @@ export class TasksService {
     );
   }
 
-  addComment(data: any, taskID: any) {
+  addComment(data: any) {
     console.log("data", data);
     this.http.postNoAuthorization('tasks/add_comment', data).subscribe((response: any) => {
       try {
+        this.comments.push(data)
         this.router.navigate(["manage_task"]);
         alert(response.message)
       } catch (error) {

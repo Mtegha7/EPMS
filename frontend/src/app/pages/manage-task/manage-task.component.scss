@@ -23,3 +23,14 @@ thead {
 .info {
     position: relative;
 }
+
+.comment_block {
+    height: 10em;
+    overflow: auto;
+
+    .comm {
+        background-color: aliceblue;
+        padding: .3em;
+        margin-top: .5em;
+    }
+}

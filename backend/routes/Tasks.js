@@ -124,15 +124,14 @@ router.get('/get_comment/:id', async (req, res) => {
     const emp = req.body
 
     try {
-        const comments = await query(`SELECT c.commentID, c.comment, c.userID, c.taskID, c.createdDate 
+        const comments = await query(`SELECT c.commentID, c.comment, u.emailAddress, c.taskID, c.createdDate 
             FROM comments c
-            JOIN tasks t ON c.taskID = t.taskID
             JOIN users u ON c.userID = u.userID
-            where c.taskID = t.taskID`
+            where taskID = ?`
             , [req.params.id])
         if (comments) {
             response.message = 'Comments Fetched'
-            response.data = tasks
+            response.data = comments
             res.status(200).send(response)
         } else {
             response.message = 'No Comments available'

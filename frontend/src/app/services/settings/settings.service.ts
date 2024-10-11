@@ -17,7 +17,9 @@ export class SettingsService {
 
   setUserInfo() {
     const user = localStorage.getItem('user')
-    if (user) { }
+    if (user) {
+      this.userInformation = JSON.parse(user)
+    }
   }
 
   logout() {
