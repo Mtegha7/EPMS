@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { catalogService } from '../../services/catalog/catalog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-catalog-item',
@@ -8,7 +9,10 @@ import { catalogService } from '../../services/catalog/catalog.service';
 })
 export class ManageCatalogItemComponent {
   info: any = {};
-  constructor(public catalog_service: catalogService) {
+  constructor(
+    public catalog_service: catalogService,
+    private router: Router
+  ) {
 
   }
 
@@ -22,6 +26,10 @@ export class ManageCatalogItemComponent {
     console.log(data)
     this.info = data;
     console.log('Stored info:', this.info);
+  }
+
+  update_catalog({ catalogID }: any) {
+    this.router.navigate([`catalog/${catalogID}/edit`]);
   }
 
   delete_catalog_item({ catalogID }: any) {

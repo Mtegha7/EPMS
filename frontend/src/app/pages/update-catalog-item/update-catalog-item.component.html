@@ -1,1 +1,47 @@
-<p>update-catalog-item works!</p>
+<div>
+    <div class="container nt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4> Edit Item
+                    <a routerLink="/manage_catalog_item" class="btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="this.catalog_service.updateItem()">
+                    <div *ngIf="this.catalog_service.catalog">
+
+                        <!-- title -->
+                        <div class="  mb-3">
+                            <label>title</label>
+                            <input type="text" [(ngModel)]="this.catalog_service.catalog['title']" name="title"
+                                class="form-control" title="title" />
+                            <span *ngIf="errors['title']" class="text-danger">{{errors['title']}}</span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="  mb-3">
+                            <label>Description</label>
+                            <input type="text" [(ngModel)]="this.catalog_service.catalog['description']"
+                                name="description" class="form-control" title="Description" />
+                            <span *ngIf="errors['description']" class="text-danger">{{errors['description']}}</span>
+                        </div>
+
+                        <div class="  mb-3">
+                            <label>Required Points</label>
+                            <input type="text" [(ngModel)]="this.catalog_service.catalog['requiredPoints']"
+                                name="requiredPoints" class="form-control" title="Required Points" />
+                            <span *ngIf="errors['requiredPoints']"
+                                class="text-danger">{{errors['requiredPoints']}}</span>
+                        </div>
+
+
+
+                        <div class="nb-3">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,27 @@ const query = (q, data) => {
     });
 };
 
+router.get('/get_item/:id', async (req, res) => {
+    const emp = req.body
+    const response = {}
+    try {
+        const item = await query('SELECT title, description, requiredPoints  FROM catalog WHERE catalogID =?',
+            [req.params.id])
+        if (item) {
+            response.message = 'Item Fetched'
+            response.data = item[0]
+            res.status(200).send(response)
+        } else {
+            response.message = 'No Item available'
+            res.status(200).send(response)
+        }
+    } catch (error) {
+        response.message = error
+        res.status(500).send(response)
+    }
+});
+
+
 router.get('/get_catalog', async (req, res) => {
     const response = {}
     try {
@@ -39,13 +60,14 @@ router.post('/add_catalog_items', async (req, res) => {
         res.status(200).send(response);
     } catch (error) {
         console.error(error);
-        response.message = err
+        response.message = error
         res.status(500).send(response);
     }
 });
 
-router.put('/update_catalog_items', async (req, res) => {
+router.put('/update_item/:id', async (req, res) => {
     const emp = req.body;
+    const response = {}
 
     try {
         await query(`UPDATE catalog SET title =?, description = ?, requiredPoints = ? WHERE catalogID =?`
@@ -54,7 +76,7 @@ router.put('/update_catalog_items', async (req, res) => {
         res.status(200).send(response);
     } catch (error) {
         console.error(error);
-        response.message = err
+        response.message = error
         res.status(500).send(response);
     }
 });

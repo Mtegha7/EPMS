@@ -1,23 +1,36 @@
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th *ngFor="let column of this.catalog_service.catalogColumns">{{column}}</th>
-        </tr>
-    </thead>
+<div class="container mt-4">
+    <button type="button" class="btn btn-primary" routerLink="/create_catalog_item">create item</button>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let column of this.catalog_service.catalogColumns">{{column}}</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr *ngFor="let data of this.catalog_service.catalog">
-            <td *ngFor="let item of this.catalog_service.catalogColumns">{{data[item]}}</td>
-            <button (click)="view_catalog(data)">Edit</button>
-            <button class="btn-light btn-small" (click)="delete_catalog_item(data)"><i
-                    class="bi bi-person-x"></i>Delete</button>
-        </tr>
-    </tbody>
-</table>
+        <tbody>
+            <tr *ngFor="let data of this.catalog_service.catalog">
+                <td *ngFor="let item of this.catalog_service.catalogColumns">{{data[item]}}</td>
+                <td>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" (click)="view_catalog(data)">View</button>
+                        <button type="button" class="btn btn-success" (click)="update_catalog(data)"><i
+                                class="bi bi-pencil"></i>Edit</button>
+                        <button type="button" class="btn btn-danger" (click)="delete_catalog_item(data)"><i
+                                class="bi bi-person-x"></i>Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<div *ngIf="info">
-    <h3>Item Information</h3>
-    <p><strong>Title:</strong> {{ info.title }}</p>
-    <p><strong>Description:</strong> {{ info.description }}</p>
-    <p><strong>Created Date:</strong> {{ info.requiredPoints }}</p>
+    <div *ngIf="info" class="overlay">
+        <div class="info">
+            <h3>Item Information</h3>
+            <p><strong>Title:</strong> {{ info.title }}</p>
+            <p><strong>Description:</strong> {{ info.description }}</p>
+            <p><strong>Created Date:</strong> {{ info.requiredPoints }}</p>
+            <button class="close_btn" (click)="info = null">close</button>
+        </div>
+    </div>
 </div>

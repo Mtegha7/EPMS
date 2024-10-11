@@ -119,7 +119,7 @@ router.post('/add_comment', async (req, res) => {
 });
 
 
-router.get('/get_comment', async (req, res) => {
+router.get('/get_comment/:id', async (req, res) => {
     const response = {}
     const emp = req.body
 
@@ -129,7 +129,7 @@ router.get('/get_comment', async (req, res) => {
             JOIN tasks t ON c.taskID = t.taskID
             JOIN users u ON c.userID = u.userID
             where c.taskID = t.taskID`
-            , [])
+            , [req.params.id])
         if (comments) {
             response.message = 'Comments Fetched'
             response.data = tasks
