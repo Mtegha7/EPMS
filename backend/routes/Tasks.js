@@ -79,11 +79,17 @@ router.put('/update_task_status', async (req, res) => {
 
         await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
             , [emp.status, emp.taskID]);
-        
 
-            //TODO: UPDATE user info with points
-        await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
-            , [emp.status, emp.taskID]);
+        //TODO: UPDATE user info with points
+        await query(`UPDATE users u JOIN tasks t ON u.userID = t.userID 
+            SET u.points = u.points + 
+            CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20
+            WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END,
+            u.scores = u.scores +
+            CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 
+            WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END
+            WHERE t.status = 3 AND t.taskID = ?;`
+            , [emp.taskID]);
 
         response.message = 'Task Updated Successfully!'
         res.status(200).send(response);

@@ -48,6 +48,8 @@ export class TasksService {
             this.tasks.done.push(e)
           }
         });
+
+
       }
       this.settings.loader = false;
 
