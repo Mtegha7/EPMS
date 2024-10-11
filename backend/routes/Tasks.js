@@ -103,7 +103,7 @@ router.delete('/delete_task/:id', async (req, res) => {
 });
 
 
-router.post('/add_comment/:id', async (req, res) => {
+router.post('/add_comment', async (req, res) => {
     const response = {}
     const emp = req.body;
     try {

@@ -37,9 +37,19 @@ export class ManageTaskComponent {
   }
 
   saveComment() {
-    if (this.comment && this.info) {
-      this.tasks_service.addComment(this.comment, this.info.taskID);
+    if (this.comment && this.info.taskID && this.info.userID) {
+      // this.tasks_service.addComment(this.comment, this.info.taskID);
+      const data = {
+        userID: this.info.userID,
+        comment: this.comment,
+        taskID: this.info.taskID
+      };
 
+      this.tasks_service.addComment(data, this.info.taskID);
+
+
+    } else {
+      alert('Please fill in the comment and ensure task info is available.');
     }
   }
 }
