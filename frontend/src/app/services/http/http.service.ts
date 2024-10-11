@@ -32,9 +32,9 @@ export class HttpService {
 
   public getToken() {
     try {
-      const storedToken: string = localStorage.getItem('app') || '';
-      const token = JSON.parse(atob(storedToken));
-      return token.token;
+      const storedToken: string = localStorage.getItem('token') || '';
+      // const token = storedToken;
+      return storedToken;
     } catch (e) {
       return 'nothing';
     }

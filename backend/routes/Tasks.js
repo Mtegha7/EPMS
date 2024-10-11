@@ -1,4 +1,5 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 var connection = require("../services/db");
 
@@ -97,7 +98,7 @@ router.put('/update_task_status', verifyToken, async (req, res) => {
         let point = 0;
         const stat = emp.status
         const taskInfo = await query(`SELECT * FROM tasks where taskID = ?`, [emp.taskID])
-
+        console.log(taskInfo, stat)
         await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
             , [stat, emp.taskID]);
 
@@ -112,7 +113,7 @@ router.put('/update_task_status', verifyToken, async (req, res) => {
                     } else {
                         point = 10
                     }
-                    await query(`UPDATE users SET point = point + ?, score = score + ? WHERE userID = ?`
+                    await query(`UPDATE users SET points = points + ?, scores = scores + ? WHERE userID = ?`
                         , [point, point, t.userID]);
                 }
             }
@@ -127,11 +128,11 @@ router.put('/update_task_status', verifyToken, async (req, res) => {
                 } else {
                     point = 10
                 }
-                await query(`UPDATE users SET point = point - ?, score = score - ? WHERE userID = ?`
+                await query(`UPDATE users SET points = points - ?, scores = scores - ? WHERE userID = ?`
                     , [point, point, t.userID]);
             }
         }
-
+        // req.userToken.userID
 
         //TODO: UPDATE user info with points
         // await query(`UPDATE users u 
@@ -146,7 +147,7 @@ router.put('/update_task_status', verifyToken, async (req, res) => {
         res.status(200).send(response);
     } catch (error) {
         console.error(error);
-        response.message = err
+        response.message = error
         res.status(500).send(response);
     }
 });

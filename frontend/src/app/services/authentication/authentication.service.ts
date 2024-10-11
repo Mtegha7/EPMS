@@ -57,7 +57,7 @@ export class AuthenticationService {
         this.userId = response.userId;
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(response.user));
-        this.settings.loggedIn = true;
+        this.settings.setUserInfo();
         this.isUserLoggedIn$.next(true);
         this.router.navigate(["home"]);
         alert('Login Successful')

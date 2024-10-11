@@ -27,6 +27,7 @@ export class SettingsService {
   }
 
   logout() {
+    this.loggedIn = false;
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     this.router.navigateByUrl('/login')
