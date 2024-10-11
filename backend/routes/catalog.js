@@ -50,8 +50,8 @@ router.get('/get_catalog', async (req, res) => {
 });
 
 router.post('/add_catalog_items', async (req, res) => {
-    const response = {}
     const emp = req.body;
+    const response = {}
 
     try {
         await query(`INSERT INTO catalog(title, description, requiredPoints) VALUES (?, ?, ?)`

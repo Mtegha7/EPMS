@@ -34,7 +34,7 @@ router.get('/get_task/:id', async (req, res) => {
 router.get('/get_tasks', async (req, res) => {
     const response = {}
     try {
-        const tasks = await query(`SELECT taskID,title,description,createdDate,dueDate,updatedDate,completionDate,emailAddress 
+        const tasks = await query(`SELECT taskID,title,description,createdDate,dueDate,updatedDate,completionDate,emailAddress, status
             FROM tasks t
             JOIN users u 
             where t.userID = u.userID`
@@ -69,6 +69,23 @@ router.post('/add_tasks', async (req, res) => {
     }
 });
 
+
+router.put('/update_task_status', async (req, res) => {
+    const emp = req.body;
+    const response = {}
+
+    try {
+        await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
+            , [emp.status, emp.taskID]);
+
+        response.message = 'Task Updated Successfully!'
+        res.status(200).send(response);
+    } catch (error) {
+        console.error(error);
+        response.message = err
+        res.status(500).send(response);
+    }
+});
 
 router.put('/update_tasks/:id', async (req, res) => {
     const emp = req.body;

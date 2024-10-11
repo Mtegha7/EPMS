@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
 
 export class TasksService {
 
-  public tasks: any = []
+  public tasks: any = {
+    pending: [],
+    doing: [],
+    done: [],
+  }
   public comments: any = []
   public task: any = {};
   public tasksColumns: string[] = [];
@@ -22,12 +26,31 @@ export class TasksService {
 
 
   getTasks() {
+    this.settings.loader = true;
+
+    this.tasks = {
+      pending: [],
+      doing: [],
+      done: [],
+    }
     this.http.getNoAuthorization('tasks/get_tasks').subscribe((response: any) => {
-      this.tasks = response['data']
+      const taskData: any = response['data']
       if (this.tasks) {
-        this.tasksColumns = Object.keys(this.tasks[0]);
+        this.tasksColumns = Object.keys(taskData[0]);
         // console.log("this.tasksColumns", this.tasksColumns);
+
+        taskData.forEach((e: any) => {
+          if (e.status == 0) {
+            this.tasks.pending.push(e)
+          } else if (e.status == 1) {
+            this.tasks.doing.push(e)
+          } else {
+            this.tasks.done.push(e)
+          }
+        });
       }
+      this.settings.loader = false;
+
       // console.log("this.tasks", this.tasks);
     })
   }
@@ -78,6 +101,20 @@ export class TasksService {
       (error: any) => {
         console.error('Error deleting task:', error);
         alert('Error occurred while deleting the task.');
+      }
+    );
+  }
+
+  updateTaskStatus(taskID: any, status: any) {
+    this.settings.loader = true;
+    this.http.update(`tasks/update_task_status`, { taskID, status }).subscribe(
+      (response: any) => {
+        this.getTasks()
+      },
+      (error: any) => {
+        console.error('Error updating Task:', error);
+        alert('Error occurred while updating the Task.');
+        this.settings.loader = false;
       }
     );
   }
