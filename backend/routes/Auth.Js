@@ -37,6 +37,7 @@ router.post("/login", async (request, response) => {
                     const token = jwt.sign(
                         {
                             ID: queryResponse.ID,
+                            userID: queryResponse.userID,
                             email: queryResponse.email,
                             // rank: queryResponse.rank
                         },

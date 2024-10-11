@@ -2,6 +2,22 @@ const express = require('express')
 const router = express.Router()
 var connection = require("../services/db");
 
+const verifyToken = (req, res, next) => {
+    const token = req.body.token || req.query.token || req.headers.authorization || req.params.token;
+
+    if (!token) {
+        return res.status(401).send({ message: "You need to be authorized to access this endpoint" });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.APP_SECRET);
+        req.userToken = decoded;
+        // console.log(decoded)
+    } catch (err) {
+        return res.status(401).send({ message: "Invalid Token" });
+    }
+    return next();
+};
+
 const query = (q, data) => {
     return new Promise((resolve, reject) => {
         connection.query(q, data, (error, result) => {
@@ -70,26 +86,61 @@ router.post('/add_tasks', async (req, res) => {
 });
 
 
-router.put('/update_task_status', async (req, res) => {
+router.put('/update_task_status', verifyToken, async (req, res) => {
     const emp = req.body;
     const response = {}
 
+
+
     try {
+
+        let point = 0;
+        const stat = emp.status
         const taskInfo = await query(`SELECT * FROM tasks where taskID = ?`, [emp.taskID])
 
         await query(`UPDATE tasks SET status = ? WHERE taskID = ?`
-            , [emp.status, emp.taskID]);
+            , [stat, emp.taskID]);
+
+
+        if (stat == 3) {
+            if (taskInfo[0]) {
+                const t = taskInfo[0]
+                if (Number(t.status) != 3) {
+
+                    if (new Date(t.dueDate) > new Date()) {
+                        point = 20
+                    } else {
+                        point = 10
+                    }
+                    await query(`UPDATE users SET point = point + ?, score = score + ? WHERE userID = ?`
+                        , [point, point, t.userID]);
+                }
+            }
+        }
+
+
+        if (taskInfo[0]) {
+            const t = taskInfo[0]
+            if (t.status == 3 && stat != 3) {
+                if (new Date(t.dueDate) > new Date()) {
+                    point = 20
+                } else {
+                    point = 10
+                }
+                await query(`UPDATE users SET point = point - ?, score = score - ? WHERE userID = ?`
+                    , [point, point, t.userID]);
+            }
+        }
+
 
         //TODO: UPDATE user info with points
-        await query(`UPDATE users u JOIN tasks t ON u.userID = t.userID 
-            SET u.points = u.points + 
-            CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20
-            WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END,
-            u.scores = u.scores +
-            CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 
-            WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END
-            WHERE t.status = 3 AND t.taskID = ?;`
-            , [emp.taskID]);
+        // await query(`UPDATE users u 
+        //     JOIN tasks t 
+        //     ON u.userID = t.userID 
+        //         SET u.points = u.points +  CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END,
+        //         u.scores = u.scores + CASE WHEN t.status = 3 AND CURDATE() <= t.dueDate THEN 20 WHEN t.status = 3 AND CURDATE() > t.dueDate THEN 10 ELSE 0 END
+        //     WHERE t.status = 3 AND t.taskID = ?;`
+        //     , [emp.taskID]);
 
         response.message = 'Task Updated Successfully!'
         res.status(200).send(response);

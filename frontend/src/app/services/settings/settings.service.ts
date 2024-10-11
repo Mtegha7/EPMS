@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsService {
   loader = false;
+  loggedIn = false;
   loaderText = "";
   userInformation: any;
 
@@ -19,6 +20,9 @@ export class SettingsService {
     const user = localStorage.getItem('user')
     if (user) {
       this.userInformation = JSON.parse(user)
+      this.loggedIn = true;
+    } else {
+      this.logout()
     }
   }
 

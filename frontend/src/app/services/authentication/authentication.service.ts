@@ -4,6 +4,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from "rxjs";
 import { first, catchError, tap } from "rxjs/operators";
 import { HttpService } from "../http/http.service.js";
+import { SettingsService } from "../settings/settings.service.js";
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +23,8 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpService,
-    private router: Router
+    private router: Router,
+    private settings: SettingsService
   ) { }
 
   // login(email: Pick<User, "emailAddress">, password: Pick<User, "password">): Observable<{
@@ -55,6 +57,7 @@ export class AuthenticationService {
         this.userId = response.userId;
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(response.user));
+        this.settings.loggedIn = true;
         this.isUserLoggedIn$.next(true);
         this.router.navigate(["home"]);
         alert('Login Successful')
