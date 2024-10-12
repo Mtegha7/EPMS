@@ -16,6 +16,7 @@ export class HomeComponent {
   ) { }
 
   ngOnInit(): void {
+    this.task_service.getTaskStatusCounts()
     setTimeout(() => {
       const chartElement = document.getElementById('chartElement');
       if (this.task_service.homeStats.stats) {

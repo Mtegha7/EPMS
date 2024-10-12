@@ -162,8 +162,8 @@ export class TasksService {
     });
   }
 
-  getTaskStatusCounts(userID: any) {
-    this.http.getNoAuthorization('/tasks/get_tasks_statusCount' + userID).subscribe((response: any) => {
+  getTaskStatusCounts() {
+    this.http.getNoAuthorization('/tasks/get_tasks_statusCount').subscribe((response: any) => {
       this.homeStats = response
     })
   }
