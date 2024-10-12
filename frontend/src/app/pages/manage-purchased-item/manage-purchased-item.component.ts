@@ -18,5 +18,4 @@ export class ManagePurchasedItemComponent {
     console.log('we are in Manage purchased Items')
     this.catalog_service.getRequests()
   }
-
 }

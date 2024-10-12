@@ -1,6 +1,22 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 var connection = require("../services/db");
+const verifyToken = (req, res, next) => {
+    const token = req.body.token || req.query.token || req.headers.authorization || req.params.token;
+
+    if (!token) {
+        return res.status(401).send({ message: "You need to be authorized to access this endpoint" });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.APP_SECRET);
+        req.userToken = decoded;
+        // console.log(decoded)
+    } catch (err) {
+        return res.status(401).send({ message: "Invalid Token" });
+    }
+    return next();
+};
 
 const query = (q, data) => {
     return new Promise((resolve, reject) => {
@@ -104,7 +120,7 @@ router.delete('/delete_catalog_item/:id', async (req, res) => {
 router.get('/get_requests', async (req, res) => {
     const response = {}
     try {
-        const requests = await query(`SELECT c.title, c.description, c.requiredPoints, u.emailAddress 
+        const requests = await query(`SELECT requestID, c.title, c.description, c.requiredPoints, u.emailAddress, redemed 
             FROM requests r
             INNER JOIN users u ON u.userID = r.userID
             INNER JOIN catalog c ON c.catalogID = r.catalogID`
@@ -125,19 +141,48 @@ router.get('/get_requests', async (req, res) => {
 })
 
 // add a request
-router.post('/add_request', async (req, res) => {
+router.post('/add_request', verifyToken, async (req, res) => {
     const emp = req.body;
+    const userID = req.userToken.queryResponse.userID
+
     const response = {}
 
     try {
         await query('INSERT INTO requests(userID, catalogID) VALUES (?,?)',
-            [emp.userID, emp.catalogID]);
+            [userID, emp.catalogID]);
         response.message = 'Requested Award Redemption!'
         res.status(200).send(response);
     }
     catch (error) {
         console.error(error);
         response.message = err
+        res.status(500).send(response);
+    }
+})
+
+// deduct points 
+router.put('/approve_request', async (req, res) => {
+    const emp = req.body;
+    console.log(emp)
+    const response = {}
+
+    try {
+        await query(`UPDATE users u
+            JOIN requests r ON u.userID = r.userID
+            JOIN catalog c ON r.catalogID = c.catalogID
+            SET u.points = u.points - c.requiredPoints
+            WHERE u.userID = r.userID`
+            , [emp.requestID])
+
+        await query(`UPDATE requests set redemed = 1 where requestID = ?`
+            , [emp.requestID])
+
+        response.message = 'Request Approved Successfully!'
+        res.status(200).send(response);
+    }
+    catch (error) {
+        console.error(error);
+        response.message = error
         res.status(500).send(response);
     }
 })

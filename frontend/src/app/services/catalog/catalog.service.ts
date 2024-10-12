@@ -108,7 +108,7 @@ export class catalogService {
 
   // add a request
   createRequest(data: any) {
-    this.http.postNoAuthorization('catalog/add_request', data).subscribe((response: any) => {
+    this.http.post('catalog/add_request', data).subscribe((response: any) => {
       try {
         // this.router.navigate(["manage_catalog_item"]);
         alert(response.message)
@@ -125,4 +125,24 @@ export class catalogService {
 
     });
   }
+
+  // approve request and deduct points 
+  approveRequest(requestID: number, index: any) {
+    this.settings.loader = true;
+    this.http.update(`catalog/approve_request`, requestID).subscribe(
+      (response: any) => {
+        console.log("Request approved successfully:", response.message);
+        this.requests[index].redemed = 1
+        alert("Request approved successfully!");
+        this.settings.loader = false;
+      },
+      (error: any) => {
+        console.error('Error approving request:', error);
+        alert('An error occurred while approving the request.');
+        this.settings.loader = false;
+      }
+    );
+  }
+
+
 }
