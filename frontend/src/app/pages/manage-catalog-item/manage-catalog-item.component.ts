@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './manage-catalog-item.component.scss'
 })
 export class ManageCatalogItemComponent {
-  info: any = {};
+  info: any;
   constructor(
     public catalog_service: catalogService,
     private router: Router

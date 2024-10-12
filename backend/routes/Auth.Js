@@ -31,16 +31,12 @@ router.post("/login", async (request, response) => {
             );
 
             const queryResponse = rows[0]
+            console.log({ queryResponse })
             if (queryResponse) {
                 const result = await bcrypt.hash(password, queryResponse.salt);
                 if (queryResponse.password === result) {
                     const token = jwt.sign(
-                        {
-                            ID: queryResponse.ID,
-                            userID: queryResponse.userID,
-                            email: queryResponse.email,
-                            // rank: queryResponse.rank
-                        },
+                        { queryResponse },
                         process.env.APP_SECRET,
                         { expiresIn: 2592000, }
                     ); // expires in 30 days

@@ -16,7 +16,7 @@ router.get('/get_user/:id', async (req, res) => {
     const emp = req.body
     const response = {}
     try {
-        const user = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,jobTitle, role FROM users WHERE userID =?',
+        const user = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,jobTitle, role, scores, points FROM users WHERE userID =?',
             [req.params.id])
         if (user) {
             response.message = 'User Fetched'
@@ -27,7 +27,7 @@ router.get('/get_user/:id', async (req, res) => {
             res.status(200).send(response)
         }
     } catch (error) {
-         response.message = error
+        response.message = error
         res.status(500).send(response)
     }
 });
@@ -52,7 +52,7 @@ router.delete('/delete_users/:id', async (req, res) => {
 router.get('/get_users', async (req, res) => {
     const response = {}
     try {
-        const users = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,    jobTitle, role FROM users', [])
+        const users = await query('SELECT userID, firstName, lastName, dateOfBirth, gender, emailAddress, phoneNumber, dateOfHire, department,    jobTitle, role, scores, points FROM users', [])
         if (users) {
             response.message = 'Users Fetched'
             response.data = users

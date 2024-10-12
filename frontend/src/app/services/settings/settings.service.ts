@@ -19,6 +19,7 @@ export class SettingsService {
   setUserInfo() {
     const user = localStorage.getItem('user')
     if (user) {
+      console.log(user)
       this.userInformation = JSON.parse(user)
       this.loggedIn = true;
     } else {

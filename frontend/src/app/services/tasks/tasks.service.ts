@@ -26,6 +26,7 @@ export class TasksService {
   ) { }
 
 
+  // get all tasks
   getTasks() {
     this.settings.loader = true;
 
@@ -58,13 +59,7 @@ export class TasksService {
     })
   }
 
-  getComments(taskID: string) {
-    this.comments = []
-    this.http.getNoAuthorization('tasks/get_comment/' + taskID).subscribe((response: any) => {
-      this.comments = response['data']
-    })
-  }
-
+  // get a specific task
   getOneTask(taskID: any) {
     this.settings.loader = true;
     this.http.getNoAuthorization(`tasks/get_task/${taskID}`).subscribe((response: any) => {
@@ -89,6 +84,7 @@ export class TasksService {
 
   }
 
+  // delete a task
   deleteTasks(taskID: any) {
     this.http.delete(`tasks/delete_task/${taskID}`).subscribe(
       (response: any) => {
@@ -108,20 +104,7 @@ export class TasksService {
     );
   }
 
-  updateTaskStatus(taskID: any, status: any) {
-    this.settings.loader = true;
-    this.http.update(`tasks/update_task_status`, { taskID, status }).subscribe(
-      (response: any) => {
-        this.getTasks()
-      },
-      (error: any) => {
-        console.error('Error updating Task:', error);
-        alert('Error occurred while updating the Task.');
-        this.settings.loader = false;
-      }
-    );
-  }
-
+  //update details
   updateTasks() {
     this.settings.loader = true;
     this.http.update(`tasks/update_tasks/${this.task.taskID}`, this.task).subscribe(
@@ -141,6 +124,15 @@ export class TasksService {
     );
   }
 
+  // get all comments 
+  getComments(taskID: string) {
+    this.comments = []
+    this.http.getNoAuthorization('tasks/get_comment/' + taskID).subscribe((response: any) => {
+      this.comments = response['data']
+    })
+  }
+
+  // add a comment
   addComment(data: any) {
     console.log("data", data);
     this.http.postNoAuthorization('tasks/add_comment', data).subscribe((response: any) => {
@@ -162,10 +154,27 @@ export class TasksService {
     });
   }
 
+
+  // status of task either pending, in progress or done
   getTaskStatusCounts() {
     this.http.get('tasks/get_tasks_status_count').subscribe((response: any) => {
       this.homeStats = response
     })
+  }
+
+  //update a tasks status -- from pending to in progress to done and vise versa
+  updateTaskStatus(taskID: any, status: any) {
+    this.settings.loader = true;
+    this.http.update(`tasks/update_task_status`, { taskID, status }).subscribe(
+      (response: any) => {
+        this.getTasks()
+      },
+      (error: any) => {
+        console.error('Error updating Task:', error);
+        alert('Error occurred while updating the Task.');
+        this.settings.loader = false;
+      }
+    );
   }
 
 }

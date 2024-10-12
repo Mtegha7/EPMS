@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <button type="button" class="btn btn-primary" routerLink="/manage_catalog_item">Catalogue</button>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let column of this.catalog_service.requestColumns">{{column}}</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let data of this.catalog_service.requests">
+                <td *ngFor="let item of this.catalog_service.requestColumns">{{data[item]}}</td>
+                <td>
+                    <div class="actions">
+                        <button type="button" class="btn btn-success" (click)="(data)"><i
+                                class="bi bi-pencil"></i>Approve</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>

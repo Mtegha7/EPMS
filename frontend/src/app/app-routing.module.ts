@@ -11,6 +11,8 @@ import { ManageCatalogItemComponent } from './pages/manage-catalog-item/manage-c
 import { UpdateUserComponent } from './pages/update-user/update-user.component';
 import { UpdateTaskComponent } from './pages/update-task/update-task.component';
 import { UpdateCatalogItemComponent } from './pages/update-catalog-item/update-catalog-item.component';
+import { RedeemAwardsComponent } from './pages/redeem-awards/redeem-awards.component';
+import { ManagePurchasedItemComponent } from './pages/manage-purchased-item/manage-purchased-item.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'manage_task', component: ManageTaskComponent },
   { path: 'create_catalog_item', component: CreateCatalogItemComponent },
   { path: 'manage_catalog_item', component: ManageCatalogItemComponent },
+  { path: 'redeem_awards', component: RedeemAwardsComponent },
+  { path: 'manage_purchased_item', component: ManagePurchasedItemComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 
 

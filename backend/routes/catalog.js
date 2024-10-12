@@ -10,6 +10,7 @@ const query = (q, data) => {
     });
 };
 
+// get specific catalog item
 router.get('/get_item/:id', async (req, res) => {
     const emp = req.body
     const response = {}
@@ -30,7 +31,7 @@ router.get('/get_item/:id', async (req, res) => {
     }
 });
 
-
+// get catalog items 
 router.get('/get_catalog', async (req, res) => {
     const response = {}
     try {
@@ -49,6 +50,7 @@ router.get('/get_catalog', async (req, res) => {
     }
 });
 
+// add catalog item
 router.post('/add_catalog_items', async (req, res) => {
     const emp = req.body;
     const response = {}
@@ -65,6 +67,7 @@ router.post('/add_catalog_items', async (req, res) => {
     }
 });
 
+// update catalog item
 router.put('/update_item/:id', async (req, res) => {
     const emp = req.body;
     const response = {}
@@ -81,6 +84,7 @@ router.put('/update_item/:id', async (req, res) => {
     }
 });
 
+// delete catalog item 
 router.delete('/delete_catalog_item/:id', async (req, res) => {
     const emp = req.body;
 
@@ -95,5 +99,48 @@ router.delete('/delete_catalog_item/:id', async (req, res) => {
         res.status(500).send(response);
     }
 });
+
+// get award redemption requests
+router.get('/get_requests', async (req, res) => {
+    const response = {}
+    try {
+        const requests = await query(`SELECT c.title, c.description, c.requiredPoints, u.emailAddress 
+            FROM requests r
+            INNER JOIN users u ON u.userID = r.userID
+            INNER JOIN catalog c ON c.catalogID = r.catalogID`
+            , [])
+        if (requests) {
+            response.message = 'Requests Fetched'
+            response.data = requests
+            res.status(200).send(response)
+        } else {
+            response.message = 'No Requests available'
+            res.status(200).send(response)
+        }
+    } catch (error) {
+        response.message = error
+        res.status(500).send(response)
+
+    }
+})
+
+// add a request
+router.post('/add_request', async (req, res) => {
+    const emp = req.body;
+    const response = {}
+
+    try {
+        await query('INSERT INTO requests(userID, catalogID) VALUES (?,?)',
+            [emp.userID, emp.catalogID]);
+        response.message = 'Requested Award Redemption!'
+        res.status(200).send(response);
+    }
+    catch (error) {
+        console.error(error);
+        response.message = err
+        res.status(500).send(response);
+    }
+})
+
 
 module.exports = router;

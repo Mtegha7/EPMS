@@ -1,0 +1,38 @@
+<!-- <div class="container mt-4">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let column of this.catalog_service.catalogColumns">{{column}}</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let data of this.catalog_service.catalog">
+                <td *ngFor="let item of this.catalog_service.catalogColumns">{{data[item]}}</td>
+                <td>
+                    <div class="actions">
+                        <button type="button" class="btn btn-success" (click)="(data)"><i
+                                class="bi bi-pencil"></i>Redeem</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let data of this.catalog_service.catalog">
+            <div class="card" style="width: 18rem;">
+                <!-- <img class="card-img-top" src="data.image_url" alt="Card image cap"> -->
+                <div class="card-body">
+                    <h5 class="card-title">{{data['title']}}</h5>
+                    <p class="card-text">{{data['description']}}</p>
+                    <button type="button" class="btn btn-primary"
+                        (click)="catalog_service.createRequest(data)">Redeem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

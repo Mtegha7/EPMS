@@ -12,6 +12,9 @@ export class catalogService {
   public catalog: any = []
   public catalogs: any = {};
   public catalogColumns: string[] = [];
+  public request: any = []
+  public requests: any = {};
+  public requestColumns: string[] = [];
 
   constructor(
     public http: HttpService,
@@ -19,7 +22,7 @@ export class catalogService {
     private router: Router
   ) { }
 
-
+  // get catalog items
   getCatalog() {
     this.http.getNoAuthorization('catalog/get_catalog').subscribe((response: any) => {
       this.catalog = response['data']
@@ -31,6 +34,7 @@ export class catalogService {
     })
   }
 
+  // delete catalog items
   deleteCatalog(catalogID: any) {
     this.http.delete(`catalog/delete_catalog_item/${catalogID}`).subscribe(
       (response: any) => {
@@ -50,6 +54,7 @@ export class catalogService {
     );
   }
 
+  // get a specific catalog item
   getOneItem(catalogID: any) {
     this.settings.loader = true;
     this.http.getNoAuthorization(`catalog/get_item/${catalogID}`).subscribe((response: any) => {
@@ -67,6 +72,7 @@ export class catalogService {
     })
   }
 
+  // update a particular item
   updateItem() {
     this.settings.loader = true;
     this.http.update(`catalog/update_item/${this.catalog.catalogID}`, this.catalog).subscribe(
@@ -84,5 +90,39 @@ export class catalogService {
         this.settings.loader = false;
       }
     );
+  }
+
+  // get redemption requests
+  getRequests() {
+    this.settings.loader = true;
+    this.http.getNoAuthorization('catalog/get_requests').subscribe((response: any) => {
+      this.requests = response['data']
+      if (this.requests) {
+        this.requestColumns = Object.keys(this.requests[0]);
+        console.log("this.requestcolumns", this.requestColumns);
+      }
+      console.log("this.request", this.request);
+      this.settings.loader = false;
+    })
+  }
+
+  // add a request
+  createRequest(data: any) {
+    this.http.postNoAuthorization('catalog/add_request', data).subscribe((response: any) => {
+      try {
+        // this.router.navigate(["manage_catalog_item"]);
+        alert(response.message)
+      } catch (error) {
+        alert('ERROR Setting request data' + error)
+
+      }
+    }, (error) => {
+      if (error.error.message) {
+        alert(error.error.message);
+      } else {
+        alert("Server Error. please retry or check network");
+      }
+
+    });
   }
 }
