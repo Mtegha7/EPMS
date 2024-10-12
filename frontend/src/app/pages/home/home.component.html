@@ -1,5 +1,5 @@
 <div class="container_scorePoints"></div>
-<div class="row_scorePoints">
+<div class="row_scorePoints" *ngIf="this.task_service.homeStats.userPoints">
   <div class="col_points">
     <span class="label">Points</span>
     <h1>{{this.task_service.homeStats.userPoints.points}}</h1>
@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="card flex-fill w-100 draggable">
+<div class="card flex-fill w-100 draggable" *ngIf="this.task_service.homeStats.stats">
   <div class="card-header">
     <h5 class="card-title mb-0">Task Performance</h5>
   </div>
