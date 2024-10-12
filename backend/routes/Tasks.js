@@ -217,7 +217,7 @@ router.get('/get_comment/:id', async (req, res) => {
 })
 
 // pending
-router.get('/get_tasks_statusCount', verifyToken, async (req, res) => {
+router.get('/get_tasks_status_count', verifyToken, async (req, res) => {
     try {
         const response = {}
         const userID = req.userToken.userID

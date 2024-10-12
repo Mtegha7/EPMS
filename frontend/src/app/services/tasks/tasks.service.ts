@@ -163,7 +163,7 @@ export class TasksService {
   }
 
   getTaskStatusCounts() {
-    this.http.getNoAuthorization('/tasks/get_tasks_statusCount').subscribe((response: any) => {
+    this.http.getNoAuthorization('tasks/get_tasks_status_count').subscribe((response: any) => {
       this.homeStats = response
     })
   }
