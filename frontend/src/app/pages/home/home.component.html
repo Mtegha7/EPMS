@@ -2,11 +2,11 @@
 <div class="row_scorePoints">
   <div class="col_points">
     <span class="label">Points</span>
-    <h1>{{this.settings.userInformation.points}}</h1>
+    <h1>{{this.task_service.homeStats.userPoints.points}}</h1>
   </div>
   <div class="col_score">
     <span class="label">Score</span>
-    <h1>{{this.settings.userInformation.scores}}</h1>
+    <h1>{{this.task_service.homeStats.userPoints.scores}}</h1>
   </div>
 </div>
 
@@ -28,7 +28,8 @@
             </div>
           </div>
           <canvas id="chartjs-dashboard-pie" width="856" height="400"
-            style="display: block; height: 200px; width: 428px;" class="chart-pie chartjs-render-monitor"></canvas>
+            style="display: block; height: 200px; width: 428px;" class="chart-pie chartjs-render-monitor">
+          </canvas>
         </div>
       </div>
 
@@ -36,15 +37,15 @@
         <tbody>
           <tr>
             <td>Pending Tasks</td>
-            <td class="text-end">4306</td>
+            <td class="text-end">{{this.task_service.homeStats.stats.pending}}</td>
           </tr>
           <tr>
             <td>In Progress Tasks</td>
-            <td class="text-end">3801</td>
+            <td class="text-end">{{this.task_service.homeStats.stats.inProgress}}</td>
           </tr>
           <tr>
             <td>Completed Tasks</td>
-            <td class="text-end">1689</td>
+            <td class="text-end">{{this.task_service.homeStats.stats.done}}</td>
           </tr>
         </tbody>
       </table>

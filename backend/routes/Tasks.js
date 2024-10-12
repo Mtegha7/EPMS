@@ -219,6 +219,9 @@ router.get('/get_comment/:id', async (req, res) => {
 // pending
 router.get('/get_tasks_statusCount', verifyToken, async (req, res) => {
     try {
+        const response = {}
+        const userID = req.userToken.userID
+
         const result = await query(`
             SELECT 
                 SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS pending_count,
@@ -227,16 +230,25 @@ router.get('/get_tasks_statusCount', verifyToken, async (req, res) => {
             FROM tasks 
             WHERE userID = ?
         `, [userID]);
+       
+        const userPoints = await query(`
+            SELECT points, scores 
+            FROM users 
+            WHERE userID = ?
+        `, [userID]);
 
         if (result.length > 0) {
-            return res.status(200).json({
+            response.stats = {
                 pending: result[0].pending_count || 0,
                 inProgress: result[0].in_progress_count || 0,
                 done: result[0].done_count || 0
-            });
+            }
+            
         } else {
-            return res.status(200).json({ pending: 0, inProgress: 0, done: 0 });
+            response.stats = { pending: 0, inProgress: 0, done: 0 }
         }
+        response.userPoints =  userPoints[0]
+        return res.status(200).json(response)
 
     } catch (error) {
         console.error('Error fetching task counts:', error);

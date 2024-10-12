@@ -11,56 +11,58 @@ import { Chart } from 'chart.js';
 })
 export class HomeComponent {
   constructor(
-    private task_service: TasksService,
+    public task_service: TasksService,
     public settings: SettingsService
   ) { }
 
   ngOnInit(): void {
     const userID = this.settings.userInformation.userID;
-
-    this.task_service.getTaskStatusCounts(this.settings.userInformation.userID).subscribe(data => {
-      const pendingCount = data.pending;
-      const inProgressCount = data.inProgress;
-      const doneCount = data.done;
-
+    setTimeout(() => {
       const chartElement = document.getElementById('chartElement');
-
-      initializePieChart(chartElement, pendingCount, inProgressCount, doneCount);
-    })
-  }
-
-
-   var chartsPie = document.querySelectorAll(".chart-pie");
-
-
-function initializePieChart(chart, pendingCount, inProgressCount, doneCount) {
-  if (!chart.getAttribute('data-chart-initialized')) {
-    new Chart(chart, {
-      type: "pie",
-      data: {
-        labels: ["Pending", "In Progress", "Done"],
-        datasets: [{
-          data: [pendingCount, inProgressCount, doneCount], // Use dynamic data here
-          backgroundColor: [
-            window.theme.primary,
-            window.theme.warning,
-            window.theme.danger
-          ],
-          borderWidth: 5
-        }]
-      },
-      options: {
-        responsive: !window.MSInputMethodContext,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        cutoutPercentage: 75
+      if (this.task_service.homeStats.stats) {
+        this.initializePieChart(
+          chartElement,
+          this.task_service.homeStats.stats.pending,
+          this.task_service.homeStats.stats.inProgress,
+          this.task_service.homeStats.stats.done
+        );
       }
-    });
-    chart.setAttribute("data-chart-initialized", "true");
+    }, 5000);
   }
+
+
+  //  var chartsPie = document.querySelectorAll(".chart-pie");
+
+
+  initializePieChart(chart: any, pendingCount: any, inProgressCount: any, doneCount: any) {
+    if (!chart.getAttribute('data-chart-initialized')) {
+      new Chart(chart, {
+        type: "pie",
+        data: {
+          labels: ["Pending", "In Progress", "Done"],
+          datasets: [{
+            data: [pendingCount, inProgressCount, doneCount], // Use dynamic data here
+            backgroundColor: [
+              (window as any).theme.primary,
+              (window as any).theme.warning,
+              (window as any).theme.danger
+            ],
+            borderWidth: 5
+          }]
+        },
+        options: {
+          responsive: !(window as any).MSInputMethodContext,
+          maintainAspectRatio: false,
+          // legend: {
+          //   display: false
+          // },
+          // cutoutPercentage: 75
+        }
+      });
+      chart.setAttribute("data-chart-initialized", "true");
+    }
+
+  }
+
 
 }
-
-

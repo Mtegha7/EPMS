@@ -17,6 +17,7 @@ export class TasksService {
   public comments: any = []
   public task: any = {};
   public tasksColumns: string[] = [];
+  public homeStats: any = {};
 
   constructor(
     public http: HttpService,
@@ -162,8 +163,8 @@ export class TasksService {
   }
 
   getTaskStatusCounts(userID: any) {
-    this.http.getNoAuthorization('/get_tasks_statusCount' + userID).subscribe((response: any) => {
-      this.comments = response['data']
+    this.http.getNoAuthorization('/tasks/get_tasks_statusCount' + userID).subscribe((response: any) => {
+      this.homeStats = response
     })
   }
 
