@@ -16,7 +16,6 @@ export class HomeComponent {
   ) { }
 
   ngOnInit(): void {
-    const userID = this.settings.userInformation.userID;
     setTimeout(() => {
       const chartElement = document.getElementById('chartElement');
       if (this.task_service.homeStats.stats) {
