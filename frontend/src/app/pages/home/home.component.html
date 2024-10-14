@@ -11,88 +11,111 @@
 </div>
 
 
-<div class="card flex-fill w-100 draggable" *ngIf="this.task_service.homeStats.stats">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Task Performance</h5>
-  </div>
-  <div class="card-body d-flex">
-    <div class="align-self-center w-100">
-      <div class="py-3">
-        <div class="chart chart-xs">
-          <div class="chartjs-size-monitor">
-            <div class="chartjs-size-monitor-expand">
-              <div class=""></div>
+<div class="cards-container">
+  <div class="card flex-fill w-100 draggable" *ngIf="this.task_service.homeStats.stats">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Task Performance</h5>
+    </div>
+    <div class="card-body d-flex">
+      <div class="align-self-center w-100">
+        <div class="py-3">
+          <div class="chart chart-xs">
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
             </div>
-            <div class="chartjs-size-monitor-shrink">
-              <div class=""></div>
-            </div>
+            <canvas id="chartjs-dashboard-pie chartElement" width="856" height="400"
+              style="display: block; height: 200px; width: 428px;" class="chart-pie chartjs-render-monitor">
+            </canvas>
           </div>
-          <canvas id="chartjs-dashboard-pie chartElement" width="856" height="400"
-            style="display: block; height: 200px; width: 428px;" class="chart-pie chartjs-render-monitor">
-          </canvas>
         </div>
-      </div>
 
-      <table class="table mb-0">
-        <tbody>
-          <tr>
-            <td>Pending Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.stats.pending}}</td>
-          </tr>
-          <tr>
-            <td>In Progress Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.stats.inProgress}}</td>
-          </tr>
-          <tr>
-            <td>Completed Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.stats.done}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table mb-0">
+          <tbody>
+            <tr>
+              <td>Pending Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.stats.pending}}</td>
+            </tr>
+            <tr>
+              <td>In Progress Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.stats.inProgress}}</td>
+            </tr>
+            <tr>
+              <td>Completed Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.stats.done}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card flex-fill w-100 draggable"
+    *ngIf="this.task_service.homeStats.admin_stats && this.settings.userInformation.role == 'Manager'">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Business Performance</h5>
+    </div>
+    <div class="card-body d-flex">
+      <div class="align-self-center w-100">
+        <div class="py-3">
+          <div class="chart chart-xs">
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
+            </div>
+            <canvas id="chartjs-dashboard-pie chartElement" width="856" height="400"
+              style="display: block; height: 200px; width: 428px;" class="chart-pie-manager chartjs-render-monitor">
+            </canvas>
+          </div>
+        </div>
+
+        <table class="table mb-0">
+          <tbody>
+            <tr>
+              <td>Pending Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.admin_stats.pending}}</td>
+            </tr>
+            <tr>
+              <td>In Progress Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.admin_stats.inProgress}}</td>
+            </tr>
+            <tr>
+              <td>Completed Tasks</td>
+              <td class="text-end">{{this.task_service.homeStats.admin_stats.done}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-
-<div class="card flex-fill w-100 draggable"
-  *ngIf="this.task_service.homeStats.admin_stats && this.settings.userInformation.role == 'Manager'">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Business Performance</h5>
-  </div>
-  <div class="card-body d-flex">
-    <div class="align-self-center w-100">
-      <div class="py-3">
-        <div class="chart chart-xs">
-          <div class="chartjs-size-monitor">
-            <div class="chartjs-size-monitor-expand">
-              <div class=""></div>
-            </div>
-            <div class="chartjs-size-monitor-shrink">
-              <div class=""></div>
-            </div>
-          </div>
-          <canvas id="chartjs-dashboard-pie chartElement" width="856" height="400"
-            style="display: block; height: 200px; width: 428px;" class="chart-pie-manager chartjs-render-monitor">
-          </canvas>
-        </div>
-      </div>
-
-      <table class="table mb-0">
-        <tbody>
-          <tr>
-            <td>Pending Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.admin_stats.pending}}</td>
-          </tr>
-          <tr>
-            <td>In Progress Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.admin_stats.inProgress}}</td>
-          </tr>
-          <tr>
-            <td>Completed Tasks</td>
-            <td class="text-end">{{this.task_service.homeStats.admin_stats.done}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="leaderboard">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" sortable="user" (sort)="($event)">Employee</th>
+        <th scope="col" sortable="scores" (sort)="($event)">Scores</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- @for () {
+    <tr>
+      <th scope="row">{{ country.id }}</th>
+      <td>{{ country.area | number }}</td>
+      <td>{{ country.population | number }}</td>
+    </tr>
+    } -->
+    </tbody>
+  </table>
 </div>
