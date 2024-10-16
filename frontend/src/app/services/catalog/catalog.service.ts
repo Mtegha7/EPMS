@@ -147,7 +147,7 @@ export class catalogService {
 
   sendEmail(data: any, i: number) {
     const emailData = {
-      userEmail: this.settings.userInformation.emailAddress,
+      userEmail: data.emailAddress,
       requestId: data.requestId,
     };
 

@@ -188,27 +188,30 @@ router.put('/approve_request', async (req, res) => {
     }
 })
 
-
 // send email with token for item
-router.post('/send_approval_email', verifyToken, (req, res) => {
-    const userEmail = req.userToken.queryResponse.emailAddress
-    const { requestId } = req.body;
+router.post('/send_approval_email', (req, res) => {
+    const emp = req.body;
+    console.log(emp)
 
     // Set up your email transporter configuration
     let transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: {
-            user: 'jaccscript@gmail.com',
-            pass: '@Ethan2023'
+            user: 'kadash3r@gmail.com',
+            pass: 'rdqb knbu unta chsi'
         }
     });
 
     // Define the email options
     let mailOptions = {
-        from: 'jaccscript@gmail.com',
-        to: userEmail,
+        from: 'kadash3r@gmail.com',
+        to: emp.userEmail,
         subject: 'Request Approved',
-        text: `Your request with ID ${requestID} has been approved.`
+        text: `Your request with ID ${emp.requestID} has been approved.
+        Proceed to HR's office and receive your award item.`
     };
 
     // Send the email
