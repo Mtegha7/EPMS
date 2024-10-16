@@ -1,5 +1,6 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer');
 const router = express.Router()
 var connection = require("../services/db");
 const verifyToken = (req, res, next) => {
@@ -186,6 +187,40 @@ router.put('/approve_request', async (req, res) => {
         res.status(500).send(response);
     }
 })
+
+
+// send email with token for item
+router.post('/send_approval_email', verifyToken, (req, res) => {
+    const userEmail = req.userToken.queryResponse.emailAddress
+    const { requestId } = req.body;
+
+    // Set up your email transporter configuration
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'jaccscript@gmail.com',
+            pass: '@Ethan2023'
+        }
+    });
+
+    // Define the email options
+    let mailOptions = {
+        from: 'jaccscript@gmail.com',
+        to: userEmail,
+        subject: 'Request Approved',
+        text: `Your request with ID ${requestID} has been approved.`
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).send({ message: 'Error sending email' });
+        }
+        console.log('Email sent: ' + info.response);
+        res.send({ message: 'Email sent successfully!' });
+    });
+});
 
 
 module.exports = router;

@@ -34,4 +34,8 @@ export class SettingsService {
     this.router.navigateByUrl('/login')
   }
 
+  isManager(): boolean {
+    return this.userInformation.role === 'Manager';
+  }
+
 }

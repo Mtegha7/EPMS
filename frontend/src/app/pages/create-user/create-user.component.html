@@ -57,8 +57,10 @@
     <div class="field">
       <label for="department">Department</label>
       <select formControlName="department" class="w-full" name="department">
-        <option value="Male">Finance</option>
-        <option value="Female">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Sales">Operations</option>
+        <option value="HR">HR</option>
       </select>
       <small *ngIf="f['department'].invalid  && (f['department'].dirty || f['department'].touched)"
         class="block p-error">

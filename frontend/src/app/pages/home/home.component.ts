@@ -65,7 +65,7 @@ export class HomeComponent {
             datasets: [{
               data: [pendingCount, inProgressCount, doneCount], // Use dynamic data here
               backgroundColor: [
-                'blue', 'brown', 'red'
+                '#ff7e67', '#cbf078', '#42b883'
               ],
               borderWidth: 5
             }]

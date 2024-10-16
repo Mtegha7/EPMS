@@ -13,11 +13,14 @@
                 <td *ngFor="let item of this.catalog_service.requestColumns">{{data[item]}}</td>
                 <td>
                     <div class="actions">
-                        <button *ngIf="data.redemed == 0" type="button" class="btn btn-success"
-                            (click)=" this.catalog_service.approveRequest(data, i)">
-                            <i class="bi bi-pencil">
-                            </i>Approve</button>
+                        <div class="actions">
+                            <button *ngIf="data.redemed == 0" type="button" class="btn btn-success"
+                                (click)="this.catalog_service.approveRequest(data.requestId, i, data)">
+                                <i class="bi bi-pencil"></i> Approve
+                            </button>
+                        </div>
                     </div>
+
                 </td>
             </tr>
         </tbody>

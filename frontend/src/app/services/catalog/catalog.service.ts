@@ -127,13 +127,14 @@ export class catalogService {
   }
 
   // approve request and deduct points 
-  approveRequest(requestID: number, index: any) {
+  approveRequest(requestID: number, index: any, data: any) {
     this.settings.loader = true;
     this.http.update(`catalog/approve_request`, requestID).subscribe(
       (response: any) => {
         console.log("Request approved successfully:", response.message);
         this.requests[index].redemed = 1
         alert("Request approved successfully!");
+        this.sendEmail(data, index);
         this.settings.loader = false;
       },
       (error: any) => {
@@ -143,6 +144,21 @@ export class catalogService {
       }
     );
   }
+
+  sendEmail(data: any, i: number) {
+    const emailData = {
+      userEmail: this.settings.userInformation.emailAddress,
+      requestId: data.requestId,
+    };
+
+    this.http.post('catalog/send_approval_email', emailData)
+      .subscribe(response => {
+        console.log('Email sent successfully!', response);
+      }, error => {
+        console.error('Error sending email:', error);
+      });
+  }
+
 
 
 }
