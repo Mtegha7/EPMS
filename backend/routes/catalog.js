@@ -144,22 +144,37 @@ router.get('/get_requests', async (req, res) => {
 // add a request
 router.post('/add_request', verifyToken, async (req, res) => {
     const emp = req.body;
-    const userID = req.userToken.queryResponse.userID
+    const userID = req.userToken.queryResponse.userID;
+    const userPoints = req.userToken.queryResponse.points;
 
-    const response = {}
+    const response = {};
 
     try {
-        await query('INSERT INTO requests(userID, catalogID) VALUES (?,?)',
-            [userID, emp.catalogID]);
-        response.message = 'Requested Award Redemption!'
+        const catalogResult = await query('SELECT requiredPoints FROM catalog WHERE catalogID = ?', [emp.catalogID]);
+
+        if (catalogResult.length === 0) {
+            response.message = 'Invalid catalog ID.';
+            return res.status(400).send(response);
+        }
+
+        const requiredPoints = catalogResult[0].requiredPoints;
+
+        if (userPoints < requiredPoints) {
+            response.message = `Not enough points. You have ${userPoints}, but ${requiredPoints} points are required.`;
+            return res.status(400).send(response);
+        }
+
+        await query('INSERT INTO requests(userID, catalogID) VALUES (?,?)', [userID, emp.catalogID]);
+
+        response.message = 'Requested Award Redemption!';
         res.status(200).send(response);
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error);
-        response.message = err
+        response.message = 'An error occurred while processing the request.';
         res.status(500).send(response);
     }
-})
+});
+
 
 // deduct points 
 router.put('/approve_request', async (req, res) => {
@@ -193,7 +208,6 @@ router.post('/send_approval_email', (req, res) => {
     const emp = req.body;
     console.log(emp)
 
-    // Set up your email transporter configuration
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -205,7 +219,6 @@ router.post('/send_approval_email', (req, res) => {
         }
     });
 
-    // Define the email options
     let mailOptions = {
         from: 'kadash3r@gmail.com',
         to: emp.userEmail,
@@ -214,7 +227,6 @@ router.post('/send_approval_email', (req, res) => {
         Proceed to HR's office and receive your award item.`
     };
 
-    // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);

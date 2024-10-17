@@ -29,6 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{data['title']}}</h5>
                     <p class="card-text">{{data['description']}}</p>
+                    <p class="card-text">Required Points: {{data['requiredPoints']}}</p>
                     <button type="button" class="btn btn-primary"
                         (click)="catalog_service.createRequest(data)">Redeem</button>
                 </div>

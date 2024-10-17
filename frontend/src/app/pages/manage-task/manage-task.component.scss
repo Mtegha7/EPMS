@@ -55,6 +55,7 @@ thead {
     box-shadow 0.5s;
   zoom: 0.2;
 }
+
 .darksoul-toggle-border {
   width: 300px;
   height: 130px;
@@ -69,6 +70,7 @@ thead {
     background-color 0.5s,
     box-shadow 0.5s;
 }
+
 .darksoul-toggle {
   margin: auto;
   margin-left: 15px;
@@ -84,22 +86,27 @@ thead {
   border-radius: 50%;
   transition: box-shadow 1s;
 }
+
 .darksoul-toggle:hover {
   cursor: pointer;
 }
+
 @keyframes roll {
   100% {
     transform: translateX(170px) rotate(360deg);
   }
 }
+
 @keyframes rollback {
   0% {
     transform: translateX(170px) rotate(360deg);
   }
+
   100% {
     transform: translateX(0px) rotate(0deg);
   }
 }
+
 .darksoul-kanban-board {
   margin: auto;
   width: 65%;
@@ -115,23 +122,28 @@ thead {
   margin: auto;
   display: flex;
 }
+
 .heading h4 {
   margin: auto;
   margin-left: 1px;
 }
+
 .heading img {
   margin: auto;
   margin-right: 1px;
   cursor: pointer;
 }
+
 .heading img:hover {
   transform: scale(1.05);
 }
+
 .wrapper {
   height: 90%;
   width: 100%;
   overflow-y: auto;
 }
+
 .darksoul-gradient-card-purple {
   margin: auto;
   margin-top: 20px;
@@ -144,6 +156,7 @@ thead {
   backdrop-filter: blur(50px);
   transition: all 1s;
 }
+
 .darksoul-gradient-card-grey {
   margin: auto;
   margin-top: 20px;
@@ -156,6 +169,7 @@ thead {
   backdrop-filter: blur(50px);
   transition: all 1s;
 }
+
 .darksoul-gradient-card-blue {
   margin: auto;
   margin-top: 20px;
@@ -168,6 +182,7 @@ thead {
   backdrop-filter: blur(50px);
   transition: all 1s;
 }
+
 .darksoul-gradient-card-green {
   margin: auto;
   margin-top: 20px;
@@ -180,6 +195,7 @@ thead {
   backdrop-filter: blur(50px);
   transition: all 1s;
 }
+
 .card {
   margin: auto;
   width: 99%;
@@ -191,18 +207,21 @@ thead {
   border-radius: 13px;
   cursor: pointer;
 }
+
 .darksoul-gradient-card-purple:hover,
 .darksoul-gradient-card-grey:hover,
 .darksoul-gradient-card-blue:hover,
 .darksoul-gradient-card-green:hover {
   transform: scale(0.98);
 }
+
 .header {
   margin: auto;
   width: 90%;
   height: 25%;
   display: flex;
 }
+
 .header h5 {
   width: fit-content;
   padding: 5px;
@@ -212,22 +231,26 @@ thead {
   margin-top: 15px;
   font-family: "Belanosima", sans-serif;
 }
+
 .content {
   margin: auto;
   width: 90%;
   height: 50%;
 }
+
 .content h3 {
   width: 100%;
   font-weight: 500;
   font-weight: 700;
 }
+
 .content p {
   margin: auto;
   font-size: 13px;
   font-weight: 300;
   margin-bottom: 10px;
 }
+
 .footer {
   margin: auto;
   width: 95%;
@@ -235,15 +258,18 @@ thead {
   display: flex;
   margin-bottom: 7px;
 }
+
 .date {
   margin: auto;
   margin-left: 0.1px;
   display: flex;
 }
+
 .footer img {
   margin: auto;
   margin-left: 1px;
 }
+
 .footer p {
   margin: auto;
   margin-left: 5px;
@@ -259,6 +285,7 @@ thead {
   background-color: rgba(0, 0, 0, 0.652);
   position: fixed;
 }
+
 .darksoul-modal-content {
   background-color: rgb(21, 21, 21);
   margin: auto;
@@ -269,6 +296,7 @@ thead {
   max-width: 700px;
   color: white;
 }
+
 .modal-close-btn {
   margin-left: auto;
   margin-top: auto;
@@ -282,12 +310,14 @@ thead {
   background-color: transparent;
   border: none;
 }
+
 .darksoul-modal-content-header {
   display: flex;
   font-size: 20px;
   width: 100%;
   font-family: "Belanosima", sans-serif;
 }
+
 .color-picker {
   width: 25px;
   height: 25px;
@@ -295,24 +325,29 @@ thead {
   margin: auto;
   cursor: pointer;
 }
+
 .color-picker:hover {
   transform: scale(1.05);
 }
+
 .purple {
   background-color: rgb(191, 191, 252);
   color: rgb(68, 68, 111);
   box-shadow: 0px 0px 20px rgb(191, 191, 252);
 }
+
 .grey {
   background-color: rgb(223, 223, 223);
   color: rgb(84, 84, 84);
   box-shadow: 1px 1px 20px rgb(223, 223, 223);
 }
+
 .green {
   background-color: rgb(207, 242, 165);
   color: rgb(93, 127, 53);
   box-shadow: 1px 1px 20px rgb(207, 242, 165);
 }
+
 .blue {
   background-color: rgb(191, 211, 252);
   color: rgb(70, 98, 154);
@@ -322,6 +357,7 @@ thead {
 input:focus {
   border: 2px solid rgb(168, 168, 254);
 }
+
 textarea {
   margin: auto;
   height: 150px;
@@ -337,9 +373,11 @@ textarea {
   box-shadow: 0.1px 0.1px 3px rgb(138, 138, 255) inset;
   font-family: "Belanosima", sans-serif;
 }
+
 textarea:focus {
   border: 2px solid rgb(168, 168, 254);
 }
+
 .darksoul-modal-content-footer {
   width: 100%;
   height: fit-content;
@@ -376,10 +414,11 @@ textarea:focus {
   animation: rotation 3s linear 0s infinite;
   background: linear-gradient(var(--gradient-angle), rgb(255, 255, 255), rgba(0, 0, 0, 0));
 }
+
 .darksoul-button2 {
   width: 97%;
   height: 93%;
-  background-color: rgba(0, 0, 0, 0.911);
+  background-color: rgba(107, 153, 107, 0.911);
   margin: auto;
   outline: none;
   border: none;
@@ -389,23 +428,28 @@ textarea:focus {
   font-family: "Belanosima", sans-serif;
   cursor: pointer;
 }
+
 @keyframes rotation {
   0% {
     --gradient-angle: 0deg;
   }
+
   100% {
     --gradient-angle: 360deg;
   }
 }
+
 @property --gradient-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
+
 @media only screen and (max-width: 600px) {
   body {
     overflow-y: auto;
   }
+
   .darksoul-kanban-board {
     margin: auto;
     width: 100%;
@@ -414,6 +458,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
   }
+
   .darksoul-modal-content {
     background-color: white;
     margin: auto;
@@ -423,6 +468,7 @@ textarea:focus {
     min-height: 300px;
   }
 }
+
 .disclaimer {
   margin: auto;
   width: fit-content;
@@ -430,10 +476,42 @@ textarea:focus {
   font-weight: 500;
   text-align: center;
 }
+
 .disclaimer a {
   text-decoration: none;
   color: white;
 }
+
 .disclaimer a:hover {
   font-weight: bolder;
+}
+
+//btn for create user
+.custom-btn {
+  width: 200px;
+  /* Adjust the width to make it wider */
+  background-color: #5aaa5a;
+  /* Primary blue color */
+  border: none;
+  /* Remove the default border */
+  border-radius: 8px;
+  /* Rounded corners */
+  font-size: 16px;
+  /* Increase the font size */
+  padding: 10px 20px;
+  /* Add padding for better spacing */
+  color: white;
+  /* Text color */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Add a subtle shadow */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Smooth transition */
+}
+
+/* Add a hover effect */
+.custom-btn:hover {
+  background-color: #4fb471a8;
+  /* Darken the button color on hover */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  /* Increase the shadow */
 }

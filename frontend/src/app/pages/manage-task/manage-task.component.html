@@ -1,5 +1,5 @@
-<div class="container mt-4">
-    <button type="button" class="btn btn-primary" routerLink="/create_task">create task</button>
+<div class="container_create mt-4" *ngIf="this.tasks_service.settings.userInformation.role == 'Manager'">
+    <button type="button" class="btn btn-primary custom-btn" routerLink="/create_task">create task</button>
     <!-- <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
