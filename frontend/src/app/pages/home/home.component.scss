@@ -145,3 +145,10 @@ h1 {
     gap: 20px;
     justify-content: space-between;
 }
+
+body {
+    background-color: #e5e5f7;
+    opacity: 0.3;
+    background-image: radial-gradient(#444cf7 0.55px, #e5e5f7 0.55px);
+    background-size: 11px 11px;
+}

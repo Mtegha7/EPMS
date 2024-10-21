@@ -1,0 +1,13 @@
+.card {
+    width: 100%;
+    /* Adjust the percentage or set a specific width (e.g., 800px) */
+    margin: 0 auto;
+    /* Center the card horizontally */
+}
+
+@media (max-width: 1000px) {
+    .card {
+        width: 100%;
+        /* Make the card full-width on smaller screens */
+    }
+}

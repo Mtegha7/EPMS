@@ -1,91 +1,99 @@
 <form [formGroup]="createUserForm" (ngSubmit)="add_users()">
   <p-card header="ADD EMPLOYEE" [style]="{width:'360px'} ">
-    <!-- first name -->
-    <div class="field">
-      <label for="firstName">firstName</label>
-      <input type="text" pInputText formControlName="firstName" class="w-full" name="firstName"
-        placeholder="Enter your firstName address" />
-      <small *ngIf="f['firstName'].invalid  && (f['firstName'].dirty || f['firstName'].touched)" class="block p-error">
-        <div *ngIf="f['firstName'].errors?.['required']">firstName address is required</div>
-      </small>
+    <div class="row">
+      <!-- first name -->
+      <div class="col mb-3">
+        <label for="firstName">firstName</label>
+        <input type="text" pInputText formControlName="firstName" class="w-full" name="firstName"
+          placeholder="Enter your firstName address" />
+        <small *ngIf="f['firstName'].invalid  && (f['firstName'].dirty || f['firstName'].touched)"
+          class="block p-error">
+          <div *ngIf="f['firstName'].errors?.['required']">firstName address is required</div>
+        </small>
+      </div>
+      <!-- last name -->
+      <div class="col mb-3">
+        <label for="lastName">lastName</label>
+        <input type="text" pInputText formControlName="lastName" class="w-full" name="lastName"
+          placeholder="Enter your lastName address" />
+        <small *ngIf="f['lastName'].invalid  && (f['lastName'].dirty || f['lastName'].touched)" class="block p-error">
+          <div *ngIf="f['lastName'].errors?.['required']">lastName address is required</div>
+        </small>
+      </div>
     </div>
-    <!-- last name -->
-    <div class="field">
-      <label for="lastName">lastName</label>
-      <input type="text" pInputText formControlName="lastName" class="w-full" name="lastName"
-        placeholder="Enter your lastName address" />
-      <small *ngIf="f['lastName'].invalid  && (f['lastName'].dirty || f['lastName'].touched)" class="block p-error">
-        <div *ngIf="f['lastName'].errors?.['required']">lastName address is required</div>
-      </small>
+    <div class="row">
+      <!-- DOB -->
+      <div class="col mb-3">
+        <label for="dateOfBirth">DOB</label>
+        <input type="date" pInputText formControlName="dateOfBirth" class="w-full" name="dateOfBirth"
+          placeholder="Enter your dateOfBirth address" />
+        <small *ngIf="f['dateOfBirth'].invalid  && (f['dateOfBirth'].dirty || f['dateOfBirth'].touched)"
+          class="block p-error">
+          <div *ngIf="f['dateOfBirth'].errors?.['required']">DOB is required</div>
+        </small>
+      </div>
+
+      <!-- Hire Date -->
+      <div class="col mb-3">
+        <label for="dateOfHire">Hire Date</label>
+        <input type="date" pInputText formControlName="dateOfHire" class="w-full" name="dateOfHire"
+          placeholder="Enter your dateOfHire address" />
+        <small *ngIf="f['dateOfHire'].invalid  && (f['dateOfHire'].dirty || f['dateOfHire'].touched)"
+          class="block p-error">
+          <div *ngIf="f['dateOfHire'].errors?.['required']">Hire Date is required</div>
+        </small>
+      </div>
     </div>
 
-    <!-- DOB -->
-    <div class="field">
-      <label for="dateOfBirth">DOB</label>
-      <input type="date" pInputText formControlName="dateOfBirth" class="w-full" name="dateOfBirth"
-        placeholder="Enter your dateOfBirth address" />
-      <small *ngIf="f['dateOfBirth'].invalid  && (f['dateOfBirth'].dirty || f['dateOfBirth'].touched)"
-        class="block p-error">
-        <div *ngIf="f['dateOfBirth'].errors?.['required']">DOB is required</div>
-      </small>
+    <div class="row">
+      <!-- gender -->
+      <div class="col mb-3">
+        <label for="gender">Gender</label>
+        <select formControlName="gender" class="w-full" name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <small *ngIf="f['gender'].invalid  && (f['gender'].dirty || f['gender'].touched)" class="block p-error">
+          <div *ngIf="f['gender'].errors?.['required']">Gender is required</div>
+        </small>
+      </div>
+
+      <!-- department -->
+      <div class="col mb-3">
+        <label for="department">Department</label>
+        <select formControlName="department" class="w-full" name="department">
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Sales">Operations</option>
+          <option value="HR">HR</option>
+        </select>
+        <small *ngIf="f['department'].invalid  && (f['department'].dirty || f['department'].touched)"
+          class="block p-error">
+          <div *ngIf="f['department'].errors?.['required']">lastName address is required</div>
+        </small>
+      </div>
     </div>
 
-    <!-- Hire Date -->
-    <div class="field">
-      <label for="dateOfHire">Hire Date</label>
-      <input type="date" pInputText formControlName="dateOfHire" class="w-full" name="dateOfHire"
-        placeholder="Enter your dateOfHire address" />
-      <small *ngIf="f['dateOfHire'].invalid  && (f['dateOfHire'].dirty || f['dateOfHire'].touched)"
-        class="block p-error">
-        <div *ngIf="f['dateOfHire'].errors?.['required']">Hire Date is required</div>
-      </small>
-    </div>
+    <div class="row">
+      <!-- job title -->
+      <div class="col mb-3">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" pInputText formControlName="jobTitle" class="w-full" name="jobTitle"
+          placeholder="Enter your job title" />
+        <small *ngIf="f['jobTitle'].invalid  && (f['jobTitle'].dirty || f['jobTitle'].touched)" class="block p-error">
+          <div *ngIf="f['jobTitle'].errors?.['required']">Job title is required</div>
+        </small>
+      </div>
 
-    <!-- gender -->
-    <div class="field">
-      <label for="gender">Gender</label>
-      <select formControlName="gender" class="w-full" name="gender">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-      <small *ngIf="f['gender'].invalid  && (f['gender'].dirty || f['gender'].touched)" class="block p-error">
-        <div *ngIf="f['gender'].errors?.['required']">Gender is required</div>
-      </small>
-    </div>
-
-    <!-- department -->
-    <div class="field">
-      <label for="department">Department</label>
-      <select formControlName="department" class="w-full" name="department">
-        <option value="Finance">Finance</option>
-        <option value="Marketing">Marketing</option>
-        <option value="Sales">Operations</option>
-        <option value="HR">HR</option>
-      </select>
-      <small *ngIf="f['department'].invalid  && (f['department'].dirty || f['department'].touched)"
-        class="block p-error">
-        <div *ngIf="f['department'].errors?.['required']">lastName address is required</div>
-      </small>
-    </div>
-
-    <!-- job title -->
-    <div class="field">
-      <label for="jobTitle">Job Title</label>
-      <input type="text" pInputText formControlName="jobTitle" class="w-full" name="jobTitle"
-        placeholder="Enter your job title" />
-      <small *ngIf="f['jobTitle'].invalid  && (f['jobTitle'].dirty || f['jobTitle'].touched)" class="block p-error">
-        <div *ngIf="f['jobTitle'].errors?.['required']">Job title is required</div>
-      </small>
-    </div>
-
-    <!-- role -->
-    <div class="field">
-      <label for="role">Role</label>
-      <input type="text" pInputText formControlName="role" class="w-full" name="role"
-        placeholder="Enter your job role" />
-      <small *ngIf="f['role'].invalid  && (f['role'].dirty || f['role'].touched)" class="block p-error">
-        <div *ngIf="f['role'].errors?.['required']">Role is required</div>
-      </small>
+      <!-- role -->
+      <div class="col mb-3">
+        <label for="role">Role</label>
+        <input type="text" pInputText formControlName="role" class="w-full" name="role"
+          placeholder="Enter your job role" />
+        <small *ngIf="f['role'].invalid  && (f['role'].dirty || f['role'].touched)" class="block p-error">
+          <div *ngIf="f['role'].errors?.['required']">Role is required</div>
+        </small>
+      </div>
     </div>
 
     <!-- phone number -->

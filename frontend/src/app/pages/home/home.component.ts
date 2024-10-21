@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../services/settings/settings.service';
 import { TasksService } from '../../services/tasks/tasks.service';
+import { UsersService } from '../../services/users/users.service';
 import { Chart } from 'chart.js';
 import * as Chartjs from "chart.js";
 
@@ -14,7 +15,8 @@ import * as Chartjs from "chart.js";
 export class HomeComponent {
   constructor(
     public task_service: TasksService,
-    public settings: SettingsService
+    public settings: SettingsService,
+    public users_service: UsersService,
   ) {
     const controllers: any = Object.values(Chartjs).filter(
       (chart: any) => chart.id !== undefined
@@ -25,8 +27,9 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.task_service.getTaskStatusCounts()
     this.settings.loader = true;
+    this.users_service.getUsersLeaderboard();
+    this.task_service.getTaskStatusCounts();
     setTimeout(() => {
       if (this.task_service.homeStats.stats) {
         this.initializePieChart(
@@ -48,6 +51,8 @@ export class HomeComponent {
       this.settings.loader = false;
     }, 5000);
   }
+
+
 
 
   //  var chartsPie = document.querySelectorAll(".chart-pie");

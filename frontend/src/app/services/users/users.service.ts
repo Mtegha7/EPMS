@@ -12,6 +12,7 @@ export class UsersService {
   public users: any = []
   public user: any = {};
   public usersColumns: string[] = [];
+  public usersColumnsLeaderboard: string[] = [];
   private apiUrl = 'http://localhost:8080/dekha/api/users';
 
   constructor(
@@ -34,6 +35,21 @@ export class UsersService {
     })
   }
 
+  getUsersLeaderboard() {
+    this.settings.loader = true;
+    this.http.getNoAuthorization('users/get_users/leaderboard').subscribe((response: any) => {
+      this.users = response['data']
+      if (this.users) {
+        this.usersColumnsLeaderboard = Object.keys(this.users[0]);
+        console.log("this.usersColumns", this.usersColumnsLeaderboard);
+      }
+      console.log("this.users", this.users);
+      console.log('Users:', this.users);
+      console.log('Columns:', this.usersColumnsLeaderboard);
+      this.settings.loader = false;
+    })
+  }
+
   getOneUser(userID: any) {
     this.settings.loader = true;
     this.http.getNoAuthorization(`users/get_user/${userID}`).subscribe((response: any) => {
@@ -51,17 +67,6 @@ export class UsersService {
     })
   }
 
-
-  // deleteUsers(userID: any) {
-  //   this.http.getNoAuthorization('users/delete_users/:id').subscribe((response: any) => {
-  //     this.users = response['data']
-  //     if (this.users) {
-  //       this.usersColumns = Object.keys(this.users[0]);
-  //       console.log("this.usersColumns", this.usersColumns);
-  //     }
-  //     console.log("this.users", this.users);
-  //   })
-  // }
 
   deleteUsers(userID: any) {
     this.settings.loader = true;

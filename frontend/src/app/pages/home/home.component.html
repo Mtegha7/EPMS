@@ -101,21 +101,16 @@
 
 <div class="leaderboard">
   <table class="table table-striped">
-    <thead>
+    <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col" sortable="user" (sort)="($event)">Employee</th>
-        <th scope="col" sortable="scores" (sort)="($event)">Scores</th>
+        <th *ngFor="let column of this.users_service.usersColumnsLeaderboard">{{column}}</th>
       </tr>
     </thead>
+
     <tbody>
-      <!-- @for () {
-    <tr>
-      <th scope="row">{{ country.id }}</th>
-      <td>{{ country.area | number }}</td>
-      <td>{{ country.population | number }}</td>
-    </tr>
-    } -->
+      <tr *ngFor="let data of this.users_service.users">
+        <td *ngFor="let item of this.users_service.usersColumnsLeaderboard">{{data[item]}}</td>
+      </tr>
     </tbody>
   </table>
 </div>

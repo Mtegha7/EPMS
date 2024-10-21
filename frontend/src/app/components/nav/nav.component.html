@@ -1,14 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/home">DEKHA EPMS</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="/home">DEKHA EPMS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li>
-
       <!-- Only visible to managers -->
       <li class="nav-item" *ngIf="settings.isManager()"><a class="nav-link" routerLink="manage_user">Users</a></li>
       <li class="nav-item" *ngIf="settings.isManager()"><a class="nav-link"
@@ -20,20 +19,12 @@
 
       <li class="nav-item"><a class="nav-link" routerLink="manage_task">Tasks</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="redeem_awards">Awards</a></li>
-
-
-      <!-- User information section -->
-
-      <li class="nav-item">
-        <span class="navbar-text">
-          {{ settings.userInformation.firstName }} {{ settings.userInformation.lastName }}
-        </span>
-      </li>
-      <li class="nav-item">
-        <button class="btn btn-danger" (click)="settings.logout()">Logout</button>
-      </li>
-
     </ul>
-
+    <form class="form-inline my-2 my-lg-0">
+      <span class="navbar-text">
+        {{ settings.userInformation.firstName }} {{ settings.userInformation.lastName }}
+      </span>
+      <button class="btn btn-outline-secondary" (click)="settings.logout()">Logout</button>
+    </form>
   </div>
 </nav>

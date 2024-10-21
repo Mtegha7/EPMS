@@ -121,6 +121,25 @@ router.put('/update_users/:id', async (req, res) => {
     }
 });
 
+// leaderboard
+router.get('/get_users/leaderboard', async (req, res) => {
+    const response = {}
+    try {
+        const users = await query('SELECT firstName, lastName, scores, FROM users ORDER BY scores DESC', [])
+        if (users) {
+            response.message = 'Users Fetched'
+            response.data = users
+            res.status(200).send(response)
+        } else {
+            response.message = 'No Users available'
+            res.status(200).send(response)
+        }
+    } catch (error) {
+        response.message = error
+        res.status(500).send(response)
+    }
+});
+
 
 
 
